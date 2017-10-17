@@ -1,0 +1,10 @@
+/* This file is for your main application css. */
+
+body {
+  font-family: 'PT Serif', serif;
+  padding-top: 64px;
+}
+
+.frontispiece {
+    padding-top: 50px;
+}

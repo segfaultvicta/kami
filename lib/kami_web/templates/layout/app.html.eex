@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Legend of the Five Rings Online">
+    <meta name="author" content="Gan no Koe Team">
+
+    <title>Legend Of Five Rings Online</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <link href="https://fonts.googleapis.com/css?family=PT+Serif" rel="stylesheet">
+  </head>
+
+  <body>
+      <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+        <div class="container">
+        <a class="navbar-brand" href="/">Gan no Koe</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="/archive">Archive</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/character">Character</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/location">Locations</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="/admin">Admin</a>
+            </li>
+          </ul>
+          <%= if logged_in?(@conn) do %>
+            <%= link "Sign Out", to: session_path(@conn, :delete, :access), method: :delete, class: "nav-link" %>
+          <% else %>
+            <%= link "Register", to: user_path(@conn, :new), class: "nav-link" %>
+            <%= link "Log In", to: session_path(@conn, :new), class: "nav-link" %>
+          <% end %>
+        </div>
+      </nav>
+      
+      <%
+        info = get_flash(@conn, :info) 
+        error = get_flash(@conn, :error)
+      %>
+      <%= if info do %>
+        <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+      <%= end %>
+      <%= if error do %>
+      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+      <%= end %>
+
+      <main role="main">
+        <div class="container">
+          <%= render @view_module, @view_template, assigns %>
+        </div>
+      </main>
+
+    </div> <!-- /container -->
+    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+
+  </body>
+</html>

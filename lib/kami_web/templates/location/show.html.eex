@@ -1,0 +1,3 @@
+Hi hello this is the page for the location <%= @loc %>!
+
+<div id="kami-main"></div>

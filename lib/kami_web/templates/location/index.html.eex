@@ -1,1 +1,32 @@
-Hi hello this is the location index!
+<h2>Listing Locations</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Ooc</th>
+      <th>Locked</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for location <- @locations do %>
+    <tr>
+      <td><%= location.name %></td>
+      <td><%= location.description %></td>
+      <td><%= location.ooc %></td>
+      <td><%= location.locked %></td>
+
+      <td class="text-right">
+        <span><%= link "Show", to: location_path(@conn, :show, location), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: location_path(@conn, :edit, location), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Delete", to: location_path(@conn, :delete, location), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Location", to: location_path(@conn, :new) %></span>

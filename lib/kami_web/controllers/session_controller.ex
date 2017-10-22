@@ -10,7 +10,7 @@ defmodule KamiWeb.SessionController do
       {:ok, conn} ->
         conn
         |> put_flash(:info, "Logged in!")
-        |> redirect(to: user_path(conn, :index))
+        |> redirect(to: location_path(conn, :show, 1, loadroom: true))
       {:error, _reason, conn} ->
         conn
         |> put_flash(:error, "Wrong username/password")

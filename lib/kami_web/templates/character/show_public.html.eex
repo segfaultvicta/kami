@@ -1,0 +1,62 @@
+<h2>Show Character</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @character.name %>
+  </li>
+
+  <li>
+    <strong>Clan:</strong>
+    <%= @character.clan %>
+  </li>
+
+  <li>
+    <strong>Family:</strong>
+    <%= @character.family %>
+  </li>
+
+  <li>
+    <strong>School:</strong>
+    <%= @character.school %>
+  </li>
+
+  <li>
+    <strong>Honor:</strong>
+    <%= @character.honor %>
+  </li>
+
+  <li>
+    <strong>Glory:</strong>
+    <%= @character.glory %>
+  </li>
+
+  <li>
+    <strong>Status:</strong>
+    <%= @character.status %>
+  </li>
+
+  <li>
+    <strong>Titles:</strong>
+    <%= @character.titles %>
+  </li>
+
+  <li>
+    <strong>Public description:</strong>
+    <%= @character.public_description %>
+  </li>
+
+  <li>
+    <strong>Images:</strong>
+    <%= @character.images %>
+  </li>
+
+  <li>
+    <strong>Total xp:</strong>
+    <%= @character.total_xp %>
+  </li>
+
+</ul>
+
+<span><%= link "Back", to: character_path(@conn, :index) %></span>

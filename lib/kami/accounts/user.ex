@@ -8,6 +8,10 @@ defmodule Kami.Accounts.User do
     field :crypted_password, :string
     field :password, :string, virtual: true
     field :name, :string
+    field :admin, :boolean
+    field :last_location_id, :integer
+    
+    has_many :characters, Kami.Accounts.Character
 
     timestamps()
   end
@@ -15,7 +19,7 @@ defmodule Kami.Accounts.User do
   @doc false
   def changeset(%User{} = user, attrs) do
     user
-    |> cast(attrs, [:name, :crypted_password])
+    |> cast(attrs, [:name, :crypted_password, :admin, :last_location_id])
     |> validate_required([:name])
     |> unique_constraint(:name)
   end

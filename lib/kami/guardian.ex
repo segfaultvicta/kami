@@ -13,11 +13,12 @@ defmodule Kami.Guardian do
     {:ok, find_resource(claims["sub"])}
   end
   
-  def find_resource("User:" <> id) do
-    Kami.Accounts.get(id)
-  end
-  
   def resource_from_claims(_claims) do
     {:error, "Unknown resource"}
   end
+  
+  def find_resource("User:" <> id) do
+    Kami.Accounts.get(id)
+  end
+
 end

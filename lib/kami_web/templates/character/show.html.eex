@@ -1,1 +1,316 @@
-Hi hello this is the page for the character <%= @chara %>!
+<h2>Show Character</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @character.name %>
+  </li>
+
+  <li>
+    <strong>Clan:</strong>
+    <%= @character.clan %>
+  </li>
+
+  <li>
+    <strong>Family:</strong>
+    <%= @character.family %>
+  </li>
+
+  <li>
+    <strong>School:</strong>
+    <%= @character.school %>
+  </li>
+
+  <li>
+    <strong>School rank:</strong>
+    <%= @character.school_rank %>
+  </li>
+
+  <li>
+    <strong>Honor:</strong>
+    <%= @character.honor %>
+  </li>
+
+  <li>
+    <strong>Glory:</strong>
+    <%= @character.glory %>
+  </li>
+
+  <li>
+    <strong>Status:</strong>
+    <%= @character.status %>
+  </li>
+
+  <li>
+    <strong>Strife:</strong>
+    <%= @character.strife %>
+  </li>
+
+  <li>
+    <strong>Approved:</strong>
+    <%= @character.approved %>
+  </li>
+
+  <li>
+    <strong>Void points:</strong>
+    <%= @character.void_points %>
+  </li>
+
+  <li>
+    <strong>Void points max:</strong>
+    <%= @character.void_points_max %>
+  </li>
+
+  <li>
+    <strong>Air:</strong>
+    <%= @character.air %>
+  </li>
+
+  <li>
+    <strong>Earth:</strong>
+    <%= @character.earth %>
+  </li>
+
+  <li>
+    <strong>Fire:</strong>
+    <%= @character.fire %>
+  </li>
+
+  <li>
+    <strong>Water:</strong>
+    <%= @character.water %>
+  </li>
+
+  <li>
+    <strong>Void:</strong>
+    <%= @character.void %>
+  </li>
+
+  <li>
+    <strong>Skill aesthetics:</strong>
+    <%= @character.skill_aesthetics %>
+  </li>
+
+  <li>
+    <strong>Skill composition:</strong>
+    <%= @character.skill_composition %>
+  </li>
+
+  <li>
+    <strong>Skill design:</strong>
+    <%= @character.skill_design %>
+  </li>
+
+  <li>
+    <strong>Skill smithing:</strong>
+    <%= @character.skill_smithing %>
+  </li>
+
+  <li>
+    <strong>Skill fitness:</strong>
+    <%= @character.skill_fitness %>
+  </li>
+
+  <li>
+    <strong>Skill iaijutsu:</strong>
+    <%= @character.skill_iaijutsu %>
+  </li>
+
+  <li>
+    <strong>Skill melee:</strong>
+    <%= @character.skill_melee %>
+  </li>
+
+  <li>
+    <strong>Skill ranged:</strong>
+    <%= @character.skill_ranged %>
+  </li>
+
+  <li>
+    <strong>Skill unarmed:</strong>
+    <%= @character.skill_unarmed %>
+  </li>
+
+  <li>
+    <strong>Skill meditation:</strong>
+    <%= @character.skill_meditation %>
+  </li>
+
+  <li>
+    <strong>Skill tactics:</strong>
+    <%= @character.skill_tactics %>
+  </li>
+
+  <li>
+    <strong>Skill command:</strong>
+    <%= @character.skill_command %>
+  </li>
+
+  <li>
+    <strong>Skill courtesy:</strong>
+    <%= @character.skill_courtesy %>
+  </li>
+
+  <li>
+    <strong>Skill games:</strong>
+    <%= @character.skill_games %>
+  </li>
+
+  <li>
+    <strong>Skill performance:</strong>
+    <%= @character.skill_performance %>
+  </li>
+
+  <li>
+    <strong>Skill culture:</strong>
+    <%= @character.skill_culture %>
+  </li>
+
+  <li>
+    <strong>Skill government:</strong>
+    <%= @character.skill_government %>
+  </li>
+
+  <li>
+    <strong>Skill sentiment:</strong>
+    <%= @character.skill_sentiment %>
+  </li>
+
+  <li>
+    <strong>Skill theology:</strong>
+    <%= @character.skill_theology %>
+  </li>
+
+  <li>
+    <strong>Skill medicine:</strong>
+    <%= @character.skill_medicine %>
+  </li>
+
+  <li>
+    <strong>Skill commerce:</strong>
+    <%= @character.skill_commerce %>
+  </li>
+
+  <li>
+    <strong>Skill labor:</strong>
+    <%= @character.skill_labor %>
+  </li>
+
+  <li>
+    <strong>Skill seafaring:</strong>
+    <%= @character.skill_seafaring %>
+  </li>
+
+  <li>
+    <strong>Skill skullduggery:</strong>
+    <%= @character.skill_skullduggery %>
+  </li>
+
+  <li>
+    <strong>Skill survival:</strong>
+    <%= @character.skill_survival %>
+  </li>
+
+  <li>
+    <strong>Ninjo:</strong>
+    <%= @character.ninjo %>
+  </li>
+
+  <li>
+    <strong>Giri:</strong>
+    <%= @character.giri %>
+  </li>
+
+  <li>
+    <strong>Titles:</strong>
+    <%= @character.titles %>
+  </li>
+
+  <li>
+    <strong>Distinctions:</strong>
+    <%= @character.distinctions %>
+  </li>
+
+  <li>
+    <strong>Adversities:</strong>
+    <%= @character.adversities %>
+  </li>
+
+  <li>
+    <strong>Passions:</strong>
+    <%= @character.passions %>
+  </li>
+
+  <li>
+    <strong>Anxieties:</strong>
+    <%= @character.anxieties %>
+  </li>
+
+  <li>
+    <strong>Outburst:</strong>
+    <%= @character.outburst %>
+  </li>
+
+  <li>
+    <strong>Weapons:</strong>
+    <%= @character.weapons %>
+  </li>
+
+  <li>
+    <strong>Armor:</strong>
+    <%= @character.armor %>
+  </li>
+
+  <li>
+    <strong>Techniques:</strong>
+    <%= @character.techniques %>
+  </li>
+
+  <li>
+    <strong>Questions:</strong>
+    <%= @character.questions %>
+  </li>
+
+  <li>
+    <strong>Public description:</strong>
+    <%= @character.public_description %>
+  </li>
+
+  <li>
+    <strong>Images:</strong>
+    <%= @character.images %>
+  </li>
+
+  <li>
+    <strong>Bxp:</strong>
+    <%= @character.bxp %>
+  </li>
+
+  <li>
+    <strong>Bxp this week:</strong>
+    <%= @character.bxp_this_week %>
+  </li>
+
+  <li>
+    <strong>Xp:</strong>
+    <%= @character.xp %>
+  </li>
+
+  <li>
+    <strong>Total xp:</strong>
+    <%= @character.total_xp %>
+  </li>
+
+  <li>
+    <strong>Total spent xp:</strong>
+    <%= @character.total_spent_xp %>
+  </li>
+
+</ul>
+
+<%= if @as_admin do %>
+  <span><%= link "Edit", to: character_path(@conn, :edit, @character) %></span>
+<% end %>
+
+<span><%= link "Back", to: character_path(@conn, :index) %></span>

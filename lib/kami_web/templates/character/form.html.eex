@@ -1,0 +1,371 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= label f, :name, class: "control-label" %>
+    <%= text_input f, :name, class: "form-control" %>
+    <%= error_tag f, :name %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :clan, class: "control-label" %>
+    <%= text_input f, :clan, class: "form-control" %>
+    <%= error_tag f, :clan %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :family, class: "control-label" %>
+    <%= text_input f, :family, class: "form-control" %>
+    <%= error_tag f, :family %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :school, class: "control-label" %>
+    <%= text_input f, :school, class: "form-control" %>
+    <%= error_tag f, :school %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :school_rank, class: "control-label" %>
+    <%= number_input f, :school_rank, class: "form-control" %>
+    <%= error_tag f, :school_rank %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :honor, class: "control-label" %>
+    <%= number_input f, :honor, class: "form-control" %>
+    <%= error_tag f, :honor %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :glory, class: "control-label" %>
+    <%= number_input f, :glory, class: "form-control" %>
+    <%= error_tag f, :glory %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :status, class: "control-label" %>
+    <%= number_input f, :status, class: "form-control" %>
+    <%= error_tag f, :status %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :strife, class: "control-label" %>
+    <%= number_input f, :strife, class: "form-control" %>
+    <%= error_tag f, :strife %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :approved, class: "control-label" %>
+    <%= checkbox f, :approved, class: "checkbox" %>
+    <%= error_tag f, :approved %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :void_points, class: "control-label" %>
+    <%= number_input f, :void_points, class: "form-control" %>
+    <%= error_tag f, :void_points %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :void_points_max, class: "control-label" %>
+    <%= number_input f, :void_points_max, class: "form-control" %>
+    <%= error_tag f, :void_points_max %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :air, class: "control-label" %>
+    <%= number_input f, :air, class: "form-control" %>
+    <%= error_tag f, :air %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :earth, class: "control-label" %>
+    <%= number_input f, :earth, class: "form-control" %>
+    <%= error_tag f, :earth %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :fire, class: "control-label" %>
+    <%= number_input f, :fire, class: "form-control" %>
+    <%= error_tag f, :fire %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :water, class: "control-label" %>
+    <%= number_input f, :water, class: "form-control" %>
+    <%= error_tag f, :water %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :void, class: "control-label" %>
+    <%= number_input f, :void, class: "form-control" %>
+    <%= error_tag f, :void %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :skill_aesthetics, class: "control-label" %>
+    <%= number_input f, :skill_aesthetics, class: "form-control" %>
+    <%= error_tag f, :skill_aesthetics %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :skill_composition, class: "control-label" %>
+    <%= number_input f, :skill_composition, class: "form-control" %>
+    <%= error_tag f, :skill_composition %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :skill_design, class: "control-label" %>
+    <%= number_input f, :skill_design, class: "form-control" %>
+    <%= error_tag f, :skill_design %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :skill_smithing, class: "control-label" %>
+    <%= number_input f, :skill_smithing, class: "form-control" %>
+    <%= error_tag f, :skill_smithing %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :skill_fitness, class: "control-label" %>
+    <%= number_input f, :skill_fitness, class: "form-control" %>
+    <%= error_tag f, :skill_fitness %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :skill_iaijutsu, class: "control-label" %>
+    <%= number_input f, :skill_iaijutsu, class: "form-control" %>
+    <%= error_tag f, :skill_iaijutsu %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :skill_melee, class: "control-label" %>
+    <%= number_input f, :skill_melee, class: "form-control" %>
+    <%= error_tag f, :skill_melee %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :skill_ranged, class: "control-label" %>
+    <%= number_input f, :skill_ranged, class: "form-control" %>
+    <%= error_tag f, :skill_ranged %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :skill_unarmed, class: "control-label" %>
+    <%= number_input f, :skill_unarmed, class: "form-control" %>
+    <%= error_tag f, :skill_unarmed %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :skill_meditation, class: "control-label" %>
+    <%= number_input f, :skill_meditation, class: "form-control" %>
+    <%= error_tag f, :skill_meditation %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :skill_tactics, class: "control-label" %>
+    <%= number_input f, :skill_tactics, class: "form-control" %>
+    <%= error_tag f, :skill_tactics %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :skill_command, class: "control-label" %>
+    <%= number_input f, :skill_command, class: "form-control" %>
+    <%= error_tag f, :skill_command %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :skill_courtesy, class: "control-label" %>
+    <%= number_input f, :skill_courtesy, class: "form-control" %>
+    <%= error_tag f, :skill_courtesy %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :skill_games, class: "control-label" %>
+    <%= number_input f, :skill_games, class: "form-control" %>
+    <%= error_tag f, :skill_games %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :skill_performance, class: "control-label" %>
+    <%= number_input f, :skill_performance, class: "form-control" %>
+    <%= error_tag f, :skill_performance %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :skill_culture, class: "control-label" %>
+    <%= number_input f, :skill_culture, class: "form-control" %>
+    <%= error_tag f, :skill_culture %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :skill_government, class: "control-label" %>
+    <%= number_input f, :skill_government, class: "form-control" %>
+    <%= error_tag f, :skill_government %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :skill_sentiment, class: "control-label" %>
+    <%= number_input f, :skill_sentiment, class: "form-control" %>
+    <%= error_tag f, :skill_sentiment %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :skill_theology, class: "control-label" %>
+    <%= number_input f, :skill_theology, class: "form-control" %>
+    <%= error_tag f, :skill_theology %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :skill_medicine, class: "control-label" %>
+    <%= number_input f, :skill_medicine, class: "form-control" %>
+    <%= error_tag f, :skill_medicine %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :skill_commerce, class: "control-label" %>
+    <%= number_input f, :skill_commerce, class: "form-control" %>
+    <%= error_tag f, :skill_commerce %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :skill_labor, class: "control-label" %>
+    <%= number_input f, :skill_labor, class: "form-control" %>
+    <%= error_tag f, :skill_labor %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :skill_seafaring, class: "control-label" %>
+    <%= number_input f, :skill_seafaring, class: "form-control" %>
+    <%= error_tag f, :skill_seafaring %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :skill_skullduggery, class: "control-label" %>
+    <%= number_input f, :skill_skullduggery, class: "form-control" %>
+    <%= error_tag f, :skill_skullduggery %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :skill_survival, class: "control-label" %>
+    <%= number_input f, :skill_survival, class: "form-control" %>
+    <%= error_tag f, :skill_survival %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :ninjo, class: "control-label" %>
+    <%= textarea f, :ninjo, class: "form-control" %>
+    <%= error_tag f, :ninjo %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :giri, class: "control-label" %>
+    <%= textarea f, :giri, class: "form-control" %>
+    <%= error_tag f, :giri %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :titles, class: "control-label" %>
+    <%= textarea f, :titles, class: "form-control" %>
+    <%= error_tag f, :titles %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :distinctions, class: "control-label" %>
+    <%= textarea f, :distinctions, class: "form-control" %>
+    <%= error_tag f, :distinctions %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :adversities, class: "control-label" %>
+    <%= textarea f, :adversities, class: "form-control" %>
+    <%= error_tag f, :adversities %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :passions, class: "control-label" %>
+    <%= textarea f, :passions, class: "form-control" %>
+    <%= error_tag f, :passions %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :anxieties, class: "control-label" %>
+    <%= textarea f, :anxieties, class: "form-control" %>
+    <%= error_tag f, :anxieties %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :outburst, class: "control-label" %>
+    <%= textarea f, :outburst, class: "form-control" %>
+    <%= error_tag f, :outburst %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :weapons, class: "control-label" %>
+    <%= textarea f, :weapons, class: "form-control" %>
+    <%= error_tag f, :weapons %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :armor, class: "control-label" %>
+    <%= textarea f, :armor, class: "form-control" %>
+    <%= error_tag f, :armor %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :techniques, class: "control-label" %>
+    <%= textarea f, :techniques, class: "form-control" %>
+    <%= error_tag f, :techniques %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :questions, class: "control-label" %>
+    <%= textarea f, :questions, class: "form-control" %>
+    <%= error_tag f, :questions %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :public_description, class: "control-label" %>
+    <%= textarea f, :public_description, class: "form-control" %>
+    <%= error_tag f, :public_description %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :bxp, class: "control-label" %>
+    <%= number_input f, :bxp, step: "any", class: "form-control" %>
+    <%= error_tag f, :bxp %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :bxp_this_week, class: "control-label" %>
+    <%= number_input f, :bxp_this_week, step: "any", class: "form-control" %>
+    <%= error_tag f, :bxp_this_week %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :xp, class: "control-label" %>
+    <%= number_input f, :xp, step: "any", class: "form-control" %>
+    <%= error_tag f, :xp %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :total_xp, class: "control-label" %>
+    <%= number_input f, :total_xp, step: "any", class: "form-control" %>
+    <%= error_tag f, :total_xp %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :total_spent_xp, class: "control-label" %>
+    <%= number_input f, :total_spent_xp, class: "form-control" %>
+    <%= error_tag f, :total_spent_xp %>
+  </div>
+
+  <div class="form-group">
+    <%= submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>

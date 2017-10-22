@@ -37,19 +37,16 @@ defmodule KamiWeb.Router do
     pipe_through [:browser, :maybe_auth] # Use the default browser stack
 
     get "/", PageController, :index
+    get "/archive", ArchiveController, :index
+    get "/archive/:loc", ArchiveController, :show
   end
   
   scope "/", KamiWeb do
     pipe_through [:browser, :browser_auth]
     
     get "/users", UserController, :index
-    get "/location", LocationController, :index
-    get "/location/:loc", LocationController, :show
-    get "/character", CharacterController, :index
-    get "/character/:chara", CharacterController, :show
-    get "/archive", ArchiveController, :index
-    get "/archive/:loc", ArchiveController, :show
-    get "/admin", AdminController, :index
+    resources "/locations", LocationController
+    resources "/characters", CharacterController
   end
 
   # Other scopes may use custom stacks.

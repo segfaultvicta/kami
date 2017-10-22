@@ -156,7 +156,7 @@ defmodule Kami.Accounts do
   end
 
   def get_PC_for(id) do
-    user = User |> Repo.get(id) |> Repo.preload([:children, :parent])
+    user = User |> Repo.get(id) |> Repo.preload(:characters)
     List.first(user.characters)
   end
 

@@ -1,1 +1,7 @@
-Hi hello this is the archive index!
+<h2>ARCHIVES</h2>
+
+<ul class="list-group">
+<%= for location <- @locations do %>
+  <%= link location.name, to: archive_path(@conn, :show, location.slug), class: "list-group-item" %>
+<% end %>
+</ul>

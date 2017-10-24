@@ -38,6 +38,33 @@ defmodule Kami.World do
   """
   def get_post!(id), do: Repo.get!(Post, id)
 
+  def get_posts!(location_id) do
+    query = Post
+    |> where([p], p.location_id == type(^location_id, :integer))
+    |> order_by(asc: :inserted_at)
+    |> Repo.all
+  end
+  
+  def get_posts!(location_id, limit) do
+    query = Post
+    |> where([p], p.location_id == type(^location_id, :integer))
+    |> order_by(asc: :inserted_at)
+    |> limit(type(^limit, :integer))
+    |> Repo.all
+  end
+  
+  def get_backfill!(location_id, limit) do
+    query = Post
+    |> where([p], p.location_id == type(^location_id, :integer))
+    |> order_by(desc: :inserted_at)
+    |> limit(type(^limit, :integer))
+    |> Repo.all
+  end
+  
+  def get_posts!(location_id, begins, ends) do
+    
+  end
+
   @doc """
   Creates a post.
 
@@ -50,7 +77,15 @@ defmodule Kami.World do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_post(%Location{} = loc, attrs \\ %{}) do
+  def create_post(%Location{} = loc, %Kami.Accounts.Character{} = character, attrs \\ %{}) do
+    %Post{}
+    |> Post.changeset(attrs)
+    |> Ecto.Changeset.put_change(:location_id, loc.id)
+    |> Ecto.Changeset.put_change(:author_slug, String.downcase(character.name))
+    |> Repo.insert()
+  end
+
+  def create_narrative_post(%Location{} = loc, attrs \\ %{}) do
     %Post{}
     |> Post.changeset(attrs)
     |> Ecto.Changeset.put_change(:location_id, loc.id)
@@ -117,6 +152,13 @@ defmodule Kami.World do
     Repo.all(Location)
   end
 
+  def list_locations_with_posts do
+    Location
+    |> Repo.all
+    |> Repo.preload([:posts])
+    |> Enum.filter(fn(location) -> Enum.count(location.posts) > 1 end)
+  end
+
   @doc """
   Gets a single location.
 
@@ -134,6 +176,12 @@ defmodule Kami.World do
   def get_location!(id) do 
     Location
     |> Repo.get!(id)
+    |> Repo.preload([:children, :parent])
+  end
+
+  def get_location_by_slug!(slug) do
+    Location
+    |> Repo.get_by!(slug: slug)
     |> Repo.preload([:children, :parent])
   end
 

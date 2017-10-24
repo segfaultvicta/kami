@@ -72,7 +72,13 @@ defmodule KamiWeb.CharacterController do
   end
   
   def show_full_character(conn, character, as_admin) do
-    render(conn, "show.html", character: character, as_admin: as_admin)
+    if not character.approved do
+      conn 
+      |> put_flash(:error, "Note: Character is not currently in an approved state.")
+      |> render("show.html", character: character, as_admin: as_admin)
+    else
+      render(conn, "show.html", character: character, as_admin: as_admin)
+    end
   end
 
   def edit(conn, %{"id" => id}) do
@@ -81,9 +87,16 @@ defmodule KamiWeb.CharacterController do
       changeset = Accounts.change_character(character)
       render(conn, "edit.html", character: character, changeset: changeset)
     else
-      conn
-      |> put_flash(:error, "Unauthorised action!")
-      |> redirect(to: "/")
+      user_id = Kami.Guardian.Plug.current_resource(conn).id
+      character = Accounts.get_character!(id)
+      if user_id == character.user_id do 
+        changeset = Accounts.change_character_description(character)
+        render(conn, "edit_description.html", character: character, changeset: changeset)
+      else
+        conn
+        |> put_flash(:error, "Unauthorised action! You can't edit someone else's character sheet.")
+        |> redirect(to: "/")
+      end
     end
   end
 
@@ -100,9 +113,22 @@ defmodule KamiWeb.CharacterController do
           render(conn, "edit.html", character: character, changeset: changeset)
       end
     else
-      conn
-      |> put_flash(:error, "Unauthorised action!")
-      |> redirect(to: "/")
+      user_id = Kami.Guardian.Plug.current_resource(conn).id
+      character = Accounts.get_character!(id)
+      if user_id == character.user_id do
+        case Accounts.update_character_description(character, character_params) do
+          {:ok, character} ->
+            conn
+            |> put_flash(:info, "Character updated successfully.")
+            |> redirect(to: character_path(conn, :show, character))
+          {:error, %Ecto.Changeset{} = changeset} ->
+            render(conn, "edit_description.html", character: character, changeset: changeset)
+        end
+      else
+        conn
+        |> put_flash(:error, "Unauthorised action!")
+        |> redirect(to: "/")
+      end
     end
   end
 

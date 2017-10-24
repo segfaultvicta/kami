@@ -1,1 +1,50 @@
-Hi hello this is the archive page for the location <%= @loc %>!
+<div class="archives-heading">
+  <h2>ARCHIVES - <%= @loc.name %></h2>
+</div>
+
+<div class="archives-body">
+<%= for post <- @posts do %>
+<div class="post <%= if post.narrative do %>post-narrative<% end %> <%= if post.ooc do %>post-ooc<% end %>">
+  <div class="row">
+    <%= if not post.narrative do %>
+    <a href="/characters/<%= post.author_slug %>"><div class="col-2 image">
+      <%= if post.image != nil do %>
+      <img class="character-image" src="<%= "http://aurum.aludel.xyz/gnkstatic/" <> post.image %>" width=150> 
+      <% end %>
+      <div class="stats text-center">
+        <div>
+          <strong><%= post.name %></strong>
+        </div>
+        <div>
+          <strong>Glory</strong> <%= post.glory %>
+        </div>
+        <div>
+          <strong>Status</strong> <%= post.status %>
+        </div>
+      </div>
+    </div> </a>
+    <% end %>
+    <div class="col post-text">
+      <p class="text-justify">
+        <%= post.name %> <%= text_to_html(post.text, [wrapper_tag: :span]) %>
+      </p>
+      <hr />
+      <%= if post.diceroll do %>
+      <div class="diceroll text-center">
+        <%= if post.skillroll do %>
+          Rolled <%= post.skill_name %> (<%= post.ring_name %>), <%= Enum.count(post.results) %>k<%= post.ring_value %>:
+          <%= raw(Enum.map(post.results, fn(r) -> "<img src='http://aurum.aludel.xyz/gnkstatic/dice/" <> to_string(r) <> ".png' class='dice-image' />" end)) %>
+        <% else %>
+          Rolled <%= Enum.count(post.results) %>d<%= post.die_size %>: <%= Enum.map(post.results, fn(r) -> to_string(r) end) |> Enum.join(", ") %>
+        <% end %>
+      </div>
+      <% end %>
+      <div class="timestamp text-center font-weight-light">
+        <%= Timex.format(Timex.Timezone.convert(post.inserted_at, Timex.Timezone.get("America/New_York")), "{D} {Mshort} {YYYY}") |> Tuple.to_list |> List.last %> <br />
+        <%= Timex.format(Timex.Timezone.convert(post.inserted_at, Timex.Timezone.get("America/New_York")), "{h24}:{m}") |> Tuple.to_list |> List.last %>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
+</div>

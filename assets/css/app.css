@@ -6,5 +6,78 @@ body {
 }
 
 .frontispiece {
-    padding-top: 50px;
+  padding-top: 50px;
+}
+
+.archives-body {
+  margin-top: 40px;
+}
+
+.post {
+  background-color: #EEEEEE;
+  margin: 10px;
+  min-height: 70px;
+}
+
+.post .image {
+  width: 160px;
+  max-width: 160px;
+}
+
+.post a {
+  color: #111111;
+}
+
+.post p {
+  margin-top: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.post-narrative {
+  font-style: italic;
+}
+
+.post-ooc {
+  background-color: #CCCCFF;
+}
+
+.post .stats {
+  margin-top: 5px;
+}
+
+.dice-image {
+  width: 30px;
+  height: 30px;
+  margin: 3px;
+}
+
+.public-description {
+  padding: 50px;
+}
+
+.character-edit-numeric {
+  width: 80px;
+  display: inline;
+  margin-left: 10px;
+}
+
+.edit-character-margin {
+  margin-top: 38px;
+}
+
+.description-edit-text {
+  padding-top: 10px;
+}
+
+.description-text {
+  padding: 25px;
+}
+
+.right-skill-display {
+  margin-right: 20px;
+}
+
+img.character-image {
+  margin: 3px;
 }

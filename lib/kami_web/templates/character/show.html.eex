@@ -1,316 +1,389 @@
-<h2>Show Character</h2>
-
-<ul>
-
-  <li>
-    <strong>Name:</strong>
-    <%= @character.name %>
-  </li>
-
-  <li>
-    <strong>Clan:</strong>
-    <%= @character.clan %>
-  </li>
-
-  <li>
-    <strong>Family:</strong>
-    <%= @character.family %>
-  </li>
-
-  <li>
-    <strong>School:</strong>
-    <%= @character.school %>
-  </li>
-
-  <li>
-    <strong>School rank:</strong>
-    <%= @character.school_rank %>
-  </li>
-
-  <li>
-    <strong>Honor:</strong>
-    <%= @character.honor %>
-  </li>
-
-  <li>
-    <strong>Glory:</strong>
-    <%= @character.glory %>
-  </li>
-
-  <li>
-    <strong>Status:</strong>
-    <%= @character.status %>
-  </li>
-
-  <li>
-    <strong>Strife:</strong>
-    <%= @character.strife %>
-  </li>
-
-  <li>
-    <strong>Approved:</strong>
-    <%= @character.approved %>
-  </li>
-
-  <li>
-    <strong>Void points:</strong>
-    <%= @character.void_points %>
-  </li>
-
-  <li>
-    <strong>Void points max:</strong>
-    <%= @character.void_points_max %>
-  </li>
-
-  <li>
-    <strong>Air:</strong>
-    <%= @character.air %>
-  </li>
-
-  <li>
-    <strong>Earth:</strong>
-    <%= @character.earth %>
-  </li>
-
-  <li>
-    <strong>Fire:</strong>
-    <%= @character.fire %>
-  </li>
-
-  <li>
-    <strong>Water:</strong>
-    <%= @character.water %>
-  </li>
-
-  <li>
-    <strong>Void:</strong>
-    <%= @character.void %>
-  </li>
-
-  <li>
-    <strong>Skill aesthetics:</strong>
-    <%= @character.skill_aesthetics %>
-  </li>
-
-  <li>
-    <strong>Skill composition:</strong>
-    <%= @character.skill_composition %>
-  </li>
-
-  <li>
-    <strong>Skill design:</strong>
-    <%= @character.skill_design %>
-  </li>
-
-  <li>
-    <strong>Skill smithing:</strong>
-    <%= @character.skill_smithing %>
-  </li>
-
-  <li>
-    <strong>Skill fitness:</strong>
-    <%= @character.skill_fitness %>
-  </li>
-
-  <li>
-    <strong>Skill iaijutsu:</strong>
-    <%= @character.skill_iaijutsu %>
-  </li>
-
-  <li>
-    <strong>Skill melee:</strong>
-    <%= @character.skill_melee %>
-  </li>
-
-  <li>
-    <strong>Skill ranged:</strong>
-    <%= @character.skill_ranged %>
-  </li>
-
-  <li>
-    <strong>Skill unarmed:</strong>
-    <%= @character.skill_unarmed %>
-  </li>
-
-  <li>
-    <strong>Skill meditation:</strong>
-    <%= @character.skill_meditation %>
-  </li>
-
-  <li>
-    <strong>Skill tactics:</strong>
-    <%= @character.skill_tactics %>
-  </li>
-
-  <li>
-    <strong>Skill command:</strong>
-    <%= @character.skill_command %>
-  </li>
-
-  <li>
-    <strong>Skill courtesy:</strong>
-    <%= @character.skill_courtesy %>
-  </li>
-
-  <li>
-    <strong>Skill games:</strong>
-    <%= @character.skill_games %>
-  </li>
-
-  <li>
-    <strong>Skill performance:</strong>
-    <%= @character.skill_performance %>
-  </li>
-
-  <li>
-    <strong>Skill culture:</strong>
-    <%= @character.skill_culture %>
-  </li>
-
-  <li>
-    <strong>Skill government:</strong>
-    <%= @character.skill_government %>
-  </li>
-
-  <li>
-    <strong>Skill sentiment:</strong>
-    <%= @character.skill_sentiment %>
-  </li>
-
-  <li>
-    <strong>Skill theology:</strong>
-    <%= @character.skill_theology %>
-  </li>
-
-  <li>
-    <strong>Skill medicine:</strong>
-    <%= @character.skill_medicine %>
-  </li>
-
-  <li>
-    <strong>Skill commerce:</strong>
-    <%= @character.skill_commerce %>
-  </li>
-
-  <li>
-    <strong>Skill labor:</strong>
-    <%= @character.skill_labor %>
-  </li>
-
-  <li>
-    <strong>Skill seafaring:</strong>
-    <%= @character.skill_seafaring %>
-  </li>
-
-  <li>
-    <strong>Skill skullduggery:</strong>
-    <%= @character.skill_skullduggery %>
-  </li>
-
-  <li>
-    <strong>Skill survival:</strong>
-    <%= @character.skill_survival %>
-  </li>
-
-  <li>
-    <strong>Ninjo:</strong>
-    <%= @character.ninjo %>
-  </li>
-
-  <li>
-    <strong>Giri:</strong>
-    <%= @character.giri %>
-  </li>
-
-  <li>
-    <strong>Titles:</strong>
-    <%= @character.titles %>
-  </li>
-
-  <li>
-    <strong>Distinctions:</strong>
-    <%= @character.distinctions %>
-  </li>
-
-  <li>
-    <strong>Adversities:</strong>
-    <%= @character.adversities %>
-  </li>
-
-  <li>
-    <strong>Passions:</strong>
-    <%= @character.passions %>
-  </li>
-
-  <li>
-    <strong>Anxieties:</strong>
-    <%= @character.anxieties %>
-  </li>
-
-  <li>
-    <strong>Outburst:</strong>
-    <%= @character.outburst %>
-  </li>
-
-  <li>
-    <strong>Weapons:</strong>
-    <%= @character.weapons %>
-  </li>
-
-  <li>
-    <strong>Armor:</strong>
-    <%= @character.armor %>
-  </li>
-
-  <li>
-    <strong>Techniques:</strong>
-    <%= @character.techniques %>
-  </li>
-
-  <li>
-    <strong>Questions:</strong>
-    <%= @character.questions %>
-  </li>
-
-  <li>
-    <strong>Public description:</strong>
-    <%= @character.public_description %>
-  </li>
-
-  <li>
-    <strong>Images:</strong>
-    <%= @character.images %>
-  </li>
-
-  <li>
-    <strong>Bxp:</strong>
-    <%= @character.bxp %>
-  </li>
-
-  <li>
-    <strong>Bxp this week:</strong>
-    <%= @character.bxp_this_week %>
-  </li>
-
-  <li>
-    <strong>Xp:</strong>
-    <%= @character.xp %>
-  </li>
-
-  <li>
-    <strong>Total xp:</strong>
-    <%= @character.total_xp %>
-  </li>
-
-  <li>
-    <strong>Total spent xp:</strong>
-    <%= @character.total_spent_xp %>
-  </li>
-
-</ul>
-
-<%= if @as_admin do %>
-  <span><%= link "Edit", to: character_path(@conn, :edit, @character) %></span>
-<% end %>
-
-<span><%= link "Back", to: character_path(@conn, :index) %></span>
+<div class="container mt-2">
+  <div class="row">
+    <div class="col">
+      <h2 class="text-uppercase"><%= @character.family %> <%= @character.name %></h2>
+      <%= if @as_admin do %>
+        <span><%= link "Edit", to: character_path(@conn, :edit, @character) %></span>
+      <% end %>
+    </div>
+    <div class="col mt-2">
+      <strong>Honor:</strong> <%= @character.honor %>
+    </div>
+    <div class="col mt-2">
+      <strong>Glory:</strong> <%= @character.glory %>
+    </div>
+    <div class="col mt-2">
+      <strong>Status:</strong> <%= @character.status %>
+    </div>
+    <div class="col mt-2">
+      <strong>Void Points: </strong> <%= @character.void_points %> / <%= @character.void %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col mt-2">
+      <strong>Total XP:</strong> <%= @character.total_xp %>
+    </div>
+    <div class="col mt-2">
+      <strong>Available XP:</strong> <%= @character.xp %>
+    </div>
+    <div class="col mt-2">
+      <strong>Banked XP:</strong> <%= @character.bxp %>
+    </div>
+    <div class="col mt-2">
+      <strong>BXP This Week:</strong> <%= @character.bxp_this_week %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col mt-2">
+      <strong>School: </strong> <%= @character.school %>
+    </div>
+    <div class="col mt-2">
+      <strong>School Rank: </strong> <%= @character.school_rank %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col public-description">
+      <strong>Public Description: </strong><%= @character.public_description %><br  />
+      <%= if not @as_admin do %>
+        <span><%= link "Edit Description", to: character_path(@conn, :edit, @character) %></span>
+      <% end %>
+    </div>
+  </div>
+  <h4>AT A GLANCE</h4>
+  <div class="row">
+    <div class="col description-text">
+      <h5>GIRI</h5>
+      <%= @character.giri %>
+    </div>
+    <div class="col description-text">
+      <h5>NINJO</h5>
+      <%= @character.ninjo %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col description-text">
+      <h5>OUTBURST</h5>
+      <%= @character.outburst %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col description-text">
+      <h5>PASSIONS</h5>
+      <%= @character.passions %>
+    </div>
+    <div class="col description-text">
+      <h5>ANXIETIES</h5>
+      <%= @character.anxieties %>
+    </div>
+    <div class="col description-text">
+      <h5>DISTINCTIONS</h5>
+      <%= @character.distinctions %>
+    </div>
+    <div class="col description-text">
+      <h5>ADVERSITIES</h5>
+      <%= @character.adversities %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col description-text">
+      <h5>TITLES</h5>
+      <%= @character.titles %>
+    </div>
+    <div class="col description-text">
+      <h5>TECHNIQUES</h5>
+      <%= @character.techniques %>
+    </div>
+    <div class="col description-text">
+      <h5>WEAPONS</h5>
+      <%= @character.weapons %>
+    </div>
+    <div class="col description-text">
+      <h5>ARMOR</h5>
+      <%= @character.armor %>
+    </div>
+  </div>
+  <hr />
+  <h4>RINGS & STATISTICS</h4>
+  <div class="row">
+    <div class="col mt-2">
+      <strong>Air: </strong> <%= @character.air %>
+    </div>
+    <div class="col mt-2">
+      <strong>Fire: </strong> <%= @character.fire %>
+    </div>
+    <div class="col mt-2">
+      <strong>Water: </strong> <%= @character.water %>
+    </div>
+    <div class="col mt-2">
+      <strong>Earth: </strong> <%= @character.earth %>
+    </div>
+    <div class="col mt-2">
+      <strong>Void: </strong> <%= @character.void %>
+    </div>
+  </div>
+  <div class="row">
+    <%= if @character.water != nil and @character.water != nil and @character.fire != nil and @character.earth != nil do %>
+    <div class="col mt-2">
+      <strong>Resilience: </strong> <%= 2*(@character.water + @character.earth) %>
+    </div>
+    <div class="col mt-2">
+      <strong>Focus: </strong> <%= @character.fire + @character.air %>
+    </div>
+    <div class="col mt-2">
+      <strong>Composure: </strong> <%= 2*(@character.earth + @character.fire) %>
+    </div>
+    <div class="col mt-2">
+      <strong>Vigilance: </strong> <%= round(Float.ceil((@character.air + @character.water)/2)) %>
+    </div>
+    <% end %>
+    <div class="col mt-2">
+      <strong>Strife: </strong> <%= @character.strife %>
+    </div>
+  </div>
+  <hr />
+  <h4>SKILLS</h4>
+  <div class="row text-center text-uppercase font-weight-bold d-none d-lg-flex">
+    <div class="col-1 mt-2 hidden-xs hidden-sm"></div>
+    <div class="col-0 col-lg-2 mt-2 hidden-xs-down hidden-sm-down">
+      artisan
+    </div>
+    <div class="col-0 col-lg-2 mt-2 hidden-xs-down hidden-sm-down">
+      martial
+    </div>
+    <div class="col-0 col-lg-2 mt-2 hidden-xs-down hidden-sm-down">
+      scholar
+    </div>
+    <div class="col-0 col-lg-2 mt-2 hidden-xs-down hidden-sm-down">
+      social
+    </div>
+    <div class="col-0 col-lg-2 mt-2 hidden-xs-down hidden-sm-down">
+      trade
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-0 col-md-1 mt-2"></div>
+    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
+      <div>Aesthetics</div><div class="right-skill-display"><%= @character.skill_aesthetics %></div>
+    </div>
+    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
+      <div>Fitness</div><div class="right-skill-display"><%= @character.skill_fitness %></div>
+    </div>
+    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
+      <div>Culture</div><div class="right-skill-display"><%= @character.skill_culture %></div>
+    </div>
+    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
+      <div>Command</div><div class="right-skill-display"><%= @character.skill_command %></div>
+    </div>
+    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
+      <div>Commerce</div><div class="right-skill-display"><%= @character.skill_commerce %></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-0 col-md-1 mt-2"></div>
+    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
+      <div>Composition</div><div class="right-skill-display"><%= @character.skill_fitness %></div>
+    </div>
+    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
+      <div>Melee</div><div class="right-skill-display"><%= @character.skill_melee %></div>
+    </div>
+    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
+      <div>Government</div><div class="right-skill-display"><%= @character.skill_government %></div>
+    </div>
+    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
+      <div>Courtesy</div><div class="right-skill-display"><%= @character.skill_courtesy %></div>
+    </div>
+    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
+      <div>Labor</div><div class="right-skill-display"><%= @character.skill_labor %></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-0 col-md-1 mt-2"></div>
+    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
+      <div>Design</div><div class="right-skill-display"><%= @character.skill_design %></div>
+    </div>
+    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
+      <div>Ranged</div><div class="right-skill-display"><%= @character.skill_ranged %></div>
+    </div>
+    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
+      <div>Sentiment</div><div class="right-skill-display"><%= @character.skill_sentiment %></div>
+    </div>
+    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
+      <div>Games</div><div class="right-skill-display"><%= @character.skill_games %></div>
+    </div>
+    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
+      <div>Seafaring</div><div class="right-skill-display"><%= @character.skill_seafaring %></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-0 col-md-1 mt-2"></div>
+    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
+      <div>Smithing</div><div class="right-skill-display"><%= @character.skill_smithing %></div>
+    </div>
+    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
+      <div>Unarmed</div><div class="right-skill-display"><%= @character.skill_unarmed %></div>
+    </div>
+    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
+      <div>Theology</div><div class="right-skill-display"><%= @character.skill_theology %></div>
+    </div>
+    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
+      <div>Performance</div><div class="right-skill-display"><%= @character.skill_performance %></div>
+    </div>
+    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
+      <div>Skulduggery</div><div class="right-skill-display"><%= @character.skill_skullduggery %></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-0 col-md-1 mt-md-2"></div>
+    <div class="col-0 col-md-2 mt-md-2 d-flex justify-content-between">
+      <div></div><div class="right-skill-display"></div>
+    </div>
+    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
+      <div>Iaijutsu</div><div class="right-skill-display"><%= @character.skill_iaijutsu %></div>
+    </div>
+    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
+      <div>Medicine</div><div class="right-skill-display"><%= @character.skill_medicine %></div>
+    </div>
+    <div class="col-0 col-md-2 mt-md-2 d-flex justify-content-between">
+      <div></div><div class="right-skill-display"></div>
+    </div>
+    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
+      <div>Survival</div><div class="right-skill-display"><%= @character.skill_survival %></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-0 col-md-1 mt-md-2"></div>
+    <div class="col-0 col-md-2 mt-md-2 d-flex justify-content-between">
+      <div></div><div class="right-skill-display"></div>
+    </div>
+    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
+      <div>Meditation</div><div class="right-skill-display"><%= @character.skill_meditation %></div>
+    </div>
+    <div class="col-0 col-md-2 mt-md-2 d-flex justify-content-between">
+      <div></div><div class="right-skill-display"></div>
+    </div>
+    <div class="col-0 col-md-2 mt-md-2 d-flex justify-content-between">
+      <div></div><div class="right-skill-display"></div>
+    </div>
+    <div class="col-0 col-md-2 mt-md-2 d-flex justify-content-between">
+      <div></div><div class="right-skill-display"></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-0 col-md-1 mt-md-2"></div>
+    <div class="col-0 col-md-2 mt-md-2 d-flex justify-content-between">
+      <div></div><div class="right-skill-display"></div>
+    </div>
+    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
+      <div>Tactics</div><div class="right-skill-display"><%= @character.skill_tactics %></div>
+    </div>
+  </div>
+  <br />
+  <div class="row font-italic text-center d-none d-md-flex">
+    <div class="col col-md-1 mt-2"><small>AIR</small></div>
+    <div class="col mt-2">
+      <div>Refine</div>
+    </div>
+    <div class="col mt-2">
+      <div>Feint</div>
+    </div>
+    <div class="col mt-2">
+      <div>Analyze</div>
+    </div>
+    <div class="col mt-2">
+      <div>Trick</div>
+    </div>
+    <div class="col mt-2">
+      <div>Con</div>
+    </div>
+  </div>
+  <div class="row font-italic text-center d-none d-md-flex">
+    <div class="col col-md-1 mt-2"><small>EARTH</small></div>
+    <div class="col mt-2">
+      <div>Restore</div>
+    </div>
+    <div class="col mt-2">
+      <div>Withstand</div>
+    </div>
+    <div class="col mt-2">
+      <div>Recall</div>
+    </div>
+    <div class="col mt-2">
+      <div>Reason</div>
+    </div>
+    <div class="col mt-2">
+      <div>Prepare</div>
+    </div>
+  </div>
+  <div class="row font-italic text-center d-none d-md-flex">
+    <div class="col col-md-1 mt-2"><small>FIRE</small></div>
+    <div class="col mt-2">
+      <div>Invent</div>
+    </div>
+    <div class="col mt-2">
+      <div>Overwhelm</div>
+    </div>
+    <div class="col mt-2">
+      <div>Theorize</div>
+    </div>
+    <div class="col mt-2">
+      <div>Incite</div>
+    </div>
+    <div class="col mt-2">
+      <div>Innovate</div>
+    </div>
+  </div>
+  <div class="row font-italic text-center d-none d-md-flex">
+    <div class="col col-md-1 mt-2"><small>WATER</small></div>
+    <div class="col mt-2">
+      <div>Adapt</div>
+    </div>
+    <div class="col mt-2">
+      <div>Shift</div>
+    </div>
+    <div class="col mt-2">
+      <div>Survey</div>
+    </div>
+    <div class="col mt-2">
+      <div>Charm</div>
+    </div>
+    <div class="col mt-2">
+      <div>Exchange</div>
+    </div>
+  </div>
+  <div class="row font-italic text-center d-none d-md-flex">
+    <div class="col col-md-1 mt-2"><small>VOID</small></div>
+    <div class="col mt-2">
+      <div>Attune</div>
+    </div>
+    <div class="col mt-2">
+      <div>Sacrifice</div>
+    </div>
+    <div class="col mt-2">
+      <div>Sense</div>
+    </div>
+    <div class="col mt-2">
+      <div>Enlighten</div>
+    </div>
+    <div class="col mt-2">
+      <div>Subsist</div>
+    </div>
+  </div>
+  <hr />
+  
+  <div class="row">
+    <%= if @character.images != nil do %>
+      <%= for image <- @character.images do %>
+        <div class="col">
+          <img class="character-image" src="<%= "http://aurum.aludel.xyz/gnkstatic/" <> image %>" width=150> 
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  
+  <h4>TWENTY QUESTIONS</h4>
+  <div class="row">
+    <div class="col description-text">
+      <%= @character.questions %>
+    </div>
+  </div>
+</div>

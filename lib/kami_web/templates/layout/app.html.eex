@@ -34,7 +34,7 @@
               <a class="nav-link" href="/locations">IC</a>
             </li>
             <li class="nav-item">
-              <%= link "OOC", to: location_path(@conn, :show, 1, loadroom: true), class: "nav-link" %>
+              <%= link "OOC", to: location_path(@conn, :show, "lobby", loadroom: true), class: "nav-link" %>
             </li>
             <%= if (last_location = last_location(@conn)) do %>
               <%= link last_location.name, to: location_path(@conn, :show, last_location, loadroom: true), class: "nav-link" %>

@@ -59,9 +59,18 @@ defmodule Kami.Accounts do
 
   """
   def create_user(attrs \\ %{}) do
-    %User{admin: false}
+    {res, user} = %User{admin: false}
     |> User.registration_changeset(attrs)
     |> Repo.insert()
+    
+    if res == :ok do
+      case create_character(user, %{name: user.name, approved: false}) do
+        {:ok, character} ->
+          {:ok, user}
+        _ ->
+          {:error, "Error creating character for new user."}
+      end
+    end
   end
 
   def create_admin(attrs \\ %{}) do
@@ -197,6 +206,28 @@ defmodule Kami.Accounts do
     |> Repo.update()
   end
 
+  def update_character_description(%Character{} = character, attrs) do
+    character
+    |> Character.description_changeset(attrs)
+    |> Repo.update()
+  end
+  
+  def increment_strife(%Character{} = character) do
+    
+  end
+
+  def decrement_strife(%Character{} = character) do
+    
+  end
+
+  def increment_void_points(%Character{} = character) do
+    
+  end
+  
+  def decrement_void_points(%Character{} = character) do
+    
+  end
+
   @doc """
   Deletes a Character.
 
@@ -224,5 +255,9 @@ defmodule Kami.Accounts do
   """
   def change_character(%Character{} = character) do
     Character.changeset(character, %{})
+  end
+  
+  def change_character_description(%Character{} = character) do
+    Character.description_changeset(character, %{})
   end
 end

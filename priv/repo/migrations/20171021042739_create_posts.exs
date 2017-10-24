@@ -18,6 +18,7 @@ defmodule Kami.Repo.Migrations.CreatePosts do
       add :skill_name, :string
       add :ring_value, :integer
       add :die_size, :integer
+      add :author_slug, :string
       
       add :location_id, references(:locations, on_delete: :delete_all)
 

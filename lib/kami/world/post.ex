@@ -20,6 +20,7 @@ defmodule Kami.World.Post do
     field :skillroll, :boolean, default: false
     field :status, :integer
     field :text, :string
+    field :author_slug, :string
     
     belongs_to :location, Kami.World.Location
 

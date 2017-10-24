@@ -5,7 +5,7 @@ defmodule Kami.Mixfile do
     [
       app: :kami,
       version: "0.0.1",
-      elixir: "~> 1.4",
+      elixir: "~> 1.5",
       elixirc_paths: elixirc_paths(Mix.env),
       compilers: [:phoenix, :gettext] ++ Mix.compilers,
       start_permanent: Mix.env == :prod,
@@ -44,6 +44,9 @@ defmodule Kami.Mixfile do
       {:comeonin, "~> 4.0"},
       {:pbkdf2_elixir, "~> 0.12"},
       {:guardian, "~> 1.0-beta"},
+      {:ecto_autoslug_field, "~> 0.3"},
+      {:timex, "~> 3.1"},
+      {:quantum, ">= 2.1.1"},
     ]
   end
 

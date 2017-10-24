@@ -14,6 +14,7 @@ defmodule Kami.Application do
       supervisor(KamiWeb.Endpoint, []),
       # Start your own worker by calling: Kami.Worker.start_link(arg1, arg2, arg3)
       # worker(Kami.Worker, [arg1, arg2, arg3]),
+      worker(Kami.Scheduler, []),
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

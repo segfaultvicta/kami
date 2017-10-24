@@ -5,56 +5,59 @@ defmodule KamiWeb.LocationController do
   alias Kami.World.Location
 
   def index(conn, _params) do
-    locations = World.list_locations()
-    render(conn, "index.html", locations: locations)
-  end
-
-  def new(conn, _params) do
     if Kami.Guardian.Plug.current_resource(conn).admin do
-      changeset = World.change_location(%Location{})
-      render(conn, "new.html", changeset: changeset)
+      locations = World.list_locations()
+      render(conn, "index.html", locations: locations)
     else
       conn
-      |> put_flash(:error, "Unauthorised action!")
-      |> redirect(to: "/")
-    end
-  end
-
-  def create(conn, %{"location" => location_params}) do
-    if Kami.Guardian.Plug.current_resource(conn).admin do
-      case World.create_location(location_params) do
-        {:ok, location} ->
-          conn
-          |> put_flash(:info, "Location created successfully.")
-          |> redirect(to: location_path(conn, :show, location))
-        {:error, %Ecto.Changeset{} = changeset} ->
-          render(conn, "new.html", changeset: changeset)
-      end
-    else
-      conn
-      |> put_flash(:error, "Unauthorised action!")
-      |> redirect(to: "/")
+      |> redirect(to: location_path(conn, :show, "lobby"))
     end
   end
   
   def show(conn, %{"id" => id, "loadroom" => "true"}) do
-    # if the location is locked, we should error and redirect back to :show
-    # if the location is IC and the user's character hasn't been marked as accepted yet, we should error and redirect back to :show
-    # if the location here is an IC location, we should update the user's last_location_id
-    location = World.get_location!(id)
-    render(conn, "room.html", location_id: id)
+    {location, slug} = case Integer.parse(id) do
+      :error ->
+        {World.get_location_by_slug!(id), id}
+      {lid, _} ->
+        {World.get_location!(lid), nil}
+    end
+    slug = if slug == nil do
+      location.slug
+    else
+      slug
+    end
+    if location.locked do
+      conn
+      |> put_flash(:error, "This location cannot be entered at this time.")
+      |> redirect(to: location_path(conn, :show, location))
+    else
+      user = Kami.Guardian.Plug.current_resource(conn)
+      if user.admin or location.ooc or Kami.Accounts.get_PC_for(user.id).approved do
+        Kami.Accounts.update_user(user, %{last_location_id: location.id})
+        render(conn, "room.html", location_id: id)
+      else
+        conn
+        |> put_flash(:error, "You cannot enter IC locations until your character has been marked as approved.")
+        |> redirect(to: location_path(conn, :show, location))
+      end
+    end
   end
   
   def show(conn, %{"id" => id}) do
-    location = World.get_location!(id)
+    location = case Integer.parse(id) do
+      :error ->
+        World.get_location_by_slug!(id)
+      {lid, _} ->
+        World.get_location!(lid)
+    end
     parent = case location.parent do
       nil ->
         false
       p ->
-        %{name: p.name, id: p.id}
+        %{name: p.name, id: p.id, slug: p.slug}
     end
     children = if Enum.count(location.children) > 0 do 
-      Enum.map(location.children, fn(child) -> %{name: child.name, id: child.id} end)
+      Enum.map(location.children, fn(child) -> %{name: child.name, id: child.id, slug: child.slug} end)
     else
       false
     end
@@ -84,21 +87,6 @@ defmodule KamiWeb.LocationController do
         {:error, %Ecto.Changeset{} = changeset} ->
           render(conn, "edit.html", location: location, changeset: changeset)
       end
-    else
-      conn
-      |> put_flash(:error, "Unauthorised action!")
-      |> redirect(to: "/")
-    end
-  end
-
-  def delete(conn, %{"id" => id}) do
-    if Kami.Guardian.Plug.current_resource(conn).admin do
-      location = World.get_location!(id)
-      {:ok, _location} = World.delete_location(location)
-
-      conn
-      |> put_flash(:info, "Location deleted successfully.")
-      |> redirect(to: location_path(conn, :index))
     else
       conn
       |> put_flash(:error, "Unauthorised action!")

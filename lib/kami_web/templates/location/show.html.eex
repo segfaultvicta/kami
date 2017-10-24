@@ -1,46 +1,34 @@
-<h2><%= @location.name %></h2>
+<h2><p class="text-center"><%= @location.name %></p></h2>
 
-<h3><%= link "Enter", to: location_path(@conn, :show, @location.id, loadroom: true) %></h3>
-
-<ul>
-  <li>
-    <strong>Description:</strong>
-    <%= @location.description %>
-  </li>
-
-  <li>
-    <strong>Ooc:</strong>
-    <%= @location.ooc %>
-  </li>
-
-  <li>
-    <strong>Locked:</strong>
-    <%= @location.locked %>
-  </li>
-  
-  <%= if @parent do %>
-  <li>
-    <strong>Parent:</strong>
-    <%= link @parent.name, to: location_path(@conn, :show, @parent.id) %>
-  </li>
-  <% end %>
-  
-  <%= if @children do %>
-  <li>
-    <strong>Children:</strong>
-    <ul>
-    <%= for child <- @children do %>
-      <li>
-        <%= link child.name, to: location_path(@conn, :show, child.id) %> <br />
-      </li>
-    <% end %>
-    </ul>
-  </li>
-  <% end %>
-
-</ul>
-
-<%= if as_admin?(@conn) do %>
-  <span><%= link "Edit", to: location_path(@conn, :edit, @location) %></span>
+<h3><p class="text-center">
+<%= if not @location.locked do %>
+  <%= link "ENTER", to: location_path(@conn, :show, @location.slug, loadroom: true) %>
 <% end %>
-<span><%= link "Back", to: location_path(@conn, :index) %></span>
+<%= if as_admin?(@conn) do %>
+  <%= if not @location.locked do %> ※ <% end %>
+  <%= link "EDIT", to: location_path(@conn, :edit, @location.id) %>
+<% end %>
+</p></h3>
+
+<p class="text-justify">
+  <%= @location.description %>
+</p>
+
+<hr />
+<%= if @parent do %>
+<p class="text-center">
+  Return to <%= link @parent.name, to: location_path(@conn, :show, @parent.slug) %>
+</p>
+<% end %>
+
+<%= if @children do %>
+  <p class="text-center">
+    Continue to 
+    <%= for {child, index} <- Enum.with_index(@children) do %>
+      <%= link child.name, to: location_path(@conn, :show, child.slug) %>
+      <%= if (index + 1) != Enum.count(@children) do %>
+        ※
+      <% end %>
+    <% end %>
+  </p>
+<% end %>

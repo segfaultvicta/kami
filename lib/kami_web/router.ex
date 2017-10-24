@@ -44,8 +44,7 @@ defmodule KamiWeb.Router do
   scope "/", KamiWeb do
     pipe_through [:browser, :browser_auth]
     
-    get "/users", UserController, :index
-    resources "/locations", LocationController
+    resources "/locations", LocationController, except: [:new, :create, :delete]
     resources "/characters", CharacterController
   end
 

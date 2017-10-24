@@ -18,7 +18,7 @@ defmodule KamiWeb.UserController do
       {:ok, user} ->
         conn
         |> Kami.Auth.login(user)
-        |> redirect(to: user_path(conn, :index))
+        |> redirect(to: "/")
       {:error, changeset} ->
         conn
         |> render("new.html", changeset: changeset)

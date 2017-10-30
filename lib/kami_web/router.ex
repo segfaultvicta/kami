@@ -49,7 +49,7 @@ defmodule KamiWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", KamiWeb do
-  #   pipe_through :api
-  # end
+  scope "/api/", KamiWeb do
+    pipe_through :api
+  end
 end

@@ -1,8 +1,142 @@
 /* This file is for your main application css. */
 
+.diceroll a {
+  color: #900;
+  text-decoration: none;
+}
+
+.diceroll a:hover {
+  color: red;
+  position: relative;
+}
+
+.diceroll a[hovertitle]:hover:after {
+  content: attr(hovertitle);
+  padding: 4px 8px;
+  color: #333;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  z-index: 20;
+  white-space: nowrap;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -moz-box-shadow: 0px 0px 4px #222;
+  -webkit-box-shadow: 0px 0px 4px #222;
+  box-shadow: 0px 0px 4px #222;
+  background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
+  background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #eeeeee),color-stop(1, #cccccc));
+  background-image: -webkit-linear-gradient(top, #eeeeee, #cccccc);
+  background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
+  background-image: -ms-linear-gradient(top, #eeeeee, #cccccc);
+  background-image: -o-linear-gradient(top, #eeeeee, #cccccc);
+}
+
 body {
   font-family: 'PT Serif', serif;
   padding-top: 64px;
+}
+
+.interface {
+  background-color: #CCCCCC;
+  z-index: 1020;
+}
+
+.panic-mode {
+  background-color: #EEAAAA;
+}
+
+.interface .image {
+  width: 170px;
+  max-width: fit-content;
+}
+
+.interface-desktop image {
+  max-width: 170px;
+}
+
+.interface-phone .interface-main {
+  max-width: -webkit-fill-available;
+}
+
+.interface-phone {
+}
+
+.interface-desktop {
+  height: 195px;
+  margin-top: 55px;
+  width:inherit;
+}
+
+.interface-desktop .input-field {
+  margin-left: 5px;
+}
+
+.interface .row-desktop {
+  width: -webkit-fill-available;
+}
+
+.right-rail {
+  width: auto;
+  padding-left: 5px;
+}
+
+.right-rail .spacer-span {
+  margin: 4px;
+}
+
+.right-rail .custom-select {
+  margin-right: 4px;
+}
+
+.right-rail-desktop {
+  height: -webkit-fill-available;
+  width: auto;
+}
+
+.right-rail-desktop .right-rail-inner {
+  height: 185px;
+  width: -moz-max-content;
+}
+
+.right-rail-phone .right-rail-inner {
+  height: auto;
+}
+
+.post-button {
+  margin-bottom: 5px;
+  margin-right: 10px;
+}
+
+.posts-phone {
+  margin-top: 0px;
+}
+
+.posts-desktop {
+  margin-top: 200px;
+}
+
+.interface img.character-image {
+  margin-left: 20px;
+  width: inherit;
+  max-width: 100px;
+  max-height: 100px;
+}
+
+.interface-desktop textarea {
+  resize: none;
+  width: 500px;
+  height: 181px;
+}
+
+.interface-phone textarea {
+  width: inherit;
+  height: 200px;
+}
+
+.options-grid {
+  display: grid;
 }
 
 .frontispiece {

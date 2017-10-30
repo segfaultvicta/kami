@@ -3,67 +3,66 @@ defmodule Kami.Repo.Migrations.CreateCharacters do
 
   def change do
     create table(:characters) do
-      add :name, :string
-      add :clan, :string
-      add :family, :string
-      add :school, :string
-      add :school_rank, :integer
-      add :honor, :integer
-      add :glory, :integer
-      add :status, :integer
-      add :strife, :integer
+      add :name, :string, default: ""
+      add :clan, :string, default: ""
+      add :family, :string, default: ""
+      add :school, :string, default: ""
+      add :school_rank, :integer, default: 0
+      add :honor, :integer, default: 0
+      add :glory, :integer, default: 0
+      add :status, :integer, default: 0
+      add :strife, :integer, default: 0
       add :approved, :boolean, default: false, null: false
-      add :void_points, :integer
-      add :void_points_max, :integer
-      add :air, :integer
-      add :earth, :integer
-      add :fire, :integer
-      add :water, :integer
-      add :void, :integer
-      add :skill_aesthetics, :integer
-      add :skill_composition, :integer
-      add :skill_design, :integer
-      add :skill_smithing, :integer
-      add :skill_fitness, :integer
-      add :skill_iaijutsu, :integer
-      add :skill_melee, :integer
-      add :skill_ranged, :integer
-      add :skill_unarmed, :integer
-      add :skill_meditation, :integer
-      add :skill_tactics, :integer
-      add :skill_command, :integer
-      add :skill_courtesy, :integer
-      add :skill_games, :integer
-      add :skill_performance, :integer
-      add :skill_culture, :integer
-      add :skill_government, :integer
-      add :skill_sentiment, :integer
-      add :skill_theology, :integer
-      add :skill_medicine, :integer
-      add :skill_commerce, :integer
-      add :skill_labor, :integer
-      add :skill_seafaring, :integer
-      add :skill_skullduggery, :integer
-      add :skill_survival, :integer
-      add :ninjo, :text
-      add :giri, :text
-      add :titles, :text
-      add :distinctions, :text
-      add :adversities, :text
-      add :passions, :text
-      add :anxieties, :text
-      add :outburst, :text
-      add :weapons, :text
-      add :armor, :text
-      add :techniques, :text
-      add :questions, :text
-      add :public_description, :text
+      add :void_points, :integer, default: 0
+      add :air, :integer, default: 0
+      add :earth, :integer, default: 0
+      add :fire, :integer, default: 0
+      add :water, :integer, default: 0
+      add :void, :integer, default: 0
+      add :skill_aesthetics, :integer, default: 0
+      add :skill_composition, :integer, default: 0
+      add :skill_design, :integer, default: 0
+      add :skill_smithing, :integer, default: 0
+      add :skill_fitness, :integer, default: 0
+      add :skill_iaijutsu, :integer, default: 0
+      add :skill_melee, :integer, default: 0
+      add :skill_ranged, :integer, default: 0
+      add :skill_unarmed, :integer, default: 0
+      add :skill_meditation, :integer, default: 0
+      add :skill_tactics, :integer, default: 0
+      add :skill_command, :integer, default: 0
+      add :skill_courtesy, :integer, default: 0
+      add :skill_games, :integer, default: 0
+      add :skill_performance, :integer, default: 0
+      add :skill_culture, :integer, default: 0
+      add :skill_government, :integer, default: 0
+      add :skill_sentiment, :integer, default: 0
+      add :skill_theology, :integer, default: 0
+      add :skill_medicine, :integer, default: 0
+      add :skill_commerce, :integer, default: 0
+      add :skill_labor, :integer, default: 0
+      add :skill_seafaring, :integer, default: 0
+      add :skill_skullduggery, :integer, default: 0
+      add :skill_survival, :integer, default: 0
+      add :ninjo, :text, default: ""
+      add :giri, :text, default: ""
+      add :titles, :text, default: ""
+      add :distinctions, :text, default: ""
+      add :adversities, :text, default: ""
+      add :passions, :text, default: ""
+      add :anxieties, :text, default: ""
+      add :outburst, :text, default: ""
+      add :weapons, :text, default: ""
+      add :armor, :text, default: ""
+      add :techniques, :text, default: ""
+      add :questions, :text, default: ""
+      add :public_description, :text, default: ""
       add :images, {:array, :string}
-      add :bxp, :float
-      add :bxp_this_week, :float
-      add :xp, :float
-      add :total_xp, :float
-      add :total_spent_xp, :integer
+      add :bxp, :float, default: 0
+      add :bxp_this_week, :float, default: 0
+      add :xp, :float, default: 0
+      add :total_xp, :float, default: 0
+      add :total_spent_xp, :integer, default: 0
       add :user_id, references(:users, on_delete: :delete_all)
 
       timestamps()

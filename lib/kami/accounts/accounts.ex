@@ -168,6 +168,13 @@ defmodule Kami.Accounts do
     user = User |> Repo.get(id) |> Repo.preload(:characters)
     List.first(user.characters)
   end
+  
+  def get_characters(id) do
+    User
+    |> Repo.get(id)
+    |> Repo.preload(:characters)
+    |> Map.get(:characters)
+  end
 
   @doc """
   Creates a character.
@@ -211,21 +218,23 @@ defmodule Kami.Accounts do
     |> Character.description_changeset(attrs)
     |> Repo.update()
   end
-  
-  def increment_strife(%Character{} = character) do
-    
-  end
 
-  def decrement_strife(%Character{} = character) do
-    
-  end
-
-  def increment_void_points(%Character{} = character) do
-    
-  end
-  
-  def decrement_void_points(%Character{} = character) do
-    
+  def update_stat(%Character{} = character, stat_key, delta) do
+    try do
+      atom = String.to_existing_atom(stat_key)
+      current_stat = Map.get(character, atom)
+      new_value = current_stat + delta
+      if ((stat_key == "void_points" and new_value > character.void) or (stat_key == "strife" and new_value > (character.earth + character.fire) * 2) or new_value < 0) do
+        {:error, "cannot modify a stat below 0 or above any relevant stat cap"}
+      else
+        character
+        |> Character.stat_changeset(%{atom => current_stat + delta})
+        |> Repo.update()
+      end
+    rescue
+      e in ArgumentError -> {:error, "invalid stat key"}
+      e in ArithmeticError -> {:error, "invalid stat delta"}
+    end
   end
 
   @doc """

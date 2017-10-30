@@ -47,6 +47,7 @@ defmodule Kami.Mixfile do
       {:ecto_autoslug_field, "~> 0.3"},
       {:timex, "~> 3.1"},
       {:quantum, ">= 2.1.1"},
+      {:poison, "~> 3.1"},
     ]
   end
 

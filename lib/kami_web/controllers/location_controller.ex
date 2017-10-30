@@ -1,6 +1,8 @@
 defmodule KamiWeb.LocationController do
   use KamiWeb, :controller
 
+  require Logger
+
   alias Kami.World
   alias Kami.World.Location
 
@@ -34,7 +36,11 @@ defmodule KamiWeb.LocationController do
       user = Kami.Guardian.Plug.current_resource(conn)
       if user.admin or location.ooc or Kami.Accounts.get_PC_for(user.id).approved do
         Kami.Accounts.update_user(user, %{last_location_id: location.id})
-        render(conn, "room.html", location_id: id)
+        conn
+        |> put_resp_cookie("location-id", to_string(location.id), [max_age: 20, http_only: false])
+        |> put_resp_cookie("user-id", to_string(user.id), [max_age: 20, http_only: false])
+        |> put_resp_cookie("elm-key", Base.encode64(:crypto.hash(:sha512, to_string(location.id) <> "." <> to_string(user.id) <> "." <> Application.get_env(:kami, :elm_secret))), [max_age: 20, http_only: false])
+        |> render("room.html")
       else
         conn
         |> put_flash(:error, "You cannot enter IC locations until your character has been marked as approved.")

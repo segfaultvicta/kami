@@ -43,6 +43,7 @@ config :kami, KamiWeb.Endpoint,
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
+config :logger, level: :info
 
 # Set a higher stacktrace during development. Avoid configuring such
 # in production as building large stacktraces may be expensive.
@@ -56,3 +57,6 @@ config :kami, Kami.Repo,
   database: "kami_dev",
   hostname: "localhost",
   pool_size: 10
+  
+config :kami, 
+  elm_secret: "seekrit"

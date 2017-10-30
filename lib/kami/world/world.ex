@@ -65,6 +65,25 @@ defmodule Kami.World do
     
   end
 
+  def get_posts_in_channel_format(location_id) do
+    posts = 
+      get_backfill!(location_id, 20)
+      |> Enum.map(fn(post) ->  %{author_slug: post.author_slug, ooc: post.ooc, narrative: post.narrative, name: post.name, 
+                                 glory: post.glory, status: post.status, text: post.text, diceroll: post.diceroll, die_size: post.die_size, 
+                                 results: l(post.results), ring_name: post.ring_name, ring_value: post.ring_value, skill_name: post.skill_name, 
+                                 skillroll: post.skillroll, image: post.image, 
+                                 date: Timex.format(Timex.Timezone.convert(post.inserted_at, Timex.Timezone.get("America/New_York")), "{D} {Mshort} {YYYY}") |> Tuple.to_list |> List.last,
+                                 time: Timex.format(Timex.Timezone.convert(post.inserted_at, Timex.Timezone.get("America/New_York")), "{h24}:{m}") |> Tuple.to_list |> List.last } end)
+  end
+  
+  defp l(i) do
+    if is_nil(i) do
+      []
+    else
+      i
+    end
+  end
+  
   @doc """
   Creates a post.
 
@@ -77,11 +96,11 @@ defmodule Kami.World do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_post(%Location{} = loc, %Kami.Accounts.Character{} = character, attrs \\ %{}) do
-    %Post{}
+  def create_post(location_id, author_slug, attrs \\ %{}) do
+    {status, post_or_changeset} = %Post{}
     |> Post.changeset(attrs)
-    |> Ecto.Changeset.put_change(:location_id, loc.id)
-    |> Ecto.Changeset.put_change(:author_slug, String.downcase(character.name))
+    |> Ecto.Changeset.put_change(:location_id, location_id)
+    |> Ecto.Changeset.put_change(:author_slug, author_slug)
     |> Repo.insert()
   end
 

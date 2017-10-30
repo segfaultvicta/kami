@@ -83,4 +83,14 @@ defmodule Kami.Accounts.Character do
     |> cast(attrs, [:public_description])
     |> validate_required([:public_description])
   end
+  
+  @doc false
+  def stat_changeset(%Character{} = character, attrs) do
+    character
+    |> cast(attrs, [:strife, :void_points, :air, :earth, :fire, :water, :void, :skill_aesthetics, :skill_composition, :skill_design, :skill_smithing, :skill_fitness, :skill_iaijutsu, :skill_melee, :skill_ranged, :skill_unarmed, :skill_meditation, :skill_tactics, :skill_command, :skill_courtesy, :skill_games, :skill_performance, :skill_culture, :skill_government, :skill_sentiment, :skill_theology, :skill_medicine, :skill_commerce, :skill_labor, :skill_seafaring, :skill_skullduggery, :skill_survival, :bxp, :xp])
+  end
+  
+  def get_value(character, key) do
+    Map.get(character, String.to_existing_atom(key))
+  end
 end

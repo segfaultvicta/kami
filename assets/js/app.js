@@ -13,6 +13,22 @@
 // to also remove its path from "config.paths.watched".
 import "phoenix_html"
 
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for (var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length)
+    }
+  }
+  return "";
+}
+
 import Elm from "./kami.js"
 
 // Import local files
@@ -27,7 +43,7 @@ import Elm from "./kami.js"
 
 let kamiDiv = document.getElementById('kami-main')
 if (kamiDiv !== undefined && kamiDiv !== null) {
-  Elm.Kami.embed(kamiDiv)
+  var app = Elm.Kami.embed(kamiDiv, {uid: getCookie("user-id"), loc: getCookie("location-id"), key: getCookie("elm-key"), width: window.innerWidth})
 }
 
-//elmApp.ports.loc.send(window.location.search);
+// elmApp.ports.loc.send(window.location.search);

@@ -31,6 +31,6 @@ defmodule Kami.World.Post do
   def changeset(%Post{} = post, attrs) do
     post
     |> cast(attrs, [:name, :image, :text, :honor, :glory, :status, :ooc, :narrative, :diceroll, :skillroll, :results, :ring_name, :skill_name, :ring_value, :die_size])
-    |> validate_required([:text, :ooc, :narrative])
+    |> validate_required([:ooc, :narrative])
   end
 end

@@ -236,6 +236,32 @@ defmodule Kami.Accounts do
       e in ArithmeticError -> {:error, "invalid stat delta"}
     end
   end
+  
+  def buy_upgrade_for_stat(%Character{} = character, stat_key) do
+    try do
+      atom = String.to_existing_atom(stat_key)
+      current_stat = Map.get(character, atom)
+      current_xp = Map.get(character, :xp)
+      multiplier = if Enum.member?(["void", "air", "earth", "fire", "water"], stat_key) do 3 else 2 end
+      new_value = current_stat + 1
+      cost = new_value * multiplier
+      new_xp = current_xp - cost
+      least_ring = Enum.min([character.void, character.air, character.earth, character.fire, character.water])
+      if Enum.member?(["void", "air", "earth", "fire", "water"], stat_key) and (new_value > (least_ring + character.void)) do
+        {:error, "tried to increase a ring above its maximum value"}
+      else
+        if new_xp > 0 do
+          character
+          |> Character.stat_changeset(%{atom => new_value, :xp => new_xp})
+          |> Repo.update()
+        else
+          {:error, "tried to purchase a stat increase you cannot afford"}
+        end
+      end
+    rescue
+      e in ArgumentError -> {:error, "invalid stat key"}
+    end
+  end
 
   @doc """
   Deletes a Character.

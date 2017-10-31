@@ -12838,6 +12838,563 @@ var _elm_lang$websocket$WebSocket_LowLevel$BadCode = {ctor: 'BadCode'};
 var _elm_lang$websocket$WebSocket_LowLevel$BadString = {ctor: 'BadString'};
 var _elm_lang$websocket$WebSocket_LowLevel$NotOpen = {ctor: 'NotOpen'};
 
+var _krisajenkins$elm_exts$Exts_Html_Bootstrap$video = F2(
+	function (ratio, url) {
+		var ratioClass = function () {
+			var _p0 = ratio;
+			if (_p0.ctor === 'SixteenByNine') {
+				return 'embed-responsive-16by9';
+			} else {
+				return 'embed-responsive-4by3';
+			}
+		}();
+		return A2(
+			_elm_lang$html$Html$div,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$h1,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text('About'),
+						_1: {ctor: '[]'}
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$div,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('embed-responsive'),
+							_1: {ctor: '[]'}
+						},
+						{
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$iframe,
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$class('embed-responsive-item'),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$html$Html_Attributes$src(url),
+										_1: {ctor: '[]'}
+									}
+								},
+								{ctor: '[]'}),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}
+			});
+	});
+var _krisajenkins$elm_exts$Exts_Html_Bootstrap$badge = _elm_lang$html$Html$span(
+	{
+		ctor: '::',
+		_0: _elm_lang$html$Html_Attributes$class('badge'),
+		_1: {ctor: '[]'}
+	});
+var _krisajenkins$elm_exts$Exts_Html_Bootstrap$well = _elm_lang$html$Html$div(
+	{
+		ctor: '::',
+		_0: _elm_lang$html$Html_Attributes$class('well'),
+		_1: {ctor: '[]'}
+	});
+var _krisajenkins$elm_exts$Exts_Html_Bootstrap$jumbotron = _elm_lang$html$Html$div(
+	{
+		ctor: '::',
+		_0: _elm_lang$html$Html_Attributes$class('jumbotron'),
+		_1: {ctor: '[]'}
+	});
+var _krisajenkins$elm_exts$Exts_Html_Bootstrap$clearfix = A2(
+	_elm_lang$html$Html$div,
+	{
+		ctor: '::',
+		_0: _elm_lang$html$Html_Attributes$class('clearfix'),
+		_1: {ctor: '[]'}
+	},
+	{ctor: '[]'});
+var _krisajenkins$elm_exts$Exts_Html_Bootstrap$empty = A2(
+	_elm_lang$html$Html$span,
+	{ctor: '[]'},
+	{ctor: '[]'});
+var _krisajenkins$elm_exts$Exts_Html_Bootstrap$formGroup = _elm_lang$html$Html$div(
+	{
+		ctor: '::',
+		_0: _elm_lang$html$Html_Attributes$class('form-group'),
+		_1: {ctor: '[]'}
+	});
+var _krisajenkins$elm_exts$Exts_Html_Bootstrap$row = _elm_lang$html$Html$div(
+	{
+		ctor: '::',
+		_0: _elm_lang$html$Html_Attributes$class('row'),
+		_1: {ctor: '[]'}
+	});
+var _krisajenkins$elm_exts$Exts_Html_Bootstrap$twoColumns = F2(
+	function (left, right) {
+		return _krisajenkins$elm_exts$Exts_Html_Bootstrap$row(
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$div,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('col-xs-6'),
+						_1: {ctor: '[]'}
+					},
+					left),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$div,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('col-xs-6'),
+							_1: {ctor: '[]'}
+						},
+						right),
+					_1: {ctor: '[]'}
+				}
+			});
+	});
+var _krisajenkins$elm_exts$Exts_Html_Bootstrap$containerFluid = _elm_lang$html$Html$div(
+	{
+		ctor: '::',
+		_0: _elm_lang$html$Html_Attributes$class('container-fluid'),
+		_1: {ctor: '[]'}
+	});
+var _krisajenkins$elm_exts$Exts_Html_Bootstrap$container = _elm_lang$html$Html$div(
+	{
+		ctor: '::',
+		_0: _elm_lang$html$Html_Attributes$class('container'),
+		_1: {ctor: '[]'}
+	});
+var _krisajenkins$elm_exts$Exts_Html_Bootstrap$stylesheet = A3(
+	_elm_lang$html$Html$node,
+	'link',
+	{
+		ctor: '::',
+		_0: _elm_lang$html$Html_Attributes$rel('stylesheet'),
+		_1: {
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$href('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'),
+			_1: {ctor: '[]'}
+		}
+	},
+	{ctor: '[]'});
+var _krisajenkins$elm_exts$Exts_Html_Bootstrap$FourByThree = {ctor: 'FourByThree'};
+var _krisajenkins$elm_exts$Exts_Html_Bootstrap$SixteenByNine = {ctor: 'SixteenByNine'};
+var _krisajenkins$elm_exts$Exts_Html_Bootstrap$Left = {ctor: 'Left'};
+var _krisajenkins$elm_exts$Exts_Html_Bootstrap$Bottom = {ctor: 'Bottom'};
+var _krisajenkins$elm_exts$Exts_Html_Bootstrap$Right = {ctor: 'Right'};
+var _krisajenkins$elm_exts$Exts_Html_Bootstrap$Top = {ctor: 'Top'};
+var _krisajenkins$elm_exts$Exts_Html_Bootstrap$popover = F5(
+	function (direction, isShown, styles, title, body) {
+		return A2(
+			_elm_lang$html$Html$div,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$classList(
+					{
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'popover fade', _1: true},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'in', _1: isShown},
+							_1: {
+								ctor: '::',
+								_0: {
+									ctor: '_Tuple2',
+									_0: 'top',
+									_1: _elm_lang$core$Native_Utils.eq(direction, _krisajenkins$elm_exts$Exts_Html_Bootstrap$Top)
+								},
+								_1: {
+									ctor: '::',
+									_0: {
+										ctor: '_Tuple2',
+										_0: 'right',
+										_1: _elm_lang$core$Native_Utils.eq(direction, _krisajenkins$elm_exts$Exts_Html_Bootstrap$Right)
+									},
+									_1: {
+										ctor: '::',
+										_0: {
+											ctor: '_Tuple2',
+											_0: 'bottom',
+											_1: _elm_lang$core$Native_Utils.eq(direction, _krisajenkins$elm_exts$Exts_Html_Bootstrap$Bottom)
+										},
+										_1: {
+											ctor: '::',
+											_0: {
+												ctor: '_Tuple2',
+												_0: 'left',
+												_1: _elm_lang$core$Native_Utils.eq(direction, _krisajenkins$elm_exts$Exts_Html_Bootstrap$Left)
+											},
+											_1: {ctor: '[]'}
+										}
+									}
+								}
+							}
+						}
+					}),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$style(
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							styles,
+							{
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'display', _1: 'block'},
+								_1: {ctor: '[]'}
+							})),
+					_1: {ctor: '[]'}
+				}
+			},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$div,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('arrow'),
+						_1: {ctor: '[]'}
+					},
+					{ctor: '[]'}),
+				_1: {
+					ctor: '::',
+					_0: function () {
+						var _p1 = title;
+						if (_p1.ctor === 'Just') {
+							return A2(
+								_elm_lang$html$Html$h3,
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$class('popover-title'),
+									_1: {ctor: '[]'}
+								},
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html$text(_p1._0),
+									_1: {ctor: '[]'}
+								});
+						} else {
+							return _krisajenkins$elm_exts$Exts_Html_Bootstrap$empty;
+						}
+					}(),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$div,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$class('popover-content'),
+								_1: {ctor: '[]'}
+							},
+							{
+								ctor: '::',
+								_0: body,
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}
+				}
+			});
+	});
+
+var _krisajenkins$elm_exts$Exts_Maybe$oneOf = A2(
+	_elm_lang$core$List$foldl,
+	F2(
+		function (x, acc) {
+			return (!_elm_lang$core$Native_Utils.eq(acc, _elm_lang$core$Maybe$Nothing)) ? acc : x;
+		}),
+	_elm_lang$core$Maybe$Nothing);
+var _krisajenkins$elm_exts$Exts_Maybe$when = F2(
+	function (test, value) {
+		return test ? _elm_lang$core$Maybe$Just(value) : _elm_lang$core$Maybe$Nothing;
+	});
+var _krisajenkins$elm_exts$Exts_Maybe$validate = F2(
+	function (predicate, value) {
+		return predicate(value) ? _elm_lang$core$Maybe$Just(value) : _elm_lang$core$Maybe$Nothing;
+	});
+var _krisajenkins$elm_exts$Exts_Maybe$matches = function (predicate) {
+	return _elm_lang$core$Maybe$andThen(
+		_krisajenkins$elm_exts$Exts_Maybe$validate(predicate));
+};
+var _krisajenkins$elm_exts$Exts_Maybe$maybeDefault = F2(
+	function ($default, x) {
+		var _p0 = x;
+		if (_p0.ctor === 'Just') {
+			return _elm_lang$core$Maybe$Just(_p0._0);
+		} else {
+			return _elm_lang$core$Maybe$Just($default);
+		}
+	});
+var _krisajenkins$elm_exts$Exts_Maybe$join = F3(
+	function (f, left, right) {
+		var _p1 = {ctor: '_Tuple2', _0: left, _1: right};
+		if (((_p1.ctor === '_Tuple2') && (_p1._0.ctor === 'Just')) && (_p1._1.ctor === 'Just')) {
+			return _elm_lang$core$Maybe$Just(
+				A2(f, _p1._0._0, _p1._1._0));
+		} else {
+			return _elm_lang$core$Maybe$Nothing;
+		}
+	});
+var _krisajenkins$elm_exts$Exts_Maybe$catMaybes = _elm_lang$core$List$filterMap(_elm_lang$core$Basics$identity);
+var _krisajenkins$elm_exts$Exts_Maybe$mappend = F2(
+	function (a, b) {
+		var _p2 = {ctor: '_Tuple2', _0: a, _1: b};
+		if (_p2._0.ctor === 'Nothing') {
+			return _elm_lang$core$Maybe$Nothing;
+		} else {
+			if (_p2._1.ctor === 'Nothing') {
+				return _elm_lang$core$Maybe$Nothing;
+			} else {
+				return _elm_lang$core$Maybe$Just(
+					{ctor: '_Tuple2', _0: _p2._0._0, _1: _p2._1._0});
+			}
+		}
+	});
+var _krisajenkins$elm_exts$Exts_Maybe$maybe = F2(
+	function ($default, f) {
+		return function (_p3) {
+			return A2(
+				_elm_lang$core$Maybe$withDefault,
+				$default,
+				A2(_elm_lang$core$Maybe$map, f, _p3));
+		};
+	});
+var _krisajenkins$elm_exts$Exts_Maybe$isJust = function (x) {
+	var _p4 = x;
+	if (_p4.ctor === 'Just') {
+		return true;
+	} else {
+		return false;
+	}
+};
+var _krisajenkins$elm_exts$Exts_Maybe$isNothing = function (_p5) {
+	return !_krisajenkins$elm_exts$Exts_Maybe$isJust(_p5);
+};
+
+var _krisajenkins$elm_dialog$Dialog$map = F2(
+	function (f, config) {
+		return {
+			closeMessage: A2(_elm_lang$core$Maybe$map, f, config.closeMessage),
+			containerClass: config.containerClass,
+			header: A2(
+				_elm_lang$core$Maybe$map,
+				_elm_lang$html$Html$map(f),
+				config.header),
+			body: A2(
+				_elm_lang$core$Maybe$map,
+				_elm_lang$html$Html$map(f),
+				config.body),
+			footer: A2(
+				_elm_lang$core$Maybe$map,
+				_elm_lang$html$Html$map(f),
+				config.footer)
+		};
+	});
+var _krisajenkins$elm_dialog$Dialog$mapMaybe = function (_p0) {
+	return _elm_lang$core$Maybe$map(
+		_krisajenkins$elm_dialog$Dialog$map(_p0));
+};
+var _krisajenkins$elm_dialog$Dialog$backdrop = function (config) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$classList(
+				{
+					ctor: '::',
+					_0: {
+						ctor: '_Tuple2',
+						_0: 'modal-backdrop in',
+						_1: _krisajenkins$elm_exts$Exts_Maybe$isJust(config)
+					},
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		},
+		{ctor: '[]'});
+};
+var _krisajenkins$elm_dialog$Dialog$wrapFooter = function (footer) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('modal-footer'),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: footer,
+			_1: {ctor: '[]'}
+		});
+};
+var _krisajenkins$elm_dialog$Dialog$wrapBody = function (body) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('modal-body'),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: body,
+			_1: {ctor: '[]'}
+		});
+};
+var _krisajenkins$elm_dialog$Dialog$closeButton = function (closeMessage) {
+	return A2(
+		_elm_lang$html$Html$button,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('close'),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html_Events$onClick(closeMessage),
+				_1: {ctor: '[]'}
+			}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text('x'),
+			_1: {ctor: '[]'}
+		});
+};
+var _krisajenkins$elm_dialog$Dialog$wrapHeader = F2(
+	function (closeMessage, header) {
+		return (_elm_lang$core$Native_Utils.eq(closeMessage, _elm_lang$core$Maybe$Nothing) && _elm_lang$core$Native_Utils.eq(header, _elm_lang$core$Maybe$Nothing)) ? _krisajenkins$elm_exts$Exts_Html_Bootstrap$empty : A2(
+			_elm_lang$html$Html$div,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$class('modal-header'),
+				_1: {ctor: '[]'}
+			},
+			{
+				ctor: '::',
+				_0: A3(_krisajenkins$elm_exts$Exts_Maybe$maybe, _krisajenkins$elm_exts$Exts_Html_Bootstrap$empty, _krisajenkins$elm_dialog$Dialog$closeButton, closeMessage),
+				_1: {
+					ctor: '::',
+					_0: A2(_elm_lang$core$Maybe$withDefault, _krisajenkins$elm_exts$Exts_Html_Bootstrap$empty, header),
+					_1: {ctor: '[]'}
+				}
+			});
+	});
+var _krisajenkins$elm_dialog$Dialog$view = function (maybeConfig) {
+	var displayed = _krisajenkins$elm_exts$Exts_Maybe$isJust(maybeConfig);
+	return A2(
+		_elm_lang$html$Html$div,
+		function () {
+			var _p1 = A2(
+				_elm_lang$core$Maybe$andThen,
+				function (_) {
+					return _.containerClass;
+				},
+				maybeConfig);
+			if (_p1.ctor === 'Nothing') {
+				return {ctor: '[]'};
+			} else {
+				return {
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$class(_p1._0),
+					_1: {ctor: '[]'}
+				};
+			}
+		}(),
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$div,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$classList(
+						{
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'modal', _1: true},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'in', _1: displayed},
+								_1: {ctor: '[]'}
+							}
+						}),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$style(
+							{
+								ctor: '::',
+								_0: {
+									ctor: '_Tuple2',
+									_0: 'display',
+									_1: displayed ? 'block' : 'none'
+								},
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}
+				},
+				{
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$div,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('modal-dialog'),
+							_1: {ctor: '[]'}
+						},
+						{
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$div,
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$class('modal-content'),
+									_1: {ctor: '[]'}
+								},
+								function () {
+									var _p2 = maybeConfig;
+									if (_p2.ctor === 'Nothing') {
+										return {
+											ctor: '::',
+											_0: _krisajenkins$elm_exts$Exts_Html_Bootstrap$empty,
+											_1: {ctor: '[]'}
+										};
+									} else {
+										var _p3 = _p2._0;
+										return {
+											ctor: '::',
+											_0: A2(_krisajenkins$elm_dialog$Dialog$wrapHeader, _p3.closeMessage, _p3.header),
+											_1: {
+												ctor: '::',
+												_0: A3(_krisajenkins$elm_exts$Exts_Maybe$maybe, _krisajenkins$elm_exts$Exts_Html_Bootstrap$empty, _krisajenkins$elm_dialog$Dialog$wrapBody, _p3.body),
+												_1: {
+													ctor: '::',
+													_0: A3(_krisajenkins$elm_exts$Exts_Maybe$maybe, _krisajenkins$elm_exts$Exts_Html_Bootstrap$empty, _krisajenkins$elm_dialog$Dialog$wrapFooter, _p3.footer),
+													_1: {ctor: '[]'}
+												}
+											}
+										};
+									}
+								}()),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: _krisajenkins$elm_dialog$Dialog$backdrop(maybeConfig),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _krisajenkins$elm_dialog$Dialog$Config = F5(
+	function (a, b, c, d, e) {
+		return {closeMessage: a, containerClass: b, header: c, body: d, footer: e};
+	});
+
 var _saschatimme$elm_phoenix$Phoenix_Internal_Helpers_ops = _saschatimme$elm_phoenix$Phoenix_Internal_Helpers_ops || {};
 _saschatimme$elm_phoenix$Phoenix_Internal_Helpers_ops['<&>'] = F2(
 	function (x, f) {
@@ -15593,7 +16150,7 @@ var _user$project$Kami$imageOption = F2(
 	});
 var _user$project$Kami$renderSkillOption = F3(
 	function (skill, name, val) {
-		var pretty = (_elm_lang$core$Native_Utils.cmp(val, 0) > 0) ? A2(
+		var pretty = (_elm_lang$core$Native_Utils.cmp(val, 0) > -1) ? A2(
 			_elm_lang$core$Basics_ops['++'],
 			name,
 			A2(
@@ -15613,6 +16170,102 @@ var _user$project$Kami$renderSkillOption = F3(
 				_1: {ctor: '[]'}
 			});
 	});
+var _user$project$Kami$renderSelectableSkillOption = F4(
+	function (skill, name, val, sel) {
+		var pretty = (_elm_lang$core$Native_Utils.cmp(val, 0) > 0) ? A2(
+			_elm_lang$core$Basics_ops['++'],
+			name,
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				' ',
+				_elm_lang$core$Basics$toString(val))) : '-=[*]=-';
+		return A2(
+			_elm_lang$html$Html$option,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$selected(sel),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$value(skill),
+					_1: {ctor: '[]'}
+				}
+			},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text(pretty),
+				_1: {ctor: '[]'}
+			});
+	});
+var _user$project$Kami$renderDialogSkillOption = F3(
+	function (skill, name, val) {
+		var pretty = (_elm_lang$core$Native_Utils.cmp(val, 0) > -1) ? A2(
+			_elm_lang$core$Basics_ops['++'],
+			name,
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				' ',
+				_elm_lang$core$Basics$toString(val))) : '-=[*]=-';
+		return A2(
+			_elm_lang$html$Html$option,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$value(
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						skill,
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							':',
+							_elm_lang$core$Basics$toString(val)))),
+				_1: {ctor: '[]'}
+			},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text(pretty),
+				_1: {ctor: '[]'}
+			});
+	});
+var _user$project$Kami$xpDialogHeader = function (selected) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('mr-auto p-2'),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$span,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$class('xp-available'),
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(
+						_elm_lang$core$Basics$toString(selected.xp)),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$span,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('xp-available-text'),
+						_1: {ctor: '[]'}
+					},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text(' XP Available'),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}
+		});
+};
 var _user$project$Kami$lobbySocket = 'ws://gaius.ddns.net:8686/socket/websocket';
 var _user$project$Kami$roundDownToSecond = function (ms) {
 	return _elm_lang$core$Basics$toFloat(
@@ -15637,7 +16290,19 @@ var _user$project$Kami$Model = function (a) {
 										return function (k) {
 											return function (l) {
 												return function (m) {
-													return {uid: a, loc: b, key: c, connectionStatus: d, currentTime: e, posts: f, characters: g, post: h, selectedCharacter: i, admin: j, phone: k, cRemaining: l, cMax: m};
+													return function (n) {
+														return function (o) {
+															return function (p) {
+																return function (q) {
+																	return function (r) {
+																		return function (s) {
+																			return {uid: a, loc: b, key: c, connectionStatus: d, currentTime: e, posts: f, characters: g, post: h, selectedCharacter: i, admin: j, phone: k, cRemaining: l, cMax: m, showDialog: n, resetDice: o, dialogSelectedSkill: p, dialogSelectedRing: q, dialogSelectedSkillValue: r, dialogSelectedRingValue: s};
+																		};
+																	};
+																};
+															};
+														};
+													};
 												};
 											};
 										};
@@ -16074,14 +16739,387 @@ var _user$project$Kami$init = function (flags) {
 			admin: false,
 			phone: _elm_lang$core$Native_Utils.cmp(flags.width, 600) < 0,
 			cRemaining: 1500,
-			cMax: 1500
+			cMax: 1500,
+			showDialog: false,
+			resetDice: true,
+			dialogSelectedRing: '',
+			dialogSelectedSkill: '',
+			dialogSelectedRingValue: -1,
+			dialogSelectedSkillValue: -1
 		},
 		_1: _elm_lang$core$Platform_Cmd$none
 	};
 };
 var _user$project$Kami$Connected = {ctor: 'Connected'};
+var _user$project$Kami$DialogChangeSelectedRing = function (a) {
+	return {ctor: 'DialogChangeSelectedRing', _0: a};
+};
+var _user$project$Kami$xpDialogRings = function (s) {
+	return A2(
+		_elm_lang$html$Html$select,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Events$onInput(_user$project$Kami$DialogChangeSelectedRing),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$class('custom-select mr-auto p-1'),
+				_1: {ctor: '[]'}
+			}
+		},
+		{
+			ctor: '::',
+			_0: A3(_user$project$Kami$renderDialogSkillOption, '', '-=[*]=-', -1),
+			_1: {
+				ctor: '::',
+				_0: A3(_user$project$Kami$renderDialogSkillOption, 'air', 'Air', s.air),
+				_1: {
+					ctor: '::',
+					_0: A3(_user$project$Kami$renderDialogSkillOption, 'earth', 'Earth', s.earth),
+					_1: {
+						ctor: '::',
+						_0: A3(_user$project$Kami$renderDialogSkillOption, 'fire', 'Fire', s.fire),
+						_1: {
+							ctor: '::',
+							_0: A3(_user$project$Kami$renderDialogSkillOption, 'water', 'Water', s.water),
+							_1: {
+								ctor: '::',
+								_0: A3(_user$project$Kami$renderDialogSkillOption, 'void', 'Void', s.$void),
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				}
+			}
+		});
+};
+var _user$project$Kami$DialogChangeSelectedSkill = function (a) {
+	return {ctor: 'DialogChangeSelectedSkill', _0: a};
+};
+var _user$project$Kami$xpDialogSkills = function (s) {
+	return A2(
+		_elm_lang$html$Html$select,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Events$onInput(_user$project$Kami$DialogChangeSelectedSkill),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$class('custom-select mr-auto p-1'),
+				_1: {ctor: '[]'}
+			}
+		},
+		{
+			ctor: '::',
+			_0: A3(_user$project$Kami$renderDialogSkillOption, '', '-=[*]=-', -1),
+			_1: {
+				ctor: '::',
+				_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_aesthetics', 'Aesthetics', s.aesthetics),
+				_1: {
+					ctor: '::',
+					_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_composition', 'Composition', s.composition),
+					_1: {
+						ctor: '::',
+						_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_design', 'Composition', s.composition),
+						_1: {
+							ctor: '::',
+							_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_smithing', 'Smithing', s.smithing),
+							_1: {
+								ctor: '::',
+								_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_fitness', 'Fitness', s.fitness),
+								_1: {
+									ctor: '::',
+									_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_melee', 'Melee', s.melee),
+									_1: {
+										ctor: '::',
+										_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_ranged', 'Ranged', s.ranged),
+										_1: {
+											ctor: '::',
+											_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_unarmed', 'Unarmed', s.unarmed),
+											_1: {
+												ctor: '::',
+												_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_iaijutsu', 'Iaijutsu', s.iaijutsu),
+												_1: {
+													ctor: '::',
+													_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_meditation', 'Meditation', s.meditation),
+													_1: {
+														ctor: '::',
+														_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_tactics', 'Tactics', s.tactics),
+														_1: {
+															ctor: '::',
+															_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_culture', 'Culture', s.culture),
+															_1: {
+																ctor: '::',
+																_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_government', 'Government', s.government),
+																_1: {
+																	ctor: '::',
+																	_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_sentiment', 'Sentiment', s.sentiment),
+																	_1: {
+																		ctor: '::',
+																		_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_theology', 'Theology', s.theology),
+																		_1: {
+																			ctor: '::',
+																			_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_medicine', 'Medicine', s.medicine),
+																			_1: {
+																				ctor: '::',
+																				_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_command', 'Command', s.command),
+																				_1: {
+																					ctor: '::',
+																					_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_courtesy', 'Courtesy', s.courtesy),
+																					_1: {
+																						ctor: '::',
+																						_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_games', 'Games', s.games),
+																						_1: {
+																							ctor: '::',
+																							_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_performance', 'Performance', s.performance),
+																							_1: {
+																								ctor: '::',
+																								_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_commerce', 'Commerce', s.commerce),
+																								_1: {
+																									ctor: '::',
+																									_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_labor', 'Labor', s.labor),
+																									_1: {
+																										ctor: '::',
+																										_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_seafaring', 'Seafaring', s.seafaring),
+																										_1: {
+																											ctor: '::',
+																											_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_skullduggery', 'Skulduggery', s.skulduggery),
+																											_1: {
+																												ctor: '::',
+																												_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_survival', 'Survival', s.survival),
+																												_1: {ctor: '[]'}
+																											}
+																										}
+																									}
+																								}
+																							}
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		});
+};
+var _user$project$Kami$AckDialog = {ctor: 'AckDialog'};
+var _user$project$Kami$OpenDialog = {ctor: 'OpenDialog'};
 var _user$project$Kami$ModifyStatFailed = function (a) {
 	return {ctor: 'ModifyStatFailed', _0: a};
+};
+var _user$project$Kami$SpendXP = function (a) {
+	return {ctor: 'SpendXP', _0: a};
+};
+var _user$project$Kami$spend = F5(
+	function (s, key, value, multiplier, ignoreValidity) {
+		var smallestRing = _elm_lang$core$List$minimum(
+			{
+				ctor: '::',
+				_0: s.fire,
+				_1: {
+					ctor: '::',
+					_0: s.air,
+					_1: {
+						ctor: '::',
+						_0: s.earth,
+						_1: {
+							ctor: '::',
+							_0: s.water,
+							_1: {
+								ctor: '::',
+								_0: s.$void,
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				}
+			});
+		var newValue = value + 1;
+		var cost = newValue * multiplier;
+		var valid = _elm_lang$core$Native_Utils.cmp(
+			newValue,
+			A2(_elm_lang$core$Maybe$withDefault, 0, smallestRing) + s.$void) < 1;
+		var allow = (ignoreValidity || valid) && (!_elm_lang$core$Native_Utils.eq(newValue, 0));
+		var allowBuy = allow && (_elm_lang$core$Native_Utils.cmp(
+			s.xp,
+			_elm_lang$core$Basics$toFloat(cost)) > -1);
+		var buttonAttributes = allowBuy ? {
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('ml-auto p-1 btn btn-primary'),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html_Events$onClick(
+					_user$project$Kami$SpendXP(key)),
+				_1: {ctor: '[]'}
+			}
+		} : {
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('ml-auto p-1 btn btn-danger btn-disabled'),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$disabled(true),
+				_1: {ctor: '[]'}
+			}
+		};
+		var costString = allow ? A2(
+			_elm_lang$html$Html$span,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$class('cost-text'),
+				_1: {ctor: '[]'}
+			},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text(
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						'Cost: ',
+						_elm_lang$core$Basics$toString(cost))),
+				_1: {ctor: '[]'}
+			}) : A2(
+			_elm_lang$html$Html$span,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$class('cost-text disallow-cost'),
+				_1: {ctor: '[]'}
+			},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text('Cost: ---'),
+				_1: {ctor: '[]'}
+			});
+		return {
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$span,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: costString,
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$button,
+					buttonAttributes,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text('BUY'),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}
+		};
+	});
+var _user$project$Kami$xpDialogBody = F2(
+	function (selected, model) {
+		return A2(
+			_elm_lang$html$Html$div,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$class('d-flex fill flex-column'),
+				_1: {ctor: '[]'}
+			},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$div,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('xp-menu-item d-flex flex-row'),
+						_1: {ctor: '[]'}
+					},
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						{
+							ctor: '::',
+							_0: _user$project$Kami$xpDialogSkills(selected),
+							_1: {ctor: '[]'}
+						},
+						A5(_user$project$Kami$spend, selected, model.dialogSelectedSkill, model.dialogSelectedSkillValue, 2, true))),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$div,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('xp-menu-item d-flex flew-row'),
+							_1: {ctor: '[]'}
+						},
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							{
+								ctor: '::',
+								_0: _user$project$Kami$xpDialogRings(selected),
+								_1: {ctor: '[]'}
+							},
+							A5(_user$project$Kami$spend, selected, model.dialogSelectedRing, model.dialogSelectedRingValue, 3, false))),
+					_1: {ctor: '[]'}
+				}
+			});
+	});
+var _user$project$Kami$xpDialog = function (model) {
+	var selected = A2(_user$project$Kami$getCharacter, model.characters, model.selectedCharacter);
+	return _krisajenkins$elm_dialog$Dialog$view(
+		model.showDialog ? _elm_lang$core$Maybe$Just(
+			{
+				closeMessage: _elm_lang$core$Maybe$Nothing,
+				containerClass: _elm_lang$core$Maybe$Just('modal-container'),
+				header: _elm_lang$core$Maybe$Just(
+					A2(
+						_elm_lang$html$Html$div,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('d-flex fill'),
+							_1: {ctor: '[]'}
+						},
+						{
+							ctor: '::',
+							_0: _user$project$Kami$xpDialogHeader(selected),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$i,
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html_Attributes$class('p-2 fa fa-times fa-4x cancel-icon'),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$html$Html_Events$onClick(_user$project$Kami$AckDialog),
+											_1: {ctor: '[]'}
+										}
+									},
+									{ctor: '[]'}),
+								_1: {ctor: '[]'}
+							}
+						})),
+				body: _elm_lang$core$Maybe$Just(
+					A2(
+						_elm_lang$html$Html$div,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('modal-body'),
+							_1: {ctor: '[]'}
+						},
+						{
+							ctor: '::',
+							_0: A2(_user$project$Kami$xpDialogBody, selected, model),
+							_1: {ctor: '[]'}
+						})),
+				footer: _elm_lang$core$Maybe$Nothing
+			}) : _elm_lang$core$Maybe$Nothing);
 };
 var _user$project$Kami$ModifyStat = F2(
 	function (a, b) {
@@ -16094,9 +17132,6 @@ var _user$project$Kami$ChangeDieSize = function (a) {
 	return {ctor: 'ChangeDieSize', _0: a};
 };
 var _user$project$Kami$ToggleSpecialDice = {ctor: 'ToggleSpecialDice'};
-var _user$project$Kami$ToggleDice = {ctor: 'ToggleDice'};
-var _user$project$Kami$ToggleNarrative = {ctor: 'ToggleNarrative'};
-var _user$project$Kami$ToggleOOC = {ctor: 'ToggleOOC'};
 var _user$project$Kami$ChangeText = function (a) {
 	return {ctor: 'ChangeText', _0: a};
 };
@@ -16109,8 +17144,8 @@ var _user$project$Kami$ChangeSelectedRing = function (a) {
 var _user$project$Kami$ChangeSelectedSkill = function (a) {
 	return {ctor: 'ChangeSelectedSkill', _0: a};
 };
-var _user$project$Kami$renderDice = F2(
-	function (s, narrative) {
+var _user$project$Kami$renderDice = F3(
+	function (s, narrative, reset) {
 		return A2(
 			_elm_lang$html$Html$div,
 			{
@@ -16133,7 +17168,7 @@ var _user$project$Kami$renderDice = F2(
 					},
 					{
 						ctor: '::',
-						_0: A3(_user$project$Kami$renderSkillOption, '', '-=[*]=-', 0),
+						_0: A4(_user$project$Kami$renderSelectableSkillOption, '', '-=[*]=-', -1, reset),
 						_1: {
 							ctor: '::',
 							_0: A3(_user$project$Kami$renderSkillOption, 'skill_aesthetics', 'Aesthetics', s.aesthetics),
@@ -16251,7 +17286,7 @@ var _user$project$Kami$renderDice = F2(
 						},
 						{
 							ctor: '::',
-							_0: A3(_user$project$Kami$renderSkillOption, '', '-=[*]=-', 0),
+							_0: A4(_user$project$Kami$renderSelectableSkillOption, '', '-=[*]=-', -1, reset),
 							_1: {
 								ctor: '::',
 								_0: A3(_user$project$Kami$renderSkillOption, 'air', 'Air', s.air),
@@ -16615,7 +17650,7 @@ var _user$project$Kami$renderInputBar = function (model) {
 														},
 														{
 															ctor: '::',
-															_0: A2(_user$project$Kami$renderDice, selected, model.post.narrative),
+															_0: A3(_user$project$Kami$renderDice, selected, model.post.narrative, model.resetDice),
 															_1: {
 																ctor: '::',
 																_0: A2(
@@ -16877,7 +17912,11 @@ var _user$project$Kami$renderInputBar = function (model) {
 																								_1: {
 																									ctor: '::',
 																									_0: _elm_lang$html$Html_Attributes$class('btn btn-success post-button'),
-																									_1: {ctor: '[]'}
+																									_1: {
+																										ctor: '::',
+																										_0: _elm_lang$html$Html_Events$onClick(_user$project$Kami$OpenDialog),
+																										_1: {ctor: '[]'}
+																									}
 																								}
 																							},
 																							{
@@ -16919,19 +17958,26 @@ var _user$project$Kami$view = function (model) {
 				_0: _user$project$Kami$renderInputBar(model),
 				_1: {ctor: '[]'}
 			},
-			{
-				ctor: '::',
-				_0: A2(
-					_elm_lang$html$Html$div,
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$class(
-							A2(_elm_lang$core$Basics_ops['++'], 'posts ', posts_sub)),
-						_1: {ctor: '[]'}
-					},
-					A2(_elm_lang$core$List$map, _user$project$Kami$renderPost, model.posts)),
-				_1: {ctor: '[]'}
-			}));
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				{
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$div,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class(
+								A2(_elm_lang$core$Basics_ops['++'], 'posts ', posts_sub)),
+							_1: {ctor: '[]'}
+						},
+						A2(_elm_lang$core$List$map, _user$project$Kami$renderPost, model.posts)),
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: _user$project$Kami$xpDialog(model),
+					_1: {ctor: '[]'}
+				})));
 };
 var _user$project$Kami$UpdateCharacters = function (a) {
 	return {ctor: 'UpdateCharacters', _0: a};
@@ -16965,6 +18011,20 @@ var _user$project$Kami$update = F2(
 					_elm_lang$core$Native_Utils.update(
 						model,
 						{currentTime: _p3._0}),
+					{ctor: '[]'});
+			case 'OpenDialog':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{showDialog: true}),
+					{ctor: '[]'});
+			case 'AckDialog':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{showDialog: false, dialogSelectedRing: '', dialogSelectedSkill: '', dialogSelectedRingValue: -1, dialogSelectedSkillValue: -1}),
 					{ctor: '[]'});
 			case 'InitChannel':
 				var _p8 = _p3._0;
@@ -17089,31 +18149,85 @@ var _user$project$Kami$update = F2(
 						model,
 						{post: newPost, selectedCharacter: selectedCharacter}),
 					{ctor: '[]'});
-			case 'ChangeSelectedSkill':
-				var _p17 = _p3._0;
-				var diceroll = (!_elm_lang$core$Native_Utils.eq(_p17, '')) && (!_elm_lang$core$Native_Utils.eq(model.post.ring_name, ''));
-				var oldPost = model.post;
-				var newPost = _elm_lang$core$Native_Utils.update(
-					oldPost,
-					{skill_name: _p17, diceroll: diceroll});
+			case 'DialogChangeSelectedSkill':
+				var split = A2(_elm_lang$core$String$split, ':', _p3._0);
+				var name = function () {
+					var _p17 = _elm_lang$core$List$head(split);
+					if (_p17.ctor === 'Just') {
+						return _p17._0;
+					} else {
+						return '';
+					}
+				}();
+				var value = function () {
+					var _p18 = _elm_lang$core$List$tail(split);
+					if (((_p18.ctor === 'Just') && (_p18._0.ctor === '::')) && (_p18._0._1.ctor === '[]')) {
+						return A2(
+							_elm_lang$core$Result$withDefault,
+							0,
+							_elm_lang$core$String$toInt(_p18._0._0));
+					} else {
+						return 0;
+					}
+				}();
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
 						model,
-						{post: newPost}),
+						{dialogSelectedSkill: name, dialogSelectedSkillValue: value}),
+					{ctor: '[]'});
+			case 'DialogChangeSelectedRing':
+				var split = A2(_elm_lang$core$String$split, ':', _p3._0);
+				var name = function () {
+					var _p19 = _elm_lang$core$List$head(split);
+					if (_p19.ctor === 'Just') {
+						return _p19._0;
+					} else {
+						return '';
+					}
+				}();
+				var value = function () {
+					var _p20 = _elm_lang$core$List$tail(split);
+					if (((_p20.ctor === 'Just') && (_p20._0.ctor === '::')) && (_p20._0._1.ctor === '[]')) {
+						return A2(
+							_elm_lang$core$Result$withDefault,
+							0,
+							_elm_lang$core$String$toInt(_p20._0._0));
+					} else {
+						return 0;
+					}
+				}();
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{dialogSelectedRing: name, dialogSelectedRingValue: value}),
+					{ctor: '[]'});
+			case 'ChangeSelectedSkill':
+				var _p21 = _p3._0;
+				var diceroll = (!_elm_lang$core$Native_Utils.eq(_p21, '')) && (!_elm_lang$core$Native_Utils.eq(model.post.ring_name, ''));
+				var oldPost = model.post;
+				var newPost = _elm_lang$core$Native_Utils.update(
+					oldPost,
+					{skill_name: _p21, diceroll: diceroll});
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{post: newPost, resetDice: false}),
 					{ctor: '[]'});
 			case 'ChangeSelectedRing':
-				var _p18 = _p3._0;
-				var diceroll = (!_elm_lang$core$Native_Utils.eq(_p18, '')) && (!_elm_lang$core$Native_Utils.eq(model.post.skill_name, ''));
+				var _p22 = _p3._0;
+				var diceroll = (!_elm_lang$core$Native_Utils.eq(_p22, '')) && (!_elm_lang$core$Native_Utils.eq(model.post.skill_name, ''));
 				var oldPost = model.post;
 				var newPost = _elm_lang$core$Native_Utils.update(
 					oldPost,
-					{ring_name: _p18, diceroll: diceroll});
+					{ring_name: _p22, diceroll: diceroll});
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
 						model,
-						{post: newPost}),
+						{post: newPost, resetDice: false}),
 					{ctor: '[]'});
 			case 'ChangeImage':
 				var oldPost = model.post;
@@ -17127,50 +18241,17 @@ var _user$project$Kami$update = F2(
 						{post: newPost}),
 					{ctor: '[]'});
 			case 'ChangeText':
-				var _p19 = _p3._0;
-				var newRemaining = model.cMax - _elm_lang$core$String$length(_p19);
+				var _p23 = _p3._0;
+				var newRemaining = model.cMax - _elm_lang$core$String$length(_p23);
 				var oldPost = model.post;
 				var newPost = _elm_lang$core$Native_Utils.update(
 					oldPost,
-					{text: _p19});
+					{text: _p23});
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
 						model,
 						{cRemaining: newRemaining, post: newPost}),
-					{ctor: '[]'});
-			case 'ToggleOOC':
-				var oldPost = model.post;
-				var newPost = _elm_lang$core$Native_Utils.update(
-					oldPost,
-					{ooc: !oldPost.ooc});
-				return A2(
-					_elm_lang$core$Platform_Cmd_ops['!'],
-					_elm_lang$core$Native_Utils.update(
-						model,
-						{post: newPost}),
-					{ctor: '[]'});
-			case 'ToggleNarrative':
-				var oldPost = model.post;
-				var newPost = _elm_lang$core$Native_Utils.update(
-					oldPost,
-					{narrative: !oldPost.narrative});
-				return A2(
-					_elm_lang$core$Platform_Cmd_ops['!'],
-					_elm_lang$core$Native_Utils.update(
-						model,
-						{post: newPost}),
-					{ctor: '[]'});
-			case 'ToggleDice':
-				var oldPost = model.post;
-				var newPost = _elm_lang$core$Native_Utils.update(
-					oldPost,
-					{diceroll: !oldPost.diceroll});
-				return A2(
-					_elm_lang$core$Platform_Cmd_ops['!'],
-					_elm_lang$core$Native_Utils.update(
-						model,
-						{post: newPost}),
 					{ctor: '[]'});
 			case 'ToggleSpecialDice':
 				var oldPost = model.post;
@@ -17255,8 +18336,52 @@ var _user$project$Kami$update = F2(
 						_0: A2(_saschatimme$elm_phoenix$Phoenix$push, _user$project$Kami$lobbySocket, push),
 						_1: {ctor: '[]'}
 					});
+			case 'SpendXP':
+				var selected = A2(_user$project$Kami$getCharacter, model.characters, model.selectedCharacter);
+				var push = A2(
+					_saschatimme$elm_phoenix$Phoenix_Push$onOk,
+					function (response) {
+						return _user$project$Kami$UpdateCharacters(response);
+					},
+					A2(
+						_saschatimme$elm_phoenix$Phoenix_Push$onError,
+						_user$project$Kami$ModifyStatFailed,
+						A2(
+							_saschatimme$elm_phoenix$Phoenix_Push$withPayload,
+							_elm_lang$core$Json_Encode$object(
+								{
+									ctor: '::',
+									_0: {
+										ctor: '_Tuple2',
+										_0: 'stat_key',
+										_1: _elm_lang$core$Json_Encode$string(_p3._0)
+									},
+									_1: {
+										ctor: '::',
+										_0: {
+											ctor: '_Tuple2',
+											_0: 'character',
+											_1: _elm_lang$core$Json_Encode$string(selected.name)
+										},
+										_1: {ctor: '[]'}
+									}
+								}),
+							A2(
+								_saschatimme$elm_phoenix$Phoenix_Push$init,
+								A2(_elm_lang$core$Basics_ops['++'], 'room:', model.loc),
+								'spend_xp'))));
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{showDialog: false, dialogSelectedRing: '', dialogSelectedSkill: '', dialogSelectedRingValue: -1, dialogSelectedSkillValue: -1}),
+					{
+						ctor: '::',
+						_0: A2(_saschatimme$elm_phoenix$Phoenix$push, _user$project$Kami$lobbySocket, push),
+						_1: {ctor: '[]'}
+					});
 			case 'ModifyStatFailed':
-				var _p20 = A2(_elm_lang$core$Debug$log, 'modify stat returned an error code', _p3._0);
+				var _p24 = A2(_elm_lang$core$Debug$log, 'modify stat returned an error code', _p3._0);
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					model,
@@ -17371,7 +18496,7 @@ var _user$project$Kami$update = F2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
 						model,
-						{post: newPost, cRemaining: model.cMax}),
+						{post: newPost, cRemaining: model.cMax, resetDice: true}),
 					{
 						ctor: '::',
 						_0: A2(_saschatimme$elm_phoenix$Phoenix$push, _user$project$Kami$lobbySocket, push),
@@ -17438,7 +18563,7 @@ var _user$project$Kami$socket = A2(
 		_user$project$Kami$SocketClosedAbnormally,
 		A2(
 			_saschatimme$elm_phoenix$Phoenix_Socket$onClose,
-			function (_p21) {
+			function (_p25) {
 				return _user$project$Kami$ConnectionStatusChanged(_user$project$Kami$Disconnected);
 			},
 			A2(
@@ -17495,7 +18620,7 @@ var _user$project$Kami$main = _elm_lang$html$Html$programWithFlags(
 var Elm = {};
 Elm['Kami'] = Elm['Kami'] || {};
 if (typeof _user$project$Kami$main !== 'undefined') {
-    _user$project$Kami$main(Elm['Kami'], 'Kami', {"types":{"message":"Kami.Msg","aliases":{"Json.Decode.Value":{"type":"Json.Encode.Value","args":[]},"Time.Time":{"type":"Float","args":[]},"Phoenix.Socket.AbnormalClose":{"type":"{ reconnectAttempt : Int, reconnectWait : Time.Time }","args":[]}},"unions":{"Kami.ConnectionStatus":{"tags":{"ScheduledReconnect":["{ time : Time.Time }"],"Connected":[],"Disconnected":[]},"args":[]},"Json.Encode.Value":{"tags":{"Value":[]},"args":[]},"Kami.Msg":{"tags":{"ToggleNarrative":[],"UpdatePosts":["Json.Decode.Value"],"SocketClosedAbnormally":["Phoenix.Socket.AbnormalClose"],"ConnectionStatusChanged":["Kami.ConnectionStatus"],"ToggleSpecialDice":[],"ChangeDieSize":["Int"],"ChangeText":["String"],"PushPost":["Bool"],"ModifyStatFailed":["Json.Decode.Value"],"ChangeImage":["String"],"ToggleDice":[],"ModifyStat":["String","Int"],"Tick":["Time.Time"],"ChangeSelectedRing":["String"],"ChangeDieNum":["Int"],"UpdateCharacters":["Json.Decode.Value"],"ChangeSelectedCharacter":["String"],"ChangeSelectedSkill":["String"],"InitChannel":["Json.Decode.Value"],"ToggleOOC":[]},"args":[]}}},"versions":{"elm":"0.18.0"}});
+    _user$project$Kami$main(Elm['Kami'], 'Kami', {"types":{"message":"Kami.Msg","aliases":{"Json.Decode.Value":{"type":"Json.Encode.Value","args":[]},"Time.Time":{"type":"Float","args":[]},"Phoenix.Socket.AbnormalClose":{"type":"{ reconnectAttempt : Int, reconnectWait : Time.Time }","args":[]}},"unions":{"Kami.ConnectionStatus":{"tags":{"ScheduledReconnect":["{ time : Time.Time }"],"Connected":[],"Disconnected":[]},"args":[]},"Json.Encode.Value":{"tags":{"Value":[]},"args":[]},"Kami.Msg":{"tags":{"SpendXP":["String"],"UpdatePosts":["Json.Decode.Value"],"SocketClosedAbnormally":["Phoenix.Socket.AbnormalClose"],"DialogChangeSelectedRing":["String"],"ConnectionStatusChanged":["Kami.ConnectionStatus"],"ToggleSpecialDice":[],"ChangeDieSize":["Int"],"ChangeText":["String"],"PushPost":["Bool"],"DialogChangeSelectedSkill":["String"],"ModifyStatFailed":["Json.Decode.Value"],"ChangeImage":["String"],"AckDialog":[],"OpenDialog":[],"ModifyStat":["String","Int"],"Tick":["Time.Time"],"ChangeSelectedRing":["String"],"ChangeDieNum":["Int"],"UpdateCharacters":["Json.Decode.Value"],"ChangeSelectedCharacter":["String"],"ChangeSelectedSkill":["String"],"InitChannel":["Json.Decode.Value"]},"args":[]}}},"versions":{"elm":"0.18.0"}});
 }
 
 if (typeof define === "function" && define['amd'])

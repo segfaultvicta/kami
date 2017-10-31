@@ -1,6 +1,7 @@
 module Kami exposing (..)
 
 import Array exposing (Array)
+import Dialog
 import Dict
 import Html exposing (..)
 import Html.Attributes exposing (class, href, id, property, selected, src, style, value)
@@ -43,6 +44,12 @@ type alias Model =
     , phone : Bool
     , cRemaining : Int
     , cMax : Int
+    , showDialog : Bool
+    , resetDice : Bool
+    , dialogSelectedSkill : String
+    , dialogSelectedRing : String
+    , dialogSelectedSkillValue : Int
+    , dialogSelectedRingValue : Int
     }
 
 
@@ -151,6 +158,12 @@ init flags =
       , phone = flags.width < 600
       , cRemaining = 1500
       , cMax = 1500
+      , showDialog = False
+      , resetDice = True
+      , dialogSelectedRing = ""
+      , dialogSelectedSkill = ""
+      , dialogSelectedRingValue = -1
+      , dialogSelectedSkillValue = -1
       }
     , Cmd.none
     )
@@ -173,14 +186,16 @@ type Msg
     | ChangeSelectedRing String
     | ChangeImage String
     | ChangeText String
-    | ToggleOOC
-    | ToggleNarrative
-    | ToggleDice
     | ToggleSpecialDice
     | ChangeDieSize Int
     | ChangeDieNum Int
     | ModifyStat String Int
+    | SpendXP String
     | ModifyStatFailed JD.Value
+    | OpenDialog
+    | AckDialog
+    | DialogChangeSelectedSkill String
+    | DialogChangeSelectedRing String
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -198,6 +213,12 @@ update msg model =
 
         Tick time ->
             { model | currentTime = time } ! []
+
+        OpenDialog ->
+            { model | showDialog = True } ! []
+
+        AckDialog ->
+            { model | showDialog = False, dialogSelectedRing = "", dialogSelectedSkill = "", dialogSelectedRingValue = -1, dialogSelectedSkillValue = -1 } ! []
 
         InitChannel payload ->
             case JD.decodeValue initDecoder payload of
@@ -304,6 +325,52 @@ update msg model =
             in
             { model | post = newPost, selectedCharacter = selectedCharacter } ! []
 
+        DialogChangeSelectedSkill skill ->
+            let
+                split =
+                    String.split ":" skill
+
+                name =
+                    case List.head split of
+                        Just n ->
+                            n
+
+                        Nothing ->
+                            ""
+
+                value =
+                    case List.tail split of
+                        Just [ n ] ->
+                            String.toInt n |> Result.withDefault 0
+
+                        _ ->
+                            0
+            in
+            { model | dialogSelectedSkill = name, dialogSelectedSkillValue = value } ! []
+
+        DialogChangeSelectedRing ring ->
+            let
+                split =
+                    String.split ":" ring
+
+                name =
+                    case List.head split of
+                        Just n ->
+                            n
+
+                        Nothing ->
+                            ""
+
+                value =
+                    case List.tail split of
+                        Just [ n ] ->
+                            String.toInt n |> Result.withDefault 0
+
+                        _ ->
+                            0
+            in
+            { model | dialogSelectedRing = name, dialogSelectedRingValue = value } ! []
+
         ChangeSelectedSkill skill ->
             let
                 oldPost =
@@ -315,7 +382,7 @@ update msg model =
                 newPost =
                     { oldPost | skill_name = skill, diceroll = diceroll }
             in
-            { model | post = newPost } ! []
+            { model | post = newPost, resetDice = False } ! []
 
         ChangeSelectedRing ring ->
             let
@@ -328,7 +395,7 @@ update msg model =
                 newPost =
                     { oldPost | ring_name = ring, diceroll = diceroll }
             in
-            { model | post = newPost } ! []
+            { model | post = newPost, resetDice = False } ! []
 
         ChangeImage filename ->
             let
@@ -352,36 +419,6 @@ update msg model =
                     model.cMax - String.length text
             in
             { model | cRemaining = newRemaining, post = newPost } ! []
-
-        ToggleOOC ->
-            let
-                oldPost =
-                    model.post
-
-                newPost =
-                    { oldPost | ooc = not oldPost.ooc }
-            in
-            { model | post = newPost } ! []
-
-        ToggleNarrative ->
-            let
-                oldPost =
-                    model.post
-
-                newPost =
-                    { oldPost | narrative = not oldPost.narrative }
-            in
-            { model | post = newPost } ! []
-
-        ToggleDice ->
-            let
-                oldPost =
-                    model.post
-
-                newPost =
-                    { oldPost | diceroll = not oldPost.diceroll }
-            in
-            { model | post = newPost } ! []
 
         ToggleSpecialDice ->
             let
@@ -432,6 +469,24 @@ update msg model =
             in
             model ! [ Phoenix.push lobbySocket push ]
 
+        SpendXP stat_key ->
+            let
+                selected =
+                    getCharacter model.characters model.selectedCharacter
+
+                push =
+                    Push.init ("room:" ++ model.loc) "spend_xp"
+                        |> Push.withPayload
+                            (JE.object
+                                [ ( "stat_key", JE.string stat_key )
+                                , ( "character", JE.string selected.name )
+                                ]
+                            )
+                        |> Push.onError ModifyStatFailed
+                        |> Push.onOk (\response -> UpdateCharacters response)
+            in
+            { model | showDialog = False, dialogSelectedRing = "", dialogSelectedSkill = "", dialogSelectedRingValue = -1, dialogSelectedSkillValue = -1 } ! [ Phoenix.push lobbySocket push ]
+
         ModifyStatFailed value ->
             let
                 _ =
@@ -466,7 +521,7 @@ update msg model =
                 newPost =
                     { oldPost | text = "", diceroll = False, die_size = 0, ring_value = 0, skill_name = "", ring_name = "" }
             in
-            { model | post = newPost, cRemaining = model.cMax } ! [ Phoenix.push lobbySocket push ]
+            { model | post = newPost, cRemaining = model.cMax, resetDice = True } ! [ Phoenix.push lobbySocket push ]
 
 
 
@@ -645,7 +700,134 @@ view model =
                 "posts-desktop"
     in
     div []
-        ([ renderInputBar model ] ++ [ div [ class ("posts " ++ posts_sub) ] (List.map renderPost model.posts) ])
+        ([ renderInputBar model ] ++ [ div [ class ("posts " ++ posts_sub) ] (List.map renderPost model.posts) ] ++ [ xpDialog model ])
+
+
+xpDialog : Model -> Html Msg
+xpDialog model =
+    let
+        selected =
+            getCharacter model.characters model.selectedCharacter
+    in
+    Dialog.view
+        (if model.showDialog then
+            Just
+                { closeMessage = Nothing
+                , containerClass = Just "modal-container"
+                , header = Just (div [ class "d-flex fill" ] [ xpDialogHeader selected, i [ class "p-2 fa fa-times fa-4x cancel-icon", onClick AckDialog ] [] ])
+                , body = Just (div [ class "modal-body" ] [ xpDialogBody selected model ])
+                , footer = Nothing
+                }
+         else
+            Nothing
+        )
+
+
+xpDialogHeader : Character -> Html Msg
+xpDialogHeader selected =
+    div [ class "mr-auto p-2" ] [ span [ class "xp-available" ] [ text (selected.xp |> toString) ], span [ class "xp-available-text" ] [ text " XP Available" ] ]
+
+
+xpDialogBody : Character -> Model -> Html Msg
+xpDialogBody selected model =
+    div [ class "d-flex fill flex-column" ]
+        [ div [ class "xp-menu-item d-flex flex-row" ] ([ xpDialogSkills selected ] ++ spend selected model.dialogSelectedSkill model.dialogSelectedSkillValue 2 True)
+        , div [ class "xp-menu-item d-flex flew-row" ] ([ xpDialogRings selected ] ++ spend selected model.dialogSelectedRing model.dialogSelectedRingValue 3 False)
+        ]
+
+
+spend : Character -> String -> Int -> Int -> Bool -> List (Html Msg)
+spend s key value multiplier ignoreValidity =
+    let
+        newValue =
+            value + 1
+
+        cost =
+            newValue * multiplier
+
+        smallestRing =
+            List.minimum [ s.fire, s.air, s.earth, s.water, s.void ]
+
+        valid =
+            newValue <= (Maybe.withDefault 0 smallestRing + s.void)
+
+        allow =
+            (ignoreValidity || valid) && newValue /= 0
+
+        allowBuy =
+            allow && (s.xp >= (cost |> toFloat))
+
+        costString =
+            if allow then
+                span [ class "cost-text" ] [ text ("Cost: " ++ (cost |> toString)) ]
+            else
+                span [ class "cost-text disallow-cost" ] [ text "Cost: ---" ]
+
+        buttonAttributes =
+            if allowBuy then
+                [ class "ml-auto p-1 btn btn-primary", onClick (SpendXP key) ]
+            else
+                [ class "ml-auto p-1 btn btn-danger btn-disabled", Html.Attributes.disabled True ]
+    in
+    [ span [] [ costString ]
+    , button buttonAttributes [ text "BUY" ]
+    ]
+
+
+xpDialogSkills : Character -> Html Msg
+xpDialogSkills s =
+    select [ onInput DialogChangeSelectedSkill, class "custom-select mr-auto p-1" ]
+        [ renderDialogSkillOption "" "-=[*]=-" -1
+        , renderDialogSkillOption "skill_aesthetics" "Aesthetics" s.aesthetics
+        , renderDialogSkillOption "skill_composition" "Composition" s.composition
+        , renderDialogSkillOption "skill_design" "Composition" s.composition
+        , renderDialogSkillOption "skill_smithing" "Smithing" s.smithing
+        , renderDialogSkillOption "skill_fitness" "Fitness" s.fitness
+        , renderDialogSkillOption "skill_melee" "Melee" s.melee
+        , renderDialogSkillOption "skill_ranged" "Ranged" s.ranged
+        , renderDialogSkillOption "skill_unarmed" "Unarmed" s.unarmed
+        , renderDialogSkillOption "skill_iaijutsu" "Iaijutsu" s.iaijutsu
+        , renderDialogSkillOption "skill_meditation" "Meditation" s.meditation
+        , renderDialogSkillOption "skill_tactics" "Tactics" s.tactics
+        , renderDialogSkillOption "skill_culture" "Culture" s.culture
+        , renderDialogSkillOption "skill_government" "Government" s.government
+        , renderDialogSkillOption "skill_sentiment" "Sentiment" s.sentiment
+        , renderDialogSkillOption "skill_theology" "Theology" s.theology
+        , renderDialogSkillOption "skill_medicine" "Medicine" s.medicine
+        , renderDialogSkillOption "skill_command" "Command" s.command
+        , renderDialogSkillOption "skill_courtesy" "Courtesy" s.courtesy
+        , renderDialogSkillOption "skill_games" "Games" s.games
+        , renderDialogSkillOption "skill_performance" "Performance" s.performance
+        , renderDialogSkillOption "skill_commerce" "Commerce" s.commerce
+        , renderDialogSkillOption "skill_labor" "Labor" s.labor
+        , renderDialogSkillOption "skill_seafaring" "Seafaring" s.seafaring
+        , renderDialogSkillOption "skill_skullduggery" "Skulduggery" s.skulduggery
+        , renderDialogSkillOption "skill_survival" "Survival" s.survival
+        ]
+
+
+xpDialogRings : Character -> Html Msg
+xpDialogRings s =
+    select [ onInput DialogChangeSelectedRing, class "custom-select mr-auto p-1" ]
+        [ renderDialogSkillOption "" "-=[*]=-" -1
+        , renderDialogSkillOption "air" "Air" s.air
+        , renderDialogSkillOption "earth" "Earth" s.earth
+        , renderDialogSkillOption "fire" "Fire" s.fire
+        , renderDialogSkillOption "water" "Water" s.water
+        , renderDialogSkillOption "void" "Void" s.void
+        ]
+
+
+renderDialogSkillOption : String -> String -> Int -> Html Msg
+renderDialogSkillOption skill name val =
+    let
+        pretty =
+            if val >= 0 then
+                name ++ " " ++ (val |> toString)
+            else
+                "-=[*]=-"
+    in
+    option [ value (skill ++ ":" ++ (val |> toString)) ] [ text pretty ]
 
 
 renderInputBar : Model -> Html Msg
@@ -700,7 +882,7 @@ renderInputBar model =
                 , div [ class "col-sm col-4-lg" ]
                     [ div [ class right_rail ]
                         [ div [ class "d-flex align-items-start flex-column right-rail-inner" ]
-                            [ renderDice selected model.post.narrative
+                            [ renderDice selected model.post.narrative model.resetDice
                             , div [ class "p-0" ]
                                 [ div []
                                     [ text
@@ -731,7 +913,7 @@ renderInputBar model =
                                 , if model.post.narrative then
                                     text ""
                                   else
-                                    button [ Html.Attributes.type_ "button", class "btn btn-success post-button" ] [ text "Spend XP" ]
+                                    button [ Html.Attributes.type_ "button", class "btn btn-success post-button", onClick OpenDialog ] [ text "Spend XP" ]
                                 ]
                             ]
                         ]
@@ -741,14 +923,14 @@ renderInputBar model =
         ]
 
 
-renderDice : Character -> Bool -> Html Msg
-renderDice s narrative =
+renderDice : Character -> Bool -> Bool -> Html Msg
+renderDice s narrative reset =
     div [ class "mb-auto p-0" ]
         [ if narrative then
             text ""
           else
             select [ onInput ChangeSelectedSkill, class "custom-select" ]
-                [ renderSkillOption "" "-=[*]=-" 0
+                [ renderSelectableSkillOption "" "-=[*]=-" -1 reset
                 , renderSkillOption "skill_aesthetics" "Aesthetics" s.aesthetics
                 , renderSkillOption "skill_composition" "Composition" s.composition
                 , renderSkillOption "skill_design" "Composition" s.composition
@@ -779,7 +961,7 @@ renderDice s narrative =
             text ""
           else
             select [ onInput ChangeSelectedRing, class "custom-select" ]
-                [ renderSkillOption "" "-=[*]=-" 0
+                [ renderSelectableSkillOption "" "-=[*]=-" -1 reset
                 , renderSkillOption "air" "Air" s.air
                 , renderSkillOption "earth" "Earth" s.earth
                 , renderSkillOption "fire" "Fire" s.fire
@@ -789,11 +971,23 @@ renderDice s narrative =
         ]
 
 
+renderSelectableSkillOption : String -> String -> Int -> Bool -> Html Msg
+renderSelectableSkillOption skill name val sel =
+    let
+        pretty =
+            if val > 0 then
+                name ++ " " ++ (val |> toString)
+            else
+                "-=[*]=-"
+    in
+    option [ Html.Attributes.selected sel, value skill ] [ text pretty ]
+
+
 renderSkillOption : String -> String -> Int -> Html Msg
 renderSkillOption skill name val =
     let
         pretty =
-            if val > 0 then
+            if val >= 0 then
                 name ++ " " ++ (val |> toString)
             else
                 "-=[*]=-"

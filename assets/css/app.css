@@ -33,6 +33,48 @@
   background-image: -o-linear-gradient(top, #eeeeee, #cccccc);
 }
 
+.modal-backdrop {
+  background-color: rgba(0,0,0,0.9);
+}
+
+.modal-container .cancel-icon {
+  color: #FF3366;
+  margin-top: -10px;
+}
+
+.modal-container .fill {
+  width: -webkit-fill-available
+}
+
+.modal-container .xp-available {
+  font-size: 72px;
+}
+
+.modal-container .xp-available-text {
+  position: relative;
+  left: 30px;
+  bottom: 12px;
+  font-size: 30px;
+}
+
+.modal-container .custom-select {
+  width: 35%;
+}
+
+.modal-container .xp-menu-item {
+  margin-top: 10px;
+}
+
+.modal-container .cost-text {
+  position:relative;
+  top: 6px;
+}
+
+.modal-container .disallow-cost {
+  color: #FF4444;
+  font-weight: bolder;
+}
+
 body {
   font-family: 'PT Serif', serif;
   padding-top: 64px;

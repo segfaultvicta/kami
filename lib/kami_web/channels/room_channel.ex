@@ -37,26 +37,47 @@ defmodule KamiWeb.RoomChannel do
     end
   end
   
+  def handle_in("spend_xp", %{"character" => character_name, "stat_key" => stat_key}, socket) do
+    character = Kami.Accounts.get_character_by_name!(character_name)
+    if character.user_id == socket.assigns[:user] do
+      {status, result} = Kami.Accounts.buy_upgrade_for_stat(character, stat_key)
+      case status do
+        :ok ->
+          {:reply, {:ok, %{characters: get_characters(socket.assigns[:user])}}, socket}
+        :error ->
+          {:reply, {:error, %{reason: result}}, socket}
+        end
+    else
+      {:reply, {:error, %{reason: "unauthorised to update that character"}}, socket}
+    end
+  end
+  
   def handle_in("post", %{"author_slug" => slug, "ooc" => ooc, "narrative" => narr, "name" => name, "text" => text, "diceroll" => dice, 
                           "die_size" => face, "ring_value" => num, "ring_name" => ring, "skill_name" => skill, "skillroll" => specialdice, "image" => image}, socket) do
     name = if narr do "" else name end
-    {glory, status, skill_name, ring_name, ring_value, skill_value, results} = if not narr do
-      character = Kami.Accounts.get_character_by_name!(slug)
-      glory = character.glory
-      status = character.status
-      skill_name = String.split(skill, "_") |> Enum.at(1) |> String.capitalize
-      ring_name = ring |> String.capitalize
-      ring_value = if specialdice do Kami.Accounts.Character.get_value(character, ring) else num end
-      skill_value = Kami.Accounts.Character.get_value(character, skill)
-      results = if specialdice do
-        (1..ring_value |> Enum.map(fn(_) -> Enum.random(0..5) end)) ++ (1..skill_value |> Enum.map(fn(_) -> Enum.random(6..17) end)) 
-      else
-        []
+    character = if narr do nil else Kami.Accounts.get_character_by_name!(slug) end
+    glory = if character != nil do character.glory else 0 end
+    status = if character != nil do character.status else 0 end
+    skill_name = if dice and character != nil do String.split(skill, "_") |> Enum.at(1) |> String.capitalize else "" end
+    ring_name = if dice and character != nil do ring |> String.capitalize else "" end
+    ring_value = if dice and specialdice and character != nil do Kami.Accounts.Character.get_value(character, ring) else num end
+    skill_value = if dice and specialdice and character != nil do Kami.Accounts.Character.get_value(character, skill) else 0 end
+    results = if specialdice do
+      cond do
+        ring_value > 0 and skill_value > 0 ->
+          (1..ring_value |> Enum.map(fn(_) -> Enum.random(0..5) end)) ++ (1..skill_value |> Enum.map(fn(_) -> Enum.random(6..17) end))
+          
+        skill_value == 0 ->
+          (1..ring_value |> Enum.map(fn(_) -> Enum.random(0..5) end))
+          
+        true ->
+          []
       end
-      {glory, status, skill_name, ring_name, ring_value, skill_value, results}
     else
-      {0, 0, "", "", 0, 0, []}
+      []
     end
+    text = if ooc && text == "" do "\n" else text end
+    Logger.info text
     Kami.World.create_post(socket.assigns[:location], slug, %{ooc: ooc, narrative: narr, text: text, name: name, image: image, glory: glory, status: status,
                                                               diceroll: dice, skillroll: specialdice, ring_name: ring_name, skill_name: skill_name, results: results, ring_value: ring_value, die_size: face})
     broadcast!(socket, "update_posts", %{posts: get_posts(socket.assigns[:location])})

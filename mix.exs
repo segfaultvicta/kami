@@ -48,6 +48,7 @@ defmodule Kami.Mixfile do
       {:timex, "~> 3.1"},
       {:quantum, ">= 2.1.1"},
       {:poison, "~> 3.1"},
+      {:html_sanitize_ex, "~>1.3.0-rc3"},
     ]
   end
 

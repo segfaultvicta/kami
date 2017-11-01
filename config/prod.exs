@@ -21,6 +21,10 @@ config :kami, KamiWeb.Endpoint,
 # Do not print debug messages in production
 config :logger, level: :info
 
+config :kami,
+  bxp_per_post: 0.1,
+  bxp_per_week_max: 8.0
+
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key

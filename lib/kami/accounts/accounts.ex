@@ -64,7 +64,7 @@ defmodule Kami.Accounts do
     |> Repo.insert()
     
     if res == :ok do
-      case create_character(user, %{name: user.name, approved: false}) do
+      case create_character(user, %{name: (user.name |> String.capitalize), approved: false, images: []}) do
         {:ok, character} ->
           {:ok, user}
         _ ->
@@ -234,6 +234,16 @@ defmodule Kami.Accounts do
     rescue
       e in ArgumentError -> {:error, "invalid stat key"}
       e in ArithmeticError -> {:error, "invalid stat delta"}
+    end
+  end
+  
+  def award_bxp(%Character{} = character) do
+    bxp = character.bxp
+    if character.bxp_this_week + Application.get_env(:kami, :bxp_per_post) <= Application.get_env(:kami, :bxp_per_week_max) do
+      character
+      |> Character.stat_changeset(%{bxp: character.bxp + Application.get_env(:kami, :bxp_per_post), 
+                                    bxp_this_week: character.bxp_this_week + Application.get_env(:kami, :bxp_per_post)})
+      |> Repo.update()
     end
   end
   

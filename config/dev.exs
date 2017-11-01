@@ -59,4 +59,6 @@ config :kami, Kami.Repo,
   pool_size: 10
   
 config :kami, 
-  elm_secret: "seekrit"
+  elm_secret: "seekrit",
+  bxp_per_post: 1.1,
+  bxp_per_week_max: 4.0

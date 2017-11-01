@@ -104,13 +104,6 @@ defmodule Kami.World do
     |> Repo.insert()
   end
 
-  def create_narrative_post(%Location{} = loc, attrs \\ %{}) do
-    %Post{}
-    |> Post.changeset(attrs)
-    |> Ecto.Changeset.put_change(:location_id, loc.id)
-    |> Repo.insert()
-  end
-
   @doc """
   Updates a post.
 
@@ -202,6 +195,11 @@ defmodule Kami.World do
     Location
     |> Repo.get_by!(slug: slug)
     |> Repo.preload([:children, :parent])
+  end
+  
+  def is_ooc?(id) do
+    location = get_location!(id)
+    location.ooc
   end
 
   @doc """

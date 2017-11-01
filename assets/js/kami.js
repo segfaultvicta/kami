@@ -15883,8 +15883,8 @@ var _user$project$Kami$renderPost = function (post) {
 									},
 									{
 										ctor: '::',
-										_0: _elm_lang$html$Html$text(
-											A2(_elm_lang$core$Basics_ops['++'], post.name, ' ')),
+										_0: post.ooc ? _elm_lang$html$Html$text(
+											A2(_elm_lang$core$Basics_ops['++'], post.name, ': ')) : _elm_lang$html$Html$text(''),
 										_1: {
 											ctor: '::',
 											_0: A2(
@@ -16818,7 +16818,7 @@ var _user$project$Kami$xpDialogSkills = function (s) {
 					_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_composition', 'Composition', s.composition),
 					_1: {
 						ctor: '::',
-						_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_design', 'Composition', s.composition),
+						_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_design', 'Design', s.design),
 						_1: {
 							ctor: '::',
 							_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_smithing', 'Smithing', s.smithing),
@@ -17177,7 +17177,7 @@ var _user$project$Kami$renderDice = F3(
 								_0: A3(_user$project$Kami$renderSkillOption, 'skill_composition', 'Composition', s.composition),
 								_1: {
 									ctor: '::',
-									_0: A3(_user$project$Kami$renderSkillOption, 'skill_design', 'Composition', s.composition),
+									_0: A3(_user$project$Kami$renderSkillOption, 'skill_design', 'Design', s.design),
 									_1: {
 										ctor: '::',
 										_0: A3(_user$project$Kami$renderSkillOption, 'skill_smithing', 'Smithing', s.smithing),
@@ -17373,9 +17373,9 @@ var _user$project$Kami$renderImageAndCharacterOptionsForPhone = F2(
 									},
 									{
 										ctor: '::',
-										_0: (_elm_lang$core$Native_Utils.cmp(
+										_0: ((_elm_lang$core$Native_Utils.cmp(
 											_elm_lang$core$List$length(model.characters),
-											1) > 0) ? A2(
+											1) > 0) || model.admin) ? A2(
 											_elm_lang$html$Html$select,
 											{
 												ctor: '::',
@@ -17474,9 +17474,9 @@ var _user$project$Kami$renderImageAndCharacterOptions = F2(
 					},
 					{
 						ctor: '::',
-						_0: (_elm_lang$core$Native_Utils.cmp(
+						_0: ((_elm_lang$core$Native_Utils.cmp(
 							_elm_lang$core$List$length(model.characters),
-							1) > 0) ? A2(
+							1) > 0) || model.admin) ? A2(
 							_elm_lang$html$Html$select,
 							{
 								ctor: '::',
@@ -18392,93 +18392,99 @@ var _user$project$Kami$update = F2(
 					oldPost,
 					{text: '', diceroll: false, die_size: 0, ring_value: 0, skill_name: '', ring_name: ''});
 				var push = A2(
-					_saschatimme$elm_phoenix$Phoenix_Push$withPayload,
-					_elm_lang$core$Json_Encode$object(
-						{
-							ctor: '::',
-							_0: {
-								ctor: '_Tuple2',
-								_0: 'author_slug',
-								_1: _elm_lang$core$Json_Encode$string(model.post.author_slug)
-							},
-							_1: {
+					_saschatimme$elm_phoenix$Phoenix_Push$onOk,
+					function (response) {
+						return _user$project$Kami$UpdateCharacters(response);
+					},
+					A2(
+						_saschatimme$elm_phoenix$Phoenix_Push$withPayload,
+						_elm_lang$core$Json_Encode$object(
+							{
 								ctor: '::',
 								_0: {
 									ctor: '_Tuple2',
-									_0: 'ooc',
-									_1: _elm_lang$core$Json_Encode$bool(_p3._0)
+									_0: 'author_slug',
+									_1: _elm_lang$core$Json_Encode$string(model.post.author_slug)
 								},
 								_1: {
 									ctor: '::',
 									_0: {
 										ctor: '_Tuple2',
-										_0: 'narrative',
-										_1: _elm_lang$core$Json_Encode$bool(model.post.narrative)
+										_0: 'ooc',
+										_1: _elm_lang$core$Json_Encode$bool(_p3._0)
 									},
 									_1: {
 										ctor: '::',
 										_0: {
 											ctor: '_Tuple2',
-											_0: 'name',
-											_1: _elm_lang$core$Json_Encode$string(model.post.name)
+											_0: 'narrative',
+											_1: _elm_lang$core$Json_Encode$bool(model.post.narrative)
 										},
 										_1: {
 											ctor: '::',
 											_0: {
 												ctor: '_Tuple2',
-												_0: 'text',
-												_1: _elm_lang$core$Json_Encode$string(model.post.text)
+												_0: 'name',
+												_1: _elm_lang$core$Json_Encode$string(model.post.name)
 											},
 											_1: {
 												ctor: '::',
 												_0: {
 													ctor: '_Tuple2',
-													_0: 'diceroll',
-													_1: _elm_lang$core$Json_Encode$bool(model.post.diceroll)
+													_0: 'text',
+													_1: _elm_lang$core$Json_Encode$string(model.post.text)
 												},
 												_1: {
 													ctor: '::',
 													_0: {
 														ctor: '_Tuple2',
-														_0: 'die_size',
-														_1: _elm_lang$core$Json_Encode$int(model.post.die_size)
+														_0: 'diceroll',
+														_1: _elm_lang$core$Json_Encode$bool(model.post.diceroll)
 													},
 													_1: {
 														ctor: '::',
 														_0: {
 															ctor: '_Tuple2',
-															_0: 'ring_value',
-															_1: _elm_lang$core$Json_Encode$int(model.post.ring_value)
+															_0: 'die_size',
+															_1: _elm_lang$core$Json_Encode$int(model.post.die_size)
 														},
 														_1: {
 															ctor: '::',
 															_0: {
 																ctor: '_Tuple2',
-																_0: 'ring_name',
-																_1: _elm_lang$core$Json_Encode$string(model.post.ring_name)
+																_0: 'ring_value',
+																_1: _elm_lang$core$Json_Encode$int(model.post.ring_value)
 															},
 															_1: {
 																ctor: '::',
 																_0: {
 																	ctor: '_Tuple2',
-																	_0: 'skill_name',
-																	_1: _elm_lang$core$Json_Encode$string(model.post.skill_name)
+																	_0: 'ring_name',
+																	_1: _elm_lang$core$Json_Encode$string(model.post.ring_name)
 																},
 																_1: {
 																	ctor: '::',
 																	_0: {
 																		ctor: '_Tuple2',
-																		_0: 'skillroll',
-																		_1: _elm_lang$core$Json_Encode$bool(model.post.skillroll)
+																		_0: 'skill_name',
+																		_1: _elm_lang$core$Json_Encode$string(model.post.skill_name)
 																	},
 																	_1: {
 																		ctor: '::',
 																		_0: {
 																			ctor: '_Tuple2',
-																			_0: 'image',
-																			_1: _elm_lang$core$Json_Encode$string(model.post.image)
+																			_0: 'skillroll',
+																			_1: _elm_lang$core$Json_Encode$bool(model.post.skillroll)
 																		},
-																		_1: {ctor: '[]'}
+																		_1: {
+																			ctor: '::',
+																			_0: {
+																				ctor: '_Tuple2',
+																				_0: 'image',
+																				_1: _elm_lang$core$Json_Encode$string(model.post.image)
+																			},
+																			_1: {ctor: '[]'}
+																		}
 																	}
 																}
 															}
@@ -18489,9 +18495,11 @@ var _user$project$Kami$update = F2(
 										}
 									}
 								}
-							}
-						}),
-					A2(_saschatimme$elm_phoenix$Phoenix_Push$init, 'room:1', 'post'));
+							}),
+						A2(
+							_saschatimme$elm_phoenix$Phoenix_Push$init,
+							A2(_elm_lang$core$Basics_ops['++'], 'room:', model.loc),
+							'post')));
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(

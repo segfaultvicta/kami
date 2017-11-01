@@ -72,7 +72,12 @@ defmodule KamiWeb.LocationController do
 
   def edit(conn, %{"id" => id}) do
     if Kami.Guardian.Plug.current_resource(conn).admin do
-      location = World.get_location!(id)
+      location = location = case Integer.parse(id) do
+        :error ->
+          World.get_location_by_slug!(id)
+        {lid, _} ->
+          World.get_location!(lid)
+      end
       changeset = World.change_location(location)
       render(conn, "edit.html", location: location, changeset: changeset)
     else
@@ -84,7 +89,12 @@ defmodule KamiWeb.LocationController do
 
   def update(conn, %{"id" => id, "location" => location_params}) do
     if Kami.Guardian.Plug.current_resource(conn).admin do
-      location = World.get_location!(id)
+      location = case Integer.parse(id) do
+        :error ->
+          World.get_location_by_slug!(id)
+        {lid, _} ->
+          World.get_location!(lid)
+      end
       case World.update_location(location, location_params) do
         {:ok, location} ->
           conn

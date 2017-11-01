@@ -76,12 +76,15 @@ defmodule KamiWeb.RoomChannel do
     else
       []
     end
-    text = if ooc && text == "" do "\n" else text end
+    text = if ooc && text == "" do "\n" else HtmlSanitizeEx.strip_tags(text) end
     Logger.info text
     Kami.World.create_post(socket.assigns[:location], slug, %{ooc: ooc, narrative: narr, text: text, name: name, image: image, glory: glory, status: status,
                                                               diceroll: dice, skillroll: specialdice, ring_name: ring_name, skill_name: skill_name, results: results, ring_value: ring_value, die_size: face})
     broadcast!(socket, "update_posts", %{posts: get_posts(socket.assigns[:location])})
-    {:reply, {:ok, %{updated_bxp: 0}}, socket}
+    if not ooc and not Kami.World.is_ooc?(socket.assigns[:location]) and not narr and not socket.assigns[:admin] do
+      Kami.Accounts.award_bxp(character)
+    end
+    {:reply, {:ok, %{characters: get_characters(socket.assigns[:user])}}, socket}
   end
 
   defp get_posts(location_id) do

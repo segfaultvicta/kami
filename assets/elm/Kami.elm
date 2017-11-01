@@ -497,7 +497,7 @@ update msg model =
         PushPost ooc ->
             let
                 push =
-                    Push.init "room:1" "post"
+                    Push.init ("room:" ++ model.loc) "post"
                         |> Push.withPayload
                             (JE.object
                                 [ ( "author_slug", JE.string model.post.author_slug )
@@ -514,6 +514,7 @@ update msg model =
                                 , ( "image", JE.string model.post.image )
                                 ]
                             )
+                        |> Push.onOk (\response -> UpdateCharacters response)
 
                 oldPost =
                     model.post
@@ -780,7 +781,7 @@ xpDialogSkills s =
         [ renderDialogSkillOption "" "-=[*]=-" -1
         , renderDialogSkillOption "skill_aesthetics" "Aesthetics" s.aesthetics
         , renderDialogSkillOption "skill_composition" "Composition" s.composition
-        , renderDialogSkillOption "skill_design" "Composition" s.composition
+        , renderDialogSkillOption "skill_design" "Design" s.design
         , renderDialogSkillOption "skill_smithing" "Smithing" s.smithing
         , renderDialogSkillOption "skill_fitness" "Fitness" s.fitness
         , renderDialogSkillOption "skill_melee" "Melee" s.melee
@@ -933,7 +934,7 @@ renderDice s narrative reset =
                 [ renderSelectableSkillOption "" "-=[*]=-" -1 reset
                 , renderSkillOption "skill_aesthetics" "Aesthetics" s.aesthetics
                 , renderSkillOption "skill_composition" "Composition" s.composition
-                , renderSkillOption "skill_design" "Composition" s.composition
+                , renderSkillOption "skill_design" "Design" s.design
                 , renderSkillOption "skill_smithing" "Smithing" s.smithing
                 , renderSkillOption "skill_fitness" "Fitness" s.fitness
                 , renderSkillOption "skill_melee" "Melee" s.melee
@@ -1006,7 +1007,7 @@ renderImageAndCharacterOptionsForPhone model selected =
             ]
         , div [ class "col" ]
             [ div [ class "stats text-center" ]
-                [ if (model.characters |> List.length) > 1 then
+                [ if ((model.characters |> List.length) > 1) || model.admin then
                     select [ onInput ChangeSelectedCharacter, class "custom-select" ]
                         ((if model.admin then
                             [ option [ value "-1" ] [ text "[NARRATIVE]" ] ]
@@ -1040,7 +1041,7 @@ renderImageAndCharacterOptions model selected =
       else
         text ""
     , div [ class "stats text-center options-grid" ]
-        [ if (model.characters |> List.length) > 1 then
+        [ if ((model.characters |> List.length) > 1) || model.admin then
             select [ onInput ChangeSelectedCharacter, class "custom-select" ]
                 ((if model.admin then
                     [ option [ value "-1" ] [ text "[NARRATIVE]" ] ]
@@ -1122,7 +1123,10 @@ renderPost post =
                 text ""
             , div [ class "col post-text" ]
                 [ p [ class "text-justify" ]
-                    [ text (post.name ++ " ")
+                    [ if post.ooc then
+                        text (post.name ++ ": ")
+                      else
+                        text ""
                     , span [ property "innerHTML" (JE.string (String.lines post.text |> String.join "<br>")) ] []
                     ]
                 , if post.ooc && not post.diceroll then

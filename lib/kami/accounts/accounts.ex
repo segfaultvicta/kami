@@ -247,6 +247,18 @@ defmodule Kami.Accounts do
     end
   end
   
+  def award_xp(%Character{} = character, amount) do
+    {new_bxp, to_unlock} = if character.bxp >= amount do
+      {character.bxp - amount, amount}
+    else
+      {0, character.bxp}
+    end
+    xp = amount + to_unlock
+    character
+    |> Character.stat_changeset(%{bxp: if new_bxp != 0 do Float.round(new_bxp, 2) else 0 end, xp: Float.round(character.xp + xp,2), total_xp: Float.round(character.total_xp + xp, 2) })
+    |> Repo.update()
+  end
+  
   def buy_upgrade_for_stat(%Character{} = character, stat_key) do
     try do
       atom = String.to_existing_atom(stat_key)

@@ -1,9 +1,15 @@
 <div class="container mt-2">
   <div class="row">
-    <div class="col">
+    <div class="col-5">
       <h2 class="text-uppercase"><%= @character.family %> <%= @character.name %></h2>
       <%= if @as_admin do %>
-        <span><%= link "Edit", to: character_path(@conn, :edit, @character) %></span>
+        <h4><span><%= link "Edit", to: character_path(@conn, :edit, @character) %></span>
+        Award XP:
+          <span><%= link "1", to: character_path(@conn, :award, @character, "full") %></span>
+          <span><%= link "½", to: character_path(@conn, :award, @character, "half") %></span>
+          <span><%= link "¼", to: character_path(@conn, :award, @character, "quarter") %></span>
+          <span><%= link "⅒", to: character_path(@conn, :award, @character, "tenth") %></span>
+        </h4>
       <% end %>
     </div>
     <div class="col mt-2">

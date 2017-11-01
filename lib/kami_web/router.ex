@@ -46,6 +46,7 @@ defmodule KamiWeb.Router do
     
     resources "/locations", LocationController, except: [:new, :create, :delete]
     resources "/characters", CharacterController
+    get "/characters/:id/award/:amt", CharacterController, :award
   end
 
   # Other scopes may use custom stacks.

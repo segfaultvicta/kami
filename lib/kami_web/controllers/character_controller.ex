@@ -100,6 +100,39 @@ defmodule KamiWeb.CharacterController do
     end
   end
 
+  def award(conn, %{"id" => id, "amt" => amount}) do
+    if Kami.Guardian.Plug.current_resource(conn).admin do
+      character = case Integer.parse(id) do
+        :error ->
+          Accounts.get_character_by_name!(id)
+        {cid, _} ->
+          Accounts.get_character!(id)
+      end
+      amt = cond do
+        amount == "full" -> 1.0
+        amount == "half" -> 0.5
+        amount == "quarter" -> 0.25
+        amount == "tenth" -> 0.1
+        true -> 0
+      end
+      
+      case Accounts.award_xp(character, amt) do
+        {:ok, character} ->
+          conn
+          |> put_flash(:info, "Awarded #{amt} XP!")
+          |> redirect(to: character_path(conn, :show, character))
+        {:error, _ } ->
+          conn
+          |> put_flash(:error, "Something went wrong trying to award XP to that character.")
+          |> redirect(to: character_path(conn, :show, character))
+      end
+    else
+      conn
+      |> put_flash(:error, "Unauthorised action!")
+      |> redirect(to: "/")
+    end
+  end
+
   def update(conn, %{"id" => id, "character" => character_params}) do
     if Kami.Guardian.Plug.current_resource(conn).admin do
       character = Accounts.get_character!(id)
@@ -113,7 +146,7 @@ defmodule KamiWeb.CharacterController do
           render(conn, "edit.html", character: character, changeset: changeset)
       end
     else
-      user_id = Kami.Guardian.Plug.current_resource(conn).id
+      user_id = Kami.Gu1ardian.Plug.current_resource(conn).id
       character = Accounts.get_character!(id)
       if user_id == character.user_id do
         case Accounts.update_character_description(character, character_params) do

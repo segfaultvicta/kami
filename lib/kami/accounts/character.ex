@@ -75,7 +75,7 @@ defmodule Kami.Accounts.Character do
   def changeset(%Character{} = character, attrs) do
     character
     |> cast(attrs, [:name, :clan, :family, :school, :school_rank, :honor, :glory, :status, :strife, :approved, :void_points, :air, :earth, :fire, :water, :void, :skill_aesthetics, :skill_composition, :skill_design, :skill_smithing, :skill_fitness, :skill_iaijutsu, :skill_melee, :skill_ranged, :skill_unarmed, :skill_meditation, :skill_tactics, :skill_command, :skill_courtesy, :skill_games, :skill_performance, :skill_culture, :skill_government, :skill_sentiment, :skill_theology, :skill_medicine, :skill_commerce, :skill_labor, :skill_seafaring, :skill_skullduggery, :skill_survival, :ninjo, :giri, :titles, :distinctions, :adversities, :passions, :anxieties, :outburst, :weapons, :armor, :techniques, :questions, :public_description, :images, :bxp, :bxp_this_week, :xp, :total_xp, :total_spent_xp])
-    |> validate_required([:name, :approved])
+    |> validate_required([:name, :approved, :family])
   end
   
   def description_changeset(%Character{} = character, attrs) do
@@ -87,6 +87,7 @@ defmodule Kami.Accounts.Character do
   def pre_approval_changeset(%Character{} = character, attrs) do
     character
     |> cast(attrs, [:name, :clan, :family, :school, :school_rank, :honor, :glory, :status, :air, :earth, :fire, :water, :void, :skill_aesthetics, :skill_composition, :skill_design, :skill_smithing, :skill_fitness, :skill_iaijutsu, :skill_melee, :skill_ranged, :skill_unarmed, :skill_meditation, :skill_tactics, :skill_command, :skill_courtesy, :skill_games, :skill_performance, :skill_culture, :skill_government, :skill_sentiment, :skill_theology, :skill_medicine, :skill_commerce, :skill_labor, :skill_seafaring, :skill_skullduggery, :skill_survival, :ninjo, :giri, :titles, :distinctions, :adversities, :passions, :anxieties, :outburst, :weapons, :armor, :techniques, :questions, :public_description])
+    |> validate_required([:name, :family])
   end
   
   @doc false

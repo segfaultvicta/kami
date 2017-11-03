@@ -23,7 +23,15 @@ config :logger, level: :info
 
 config :kami,
   bxp_per_post: 0.1,
-  bxp_per_week_max: 8.0
+  bxp_per_week_max: 8.0,
+  xp_per_week: 2
+  
+config :kami, Kami.Scheduler,
+  jobs: [
+    {"1 0 * * 1", {Kami.Accounts, :timer_award_xp, []}},
+    {"1 0 * * 1", {Kami.Accounts, :timer_reset_bxp, []}},
+    {"1 0 * * 1,4", {Kami.Accounts, :timer_decrement_strife, []}},
+  ]
 
 # ## SSL Support
 #

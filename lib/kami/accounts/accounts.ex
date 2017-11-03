@@ -1,4 +1,5 @@
 defmodule Kami.Accounts do
+  require Logger
   @moduledoc """
   The Accounts context.
   """
@@ -218,6 +219,12 @@ defmodule Kami.Accounts do
     |> Character.description_changeset(attrs)
     |> Repo.update()
   end
+  
+  def update_pre_approval(%Character{} = character, attrs) do
+    character
+    |> Character.pre_approval_changeset(attrs)
+    |> Repo.update()
+  end
 
   def update_stat(%Character{} = character, stat_key, delta) do
     try do
@@ -241,8 +248,8 @@ defmodule Kami.Accounts do
     bxp = character.bxp
     if character.bxp_this_week + Application.get_env(:kami, :bxp_per_post) <= Application.get_env(:kami, :bxp_per_week_max) do
       character
-      |> Character.stat_changeset(%{bxp: character.bxp + Application.get_env(:kami, :bxp_per_post), 
-                                    bxp_this_week: character.bxp_this_week + Application.get_env(:kami, :bxp_per_post)})
+      |> Character.stat_changeset(%{bxp: Float.round(character.bxp + Application.get_env(:kami, :bxp_per_post), 2), 
+                                    bxp_this_week: Float.round(character.bxp_this_week + Application.get_env(:kami, :bxp_per_post), 2)})
       |> Repo.update()
     end
   end
@@ -257,6 +264,23 @@ defmodule Kami.Accounts do
     character
     |> Character.stat_changeset(%{bxp: if new_bxp != 0 do Float.round(new_bxp, 2) else 0 end, xp: Float.round(character.xp + xp,2), total_xp: Float.round(character.total_xp + xp, 2) })
     |> Repo.update()
+  end
+  
+  def timer_award_xp() do
+    Character
+    |> Repo.all
+    |> Enum.each(fn(character) -> award_xp(character, Application.get_env(:kami, :xp_per_week)) end)
+  end
+  
+  def timer_reset_bxp() do
+    Character
+    |> Repo.update_all(set: [bxp_this_week: 0])
+  end
+  
+  def timer_decrement_strife() do
+    Character
+    |> Repo.all
+    |> Enum.each(fn(character) -> update_stat(character, "strife", (-1 * character.water)) end)
   end
   
   def buy_upgrade_for_stat(%Character{} = character, stat_key) do
@@ -316,5 +340,9 @@ defmodule Kami.Accounts do
   
   def change_character_description(%Character{} = character) do
     Character.description_changeset(character, %{})
+  end
+  
+  def change_before_approval(%Character{} = character) do
+    Character.pre_approval_changeset(character, %{})
   end
 end

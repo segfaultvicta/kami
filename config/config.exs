@@ -26,6 +26,8 @@ config :kami, Kami.Guardian,
   issuer: "kami",
   secret_key: "y97ylha5R1Rooz4DM7plkJp9XhaT8V2tdTgb7G0rC5J8Uvk8Ze/xUXxe7CVslAy5"
 
+config :kami, Kami.Scheduler,
+  timezone: "America/New_York"
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

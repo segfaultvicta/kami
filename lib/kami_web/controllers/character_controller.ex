@@ -89,9 +89,14 @@ defmodule KamiWeb.CharacterController do
     else
       user_id = Kami.Guardian.Plug.current_resource(conn).id
       character = Accounts.get_character!(id)
-      if user_id == character.user_id do 
-        changeset = Accounts.change_character_description(character)
-        render(conn, "edit_description.html", character: character, changeset: changeset)
+      if user_id == character.user_id do
+        if character.approved do
+          changeset = Accounts.change_character_description(character)
+          render(conn, "edit_description.html", character: character, changeset: changeset)
+        else
+          changeset = Accounts.change_before_approval(character)
+          render(conn, "edit_pre_approval.html", character: character, changeset: changeset)
+        end
       else
         conn
         |> put_flash(:error, "Unauthorised action! You can't edit someone else's character sheet.")
@@ -146,16 +151,27 @@ defmodule KamiWeb.CharacterController do
           render(conn, "edit.html", character: character, changeset: changeset)
       end
     else
-      user_id = Kami.Gu1ardian.Plug.current_resource(conn).id
+      user_id = Kami.Guardian.Plug.current_resource(conn).id
       character = Accounts.get_character!(id)
       if user_id == character.user_id do
-        case Accounts.update_character_description(character, character_params) do
-          {:ok, character} ->
-            conn
-            |> put_flash(:info, "Character updated successfully.")
-            |> redirect(to: character_path(conn, :show, character))
-          {:error, %Ecto.Changeset{} = changeset} ->
-            render(conn, "edit_description.html", character: character, changeset: changeset)
+        if character.approved do
+          case Accounts.update_character_description(character, character_params) do
+            {:ok, character} ->
+              conn
+              |> put_flash(:info, "Character updated successfully.")
+              |> redirect(to: character_path(conn, :show, character))
+            {:error, %Ecto.Changeset{} = changeset} ->
+              render(conn, "edit_description.html", character: character, changeset: changeset)
+          end
+        else
+          case Accounts.update_pre_approval(character, character_params) do
+            {:ok, character} ->
+              conn
+              |> put_flash(:info, "Character updated successfully.")
+              |> redirect(to: character_path(conn, :show, character))
+            {:error, %Ecto.Changeset{} = changeset} ->
+              render(conn, "edit_pre_approval.html", character: character, changeset: changeset)
+          end
         end
       else
         conn

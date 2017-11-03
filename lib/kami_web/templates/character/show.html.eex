@@ -2,6 +2,9 @@
   <div class="row">
     <div class="col-5">
       <h2 class="text-uppercase"><%= @character.family %> <%= @character.name %></h2>
+      <%= if not @as_admin and not @character.approved do %>
+        <span><%= link "Edit", to: character_path(@conn, :edit, @character) %></span>
+      <% end %>
       <%= if @as_admin do %>
         <h4><span><%= link "Edit", to: character_path(@conn, :edit, @character) %></span>
         Award XP:
@@ -50,7 +53,7 @@
   <div class="row">
     <div class="col public-description">
       <strong>Public Description: </strong><%= @character.public_description %><br  />
-      <%= if not @as_admin do %>
+      <%= if not @as_admin and @character.approved do %>
         <span><%= link "Edit Description", to: character_path(@conn, :edit, @character) %></span>
       <% end %>
     </div>

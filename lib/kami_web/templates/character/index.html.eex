@@ -24,8 +24,8 @@
   </thead>
   <tbody>
 <%= for character <- @characters do %>
-    <tr>
-      <td><%= character.name %></td>
+    <tr class="<%= if character.approved do "approved" else "unapproved" end %>">
+      <td><%= character.name %><%= if not character.approved do " - Unapproved" end %></td>
       <td><%= character.clan %></td>
       <td><%= character.family %></td>
       <td><%= character.honor %></td>

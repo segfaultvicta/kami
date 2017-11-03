@@ -254,6 +254,10 @@ body {
   margin-right: 20px;
 }
 
+.unapproved {
+  background-color: #FFAAAA
+}
+
 img.character-image {
   margin: 3px;
 }

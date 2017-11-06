@@ -1,0 +1,29 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= label f, :text, class: "control-label" %>
+    <%= textarea f, :text, class: "form-control" %>
+    <%= error_tag f, :text %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :description, class: "control-label" %>
+    <%= textarea f, :description, class: "form-control" %>
+    <%= error_tag f, :description %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :to_postmaster, class: "control-label" %>
+    <%= checkbox f, :to_postmaster, class: "checkbox" %>
+    <%= error_tag f, :to_postmaster %>
+  </div>
+
+  <div class="form-group">
+    <%= submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>

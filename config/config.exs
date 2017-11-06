@@ -29,6 +29,31 @@ config :kami, Kami.Guardian,
 config :kami, Kami.Scheduler,
   timezone: "America/New_York"
 
+config :arc,
+  storage: Arc.Storage.S3,
+  virtual_host: true,
+  bucket: "gannokoe"
+
+config :ex_aws,
+  access_key_id: "AKIAI46PF7DVSCSTPYBQ",
+  region: "us-east-2",
+  host: "s3.us-east-2.amazonaws.com"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"
+
+# Configure thesis content editor
+config :thesis,
+  store: Thesis.EctoStore,
+  authorization: Kami.ThesisAuth,
+  uploader: Thesis.RepoUploader
+
+config :thesis, Thesis.EctoStore, repo: Kami.Repo
+
+# If you want to allow creating dynamic pages:
+config :thesis, :dynamic_pages,
+  view: KamiWeb.PageView,
+  templates: ["thesis.html"],
+  not_found_view: Kami.ErrorView,
+  not_found_template: "404.html"

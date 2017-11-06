@@ -57,16 +57,18 @@ config :kami, Kami.Repo,
   database: "kami_dev",
   hostname: "localhost",
   pool_size: 10
-  
+
 config :kami, Kami.Scheduler,
   jobs: [
     {"0/10 * * * *", {Kami.Accounts, :timer_award_xp, []}},
     {"0/5 * * * *", {Kami.Accounts, :timer_decrement_strife, []}},
     {"0/10 * * * *", {Kami.Accounts, :timer_reset_bxp, []}}
   ]
-  
-config :kami, 
+
+config :kami,
   elm_secret: "seekrit",
   bxp_per_post: 0.1,
   bxp_per_week_max: 10.0,
   xp_per_week: 2
+
+import_config "dev.secret.exs"

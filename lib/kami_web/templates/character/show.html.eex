@@ -1,5 +1,9 @@
 <div class="container mt-2">
   <div class="row">
+      <div class="col">
+        <img class="character-image" src="<%= @character.image_url %>" width=150>
+        <span class="new-image-link"><%= link "Upload Image", to: character_path(@conn, :new_image, @character) %></span>
+      </div>
     <div class="col-5">
       <h2 class="text-uppercase"><%= @character.family %> <%= @character.name %></h2>
       <%= if not @as_admin and not @character.approved do %>
@@ -378,17 +382,7 @@
     </div>
   </div>
   <hr />
-  
-  <div class="row">
-    <%= if @character.images != nil do %>
-      <%= for image <- @character.images do %>
-        <div class="col">
-          <img class="character-image" src="<%= "http://aurum.aludel.xyz/gnkstatic/" <> image %>" width=150> 
-        </div>
-      <% end %>
-    <% end %>
-  </div>
-  
+
   <h4>TWENTY QUESTIONS</h4>
   <div class="row">
     <div class="col description-text">

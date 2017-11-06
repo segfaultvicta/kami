@@ -1,0 +1,3 @@
+<h2>Upload Image</h2>
+
+<%= render "form_new_image.html", Map.put(assigns, :action, character_path(@conn, :update_image, @character)) %>

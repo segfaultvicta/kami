@@ -1,6 +1,13 @@
 defmodule KamiWeb.Router do
   use KamiWeb, :router
 
+  pipeline :thesis do
+    plug :accepts, ["html"]
+    plug :fetch_session
+    plug :protect_from_forgery
+    plug :put_secure_browser_headers
+  end
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -28,7 +35,7 @@ defmodule KamiWeb.Router do
 
   scope "/", KamiWeb do
     pipe_through :browser
-    
+
     resources "/users", UserController, only: [:new, :create]
     resources "/sessions", SessionController, only: [:new, :create, :delete]
   end
@@ -40,17 +47,26 @@ defmodule KamiWeb.Router do
     get "/archive", ArchiveController, :index
     get "/archive/:loc", ArchiveController, :show
   end
-  
+
   scope "/", KamiWeb do
     pipe_through [:browser, :browser_auth]
-    
+
     resources "/locations", LocationController, except: [:new, :create, :delete]
     resources "/characters", CharacterController
+    resources "/letters", LetterController, except: [:delete]
     get "/characters/:id/award/:amt", CharacterController, :award
+    get "/characters/:id/new_image", CharacterController, :new_image
+    put "/characters/:id/new_image", CharacterController, :update_image
   end
 
   # Other scopes may use custom stacks.
   scope "/api/", KamiWeb do
     pipe_through :api
+  end
+
+  scope "/", KamiWeb do
+    pipe_through [:browser, :maybe_auth]
+
+    get "/*path", PageController, :dynamic
   end
 end

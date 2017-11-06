@@ -1,7 +1,10 @@
 <div class="container mt-2">
   <div class="row">
     <div class="col">
-      <h2><%= @character.family %> <%= @character.name %></h2>
+      <img class="character-image" src="<%= @character.image_url %>" width=150>
+    </div>
+    <div class="col">
+      <h2 class="text-uppercase"><%= @character.family %> <%= @character.name %></h2>
     </div>
     <div class="col mt-2">
       <strong>Glory:</strong> <%= @character.glory %>
@@ -14,12 +17,5 @@
     <div class="col public-description">
       <%= @character.public_description %>
     </div>
-  </div>
-  <div class="row">
-    <%= for image <- @character.images do %>
-      <div class="col">
-        <img class="character-image" src="<%= "http://aurum.aludel.xyz/gnkstatic/" <> image %>" width=150> 
-      </div>
-    <% end %>
   </div>
 </div>

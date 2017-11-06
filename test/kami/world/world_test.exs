@@ -156,4 +156,68 @@ defmodule Kami.WorldTest do
       assert %Ecto.Changeset{} = World.change_location(location)
     end
   end
+
+  describe "letters" do
+    alias Kami.World.Letter
+
+    @valid_attrs %{description: "some description", text: "some text", to_postmaster: true}
+    @update_attrs %{description: "some updated description", text: "some updated text", to_postmaster: false}
+    @invalid_attrs %{description: nil, text: nil, to_postmaster: nil}
+
+    def letter_fixture(attrs \\ %{}) do
+      {:ok, letter} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> World.create_letter()
+
+      letter
+    end
+
+    test "list_letters/0 returns all letters" do
+      letter = letter_fixture()
+      assert World.list_letters() == [letter]
+    end
+
+    test "get_letter!/1 returns the letter with given id" do
+      letter = letter_fixture()
+      assert World.get_letter!(letter.id) == letter
+    end
+
+    test "create_letter/1 with valid data creates a letter" do
+      assert {:ok, %Letter{} = letter} = World.create_letter(@valid_attrs)
+      assert letter.description == "some description"
+      assert letter.text == "some text"
+      assert letter.to_postmaster == true
+    end
+
+    test "create_letter/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = World.create_letter(@invalid_attrs)
+    end
+
+    test "update_letter/2 with valid data updates the letter" do
+      letter = letter_fixture()
+      assert {:ok, letter} = World.update_letter(letter, @update_attrs)
+      assert %Letter{} = letter
+      assert letter.description == "some updated description"
+      assert letter.text == "some updated text"
+      assert letter.to_postmaster == false
+    end
+
+    test "update_letter/2 with invalid data returns error changeset" do
+      letter = letter_fixture()
+      assert {:error, %Ecto.Changeset{}} = World.update_letter(letter, @invalid_attrs)
+      assert letter == World.get_letter!(letter.id)
+    end
+
+    test "delete_letter/1 deletes the letter" do
+      letter = letter_fixture()
+      assert {:ok, %Letter{}} = World.delete_letter(letter)
+      assert_raise Ecto.NoResultsError, fn -> World.get_letter!(letter.id) end
+    end
+
+    test "change_letter/1 returns a letter changeset" do
+      letter = letter_fixture()
+      assert %Ecto.Changeset{} = World.change_letter(letter)
+    end
+  end
 end

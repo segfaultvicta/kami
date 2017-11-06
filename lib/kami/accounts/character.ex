@@ -3,6 +3,8 @@ defmodule Kami.Accounts.Character do
   import Ecto.Changeset
   alias Kami.Accounts.Character
 
+  use Arc.Ecto.Schema
+
 
   schema "characters" do
     field :strife, :integer
@@ -39,7 +41,7 @@ defmodule Kami.Accounts.Character do
     field :skill_design, :integer
     field :skill_culture, :integer
     field :distinctions, :string
-    field :images, {:array, :string}
+    field :image, Kami.Avatar.Type
     field :giri, :string
     field :xp, :float
     field :weapons, :string
@@ -67,6 +69,9 @@ defmodule Kami.Accounts.Character do
     field :total_spent_xp, :integer
     
     belongs_to :user, Kami.Accounts.User
+    
+    has_many :letters_received, Kami.World.Letter, foreign_key: :recipient_id
+    has_many :letters_written, Kami.World.Letter, foreign_key: :author_id
 
     timestamps()
   end
@@ -74,7 +79,7 @@ defmodule Kami.Accounts.Character do
   @doc false
   def changeset(%Character{} = character, attrs) do
     character
-    |> cast(attrs, [:name, :clan, :family, :school, :school_rank, :honor, :glory, :status, :strife, :approved, :void_points, :air, :earth, :fire, :water, :void, :skill_aesthetics, :skill_composition, :skill_design, :skill_smithing, :skill_fitness, :skill_iaijutsu, :skill_melee, :skill_ranged, :skill_unarmed, :skill_meditation, :skill_tactics, :skill_command, :skill_courtesy, :skill_games, :skill_performance, :skill_culture, :skill_government, :skill_sentiment, :skill_theology, :skill_medicine, :skill_commerce, :skill_labor, :skill_seafaring, :skill_skullduggery, :skill_survival, :ninjo, :giri, :titles, :distinctions, :adversities, :passions, :anxieties, :outburst, :weapons, :armor, :techniques, :questions, :public_description, :images, :bxp, :bxp_this_week, :xp, :total_xp, :total_spent_xp])
+    |> cast(attrs, [:name, :clan, :family, :school, :school_rank, :honor, :glory, :status, :strife, :approved, :void_points, :air, :earth, :fire, :water, :void, :skill_aesthetics, :skill_composition, :skill_design, :skill_smithing, :skill_fitness, :skill_iaijutsu, :skill_melee, :skill_ranged, :skill_unarmed, :skill_meditation, :skill_tactics, :skill_command, :skill_courtesy, :skill_games, :skill_performance, :skill_culture, :skill_government, :skill_sentiment, :skill_theology, :skill_medicine, :skill_commerce, :skill_labor, :skill_seafaring, :skill_skullduggery, :skill_survival, :ninjo, :giri, :titles, :distinctions, :adversities, :passions, :anxieties, :outburst, :weapons, :armor, :techniques, :questions, :public_description, :bxp, :bxp_this_week, :xp, :total_xp, :total_spent_xp])
     |> validate_required([:name, :approved, :family])
   end
   
@@ -94,6 +99,12 @@ defmodule Kami.Accounts.Character do
   def stat_changeset(%Character{} = character, attrs) do
     character
     |> cast(attrs, [:strife, :void_points, :air, :earth, :fire, :water, :void, :skill_aesthetics, :skill_composition, :skill_design, :skill_smithing, :skill_fitness, :skill_iaijutsu, :skill_melee, :skill_ranged, :skill_unarmed, :skill_meditation, :skill_tactics, :skill_command, :skill_courtesy, :skill_games, :skill_performance, :skill_culture, :skill_government, :skill_sentiment, :skill_theology, :skill_medicine, :skill_commerce, :skill_labor, :skill_seafaring, :skill_skullduggery, :skill_survival, :bxp, :xp, :bxp_this_week, :total_xp, :total_spent_xp])
+  end
+  
+  def image_changeset(%Character{} = character, attrs \\ :invalid) do
+    character
+    |> cast_attachments(attrs, [:image])
+    |> validate_required([:image])
   end
   
   def get_value(character, key) do

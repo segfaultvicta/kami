@@ -44,6 +44,7 @@ defmodule KamiWeb.CharacterController do
 
   def show(conn, %{"id" => id}) when is_integer(id) do
     character = Accounts.get_character!(id)
+    character = Map.put(character, :image_url, Kami.Accounts.image_url(character))
     user = Kami.Guardian.Plug.current_resource(conn)
     if user.admin or character.user_id == user.id do
       show_full_character(conn, character, user.admin)
@@ -51,14 +52,15 @@ defmodule KamiWeb.CharacterController do
       show_public_character(conn, character)
     end
   end
-  
+
   def show(conn, %{"id" => id}) do
     character = case Integer.parse(id) do
       :error ->
         Accounts.get_character_by_name!(id)
       {cid, _} ->
-        Accounts.get_character!(id)
+        Accounts.get_character!(cid)
     end
+    character = Map.put(character, :image_url, Kami.Accounts.image_url(character))
     user = Kami.Guardian.Plug.current_resource(conn)
     if user.admin or character.user_id == user.id do
       show_full_character(conn, character, user.admin)
@@ -66,14 +68,14 @@ defmodule KamiWeb.CharacterController do
       show_public_character(conn, character)
     end
   end
-  
+
   def show_public_character(conn, character) do
     render(conn, "show_public.html", character: character)
   end
-  
+
   def show_full_character(conn, character, as_admin) do
     if not character.approved do
-      conn 
+      conn
       |> put_flash(:error, "Note: Character is not currently in an approved state.")
       |> render("show.html", character: character, as_admin: as_admin)
     else
@@ -105,13 +107,31 @@ defmodule KamiWeb.CharacterController do
     end
   end
 
+  def new_image(conn, %{"id" => id}) do
+    user_id = Kami.Guardian.Plug.current_resource(conn).id
+    character = case Integer.parse(id) do
+      :error ->
+        Accounts.get_character_by_name!(id)
+      {cid, _} ->
+        Accounts.get_character!(cid)
+    end
+    if user_id == character.user_id do
+      changeset = Accounts.change_image(character)
+      render(conn, "new_image.html", character: character, changeset: changeset)
+    else
+      conn
+      |> put_flash(:error, "Unauthorised action!")
+      |> redirect(to: "/")
+    end
+  end
+
   def award(conn, %{"id" => id, "amt" => amount}) do
     if Kami.Guardian.Plug.current_resource(conn).admin do
       character = case Integer.parse(id) do
         :error ->
           Accounts.get_character_by_name!(id)
         {cid, _} ->
-          Accounts.get_character!(id)
+          Accounts.get_character!(cid)
       end
       amt = cond do
         amount == "full" -> 1.0
@@ -120,7 +140,7 @@ defmodule KamiWeb.CharacterController do
         amount == "tenth" -> 0.1
         true -> 0
       end
-      
+
       case Accounts.award_xp(character, amt) do
         {:ok, character} ->
           conn
@@ -130,6 +150,32 @@ defmodule KamiWeb.CharacterController do
           conn
           |> put_flash(:error, "Something went wrong trying to award XP to that character.")
           |> redirect(to: character_path(conn, :show, character))
+      end
+    else
+      conn
+      |> put_flash(:error, "Unauthorised action!")
+      |> redirect(to: "/")
+    end
+  end
+
+
+
+  def update_image(conn, %{"id" => id, "character" => params}) do
+    user_id = Kami.Guardian.Plug.current_resource(conn).id
+    character = case Integer.parse(id) do
+      :error ->
+        Accounts.get_character_by_name!(id)
+      {cid, _} ->
+        Accounts.get_character!(cid)
+    end
+    if user_id == character.user_id do
+      case Accounts.update_image(character, params) do
+        {:ok, character} ->
+          conn
+          |> put_flash(:info, "Image uploaded!")
+          |> redirect(to: character_path(conn, :show, character))
+        {:error, %Ecto.Changeset{} = changeset} ->
+          render(conn, "new_image.html", character: character, changeset: changeset)
       end
     else
       conn

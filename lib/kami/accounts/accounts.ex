@@ -39,10 +39,10 @@ defmodule Kami.Accounts do
   """
   def get_user!(id), do: Repo.get!(User, id)
 
-  def get(id) do 
+  def get(id) do
     Repo.get(User, id)
   end
-  
+
   def get_by(%{"username" => user}) do
     Repo.get_by(User, username: user)
   end
@@ -63,10 +63,10 @@ defmodule Kami.Accounts do
     {res, user} = %User{admin: false}
     |> User.registration_changeset(attrs)
     |> Repo.insert()
-    
+
     if res == :ok do
-      case create_character(user, %{name: (user.name |> String.capitalize), approved: false, images: []}) do
-        {:ok, character} ->
+      case create_character(user, %{name: (user.name |> String.capitalize), approved: false, image: "", family: "New Account", air: 1, water: 1, earth: 1, fire: 1, void: 1}) do
+        {:ok, _} ->
           {:ok, user}
         _ ->
           {:error, "Error creating character for new user."}
@@ -160,7 +160,7 @@ defmodule Kami.Accounts do
 
   """
   def get_character!(id), do: Repo.get!(Character, id)
-  
+
   def get_character_by_name!(name) do
     Repo.get_by!(Character, name: String.capitalize(name))
   end
@@ -169,12 +169,17 @@ defmodule Kami.Accounts do
     user = User |> Repo.get(id) |> Repo.preload(:characters)
     List.first(user.characters)
   end
-  
+
   def get_characters(id) do
     User
     |> Repo.get(id)
     |> Repo.preload(:characters)
     |> Map.get(:characters)
+  end
+
+  def image_url(%Character{} = character) do
+    Kami.Avatar.url({character.image, character})
+    #"https://gannokoe.s3.amazonaws.com/uploads/" <> character.image.file_name
   end
 
   @doc """
@@ -219,10 +224,16 @@ defmodule Kami.Accounts do
     |> Character.description_changeset(attrs)
     |> Repo.update()
   end
-  
+
   def update_pre_approval(%Character{} = character, attrs) do
     character
     |> Character.pre_approval_changeset(attrs)
+    |> Repo.update()
+  end
+
+  def update_image(%Character{} = character, attrs) do
+    character
+    |> Character.image_changeset(attrs)
     |> Repo.update()
   end
 
@@ -239,21 +250,20 @@ defmodule Kami.Accounts do
         |> Repo.update()
       end
     rescue
-      e in ArgumentError -> {:error, "invalid stat key"}
-      e in ArithmeticError -> {:error, "invalid stat delta"}
+      _ in ArgumentError -> {:error, "invalid stat key"}
+      _ in ArithmeticError -> {:error, "invalid stat delta"}
     end
   end
-  
+
   def award_bxp(%Character{} = character) do
-    bxp = character.bxp
     if character.bxp_this_week + Application.get_env(:kami, :bxp_per_post) <= Application.get_env(:kami, :bxp_per_week_max) do
       character
-      |> Character.stat_changeset(%{bxp: Float.round(character.bxp + Application.get_env(:kami, :bxp_per_post), 2), 
+      |> Character.stat_changeset(%{bxp: Float.round(character.bxp + Application.get_env(:kami, :bxp_per_post), 2),
                                     bxp_this_week: Float.round(character.bxp_this_week + Application.get_env(:kami, :bxp_per_post), 2)})
       |> Repo.update()
     end
   end
-  
+
   def award_xp(%Character{} = character, amount) do
     {new_bxp, to_unlock} = if character.bxp >= amount do
       {character.bxp - amount, amount}
@@ -265,24 +275,24 @@ defmodule Kami.Accounts do
     |> Character.stat_changeset(%{bxp: if new_bxp != 0 do Float.round(new_bxp, 2) else 0 end, xp: Float.round(character.xp + xp,2), total_xp: Float.round(character.total_xp + xp, 2) })
     |> Repo.update()
   end
-  
+
   def timer_award_xp() do
     Character
     |> Repo.all
     |> Enum.each(fn(character) -> award_xp(character, Application.get_env(:kami, :xp_per_week)) end)
   end
-  
+
   def timer_reset_bxp() do
     Character
     |> Repo.update_all(set: [bxp_this_week: 0])
   end
-  
+
   def timer_decrement_strife() do
     Character
     |> Repo.all
     |> Enum.each(fn(character) -> update_stat(character, "strife", (-1 * character.water)) end)
   end
-  
+
   def buy_upgrade_for_stat(%Character{} = character, stat_key) do
     try do
       atom = String.to_existing_atom(stat_key)
@@ -305,7 +315,7 @@ defmodule Kami.Accounts do
         end
       end
     rescue
-      e in ArgumentError -> {:error, "invalid stat key"}
+      _ in ArgumentError -> {:error, "invalid stat key"}
     end
   end
 
@@ -337,12 +347,16 @@ defmodule Kami.Accounts do
   def change_character(%Character{} = character) do
     Character.changeset(character, %{})
   end
-  
+
   def change_character_description(%Character{} = character) do
     Character.description_changeset(character, %{})
   end
-  
+
   def change_before_approval(%Character{} = character) do
     Character.pre_approval_changeset(character, %{})
+  end
+
+  def change_image(%Character{} = character) do
+    Character.image_changeset(character, %{})
   end
 end

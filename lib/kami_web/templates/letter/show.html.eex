@@ -1,0 +1,23 @@
+<h2>Show Letter</h2>
+
+<ul>
+
+  <li>
+    <strong>Text:</strong>
+    <%= @letter.text %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @letter.description %>
+  </li>
+
+  <li>
+    <strong>To postmaster:</strong>
+    <%= @letter.to_postmaster %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: letter_path(@conn, :edit, @letter) %></span>
+<span><%= link "Back", to: letter_path(@conn, :index) %></span>

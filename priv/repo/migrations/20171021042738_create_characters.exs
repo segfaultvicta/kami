@@ -57,7 +57,7 @@ defmodule Kami.Repo.Migrations.CreateCharacters do
       add :techniques, :text, default: ""
       add :questions, :text, default: ""
       add :public_description, :text, default: ""
-      add :images, {:array, :string}
+      add :image, :string, default: ""
       add :bxp, :float, default: 0
       add :bxp_this_week, :float, default: 0
       add :xp, :float, default: 0

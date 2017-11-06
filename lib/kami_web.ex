@@ -23,6 +23,8 @@ defmodule KamiWeb do
       import Plug.Conn
       import KamiWeb.Router.Helpers
       import KamiWeb.Gettext
+
+      use Thesis.Controller
     end
   end
 
@@ -41,6 +43,8 @@ defmodule KamiWeb do
       import KamiWeb.ErrorHelpers
       import KamiWeb.ViewHelpers
       import KamiWeb.Gettext
+
+      use Thesis.View
     end
   end
 
@@ -49,6 +53,8 @@ defmodule KamiWeb do
       use Phoenix.Router
       import Plug.Conn
       import Phoenix.Controller
+
+      use Thesis.Router
     end
   end
 

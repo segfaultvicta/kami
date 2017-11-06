@@ -1,10 +1,32 @@
-<p class="text-center font-italic frontispiece">
-Whoever you are, no matter how lonely,<br />
-the world offers itself to your imagination,<br />
-calls to you like the wild geese, harsh and exciting --<br />
-over and over announcing your place<br />
-in the family of things.<br />
-</p>
-<p class="text-center">
-Mary Oliver, “Wild Geese”
-</p>
+<div class="row">
+  <div class="col">
+    <div class="frontpage-across-container text-center frontispiece">
+      <%= content(@conn, "frontpageacross", :html) do %>
+      Edit Me
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <div class="frontpage-left-container">
+      <%= content(@conn, "frontpageleft", :html) do %>
+      Edit Me
+      <% end %>
+    </div>
+  </div>
+  <div class="col">
+    <div class="frontpage-centre-container">
+      <%= content(@conn, "frontpagecentre", :html) do %>
+      Edit Me
+      <% end %>
+    </div>
+  </div>
+  <div class="col">
+    <div class="frontpage-right-container">
+      <%= content(@conn, "frontpageright", :html) do %>
+      Edit Me
+      <% end %>
+    </div>
+  </div>
+</div>

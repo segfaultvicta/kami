@@ -15774,8 +15774,7 @@ var _user$project$Kami$renderPost = function (post) {
 											_0: _elm_lang$html$Html_Attributes$class('character-image'),
 											_1: {
 												ctor: '::',
-												_0: _elm_lang$html$Html_Attributes$src(
-													A2(_elm_lang$core$Basics_ops['++'], 'http://aurum.aludel.xyz/gnkstatic/', post.image)),
+												_0: _elm_lang$html$Html_Attributes$src(post.image),
 												_1: {
 													ctor: '::',
 													_0: _elm_lang$html$Html_Attributes$width(150),
@@ -16128,26 +16127,6 @@ var _user$project$Kami$characterOption = F2(
 				_1: {ctor: '[]'}
 			});
 	});
-var _user$project$Kami$imageOption = F2(
-	function (current, filename) {
-		return A2(
-			_elm_lang$html$Html$option,
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html_Attributes$selected(
-					_elm_lang$core$Native_Utils.eq(current, filename)),
-				_1: {
-					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$value(filename),
-					_1: {ctor: '[]'}
-				}
-			},
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html$text(filename),
-				_1: {ctor: '[]'}
-			});
-	});
 var _user$project$Kami$renderSkillOption = F3(
 	function (skill, name, val) {
 		var pretty = (_elm_lang$core$Native_Utils.cmp(val, 0) > -1) ? A2(
@@ -16357,7 +16336,7 @@ var _user$project$Kami$Character = function (a) {
 																																						return function (_13) {
 																																							return function (_14) {
 																																								return function (_15) {
-																																									return {name: a, family: b, approved: c, status: d, glory: e, air: f, earth: g, fire: h, water: i, $void: j, strife: k, user: l, xp: m, bxp: n, images: o, void_points: p, aesthetics: q, composition: r, design: s, smithing: t, fitness: u, melee: v, ranged: w, unarmed: x, iaijutsu: y, meditation: z, tactics: _1, culture: _2, government: _3, sentiment: _4, theology: _5, medicine: _6, command: _7, courtesy: _8, games: _9, performance: _10, commerce: _11, labor: _12, seafaring: _13, skulduggery: _14, survival: _15};
+																																									return {name: a, family: b, approved: c, status: d, glory: e, air: f, earth: g, fire: h, water: i, $void: j, strife: k, user: l, xp: m, bxp: n, image: o, void_points: p, aesthetics: q, composition: r, design: s, smithing: t, fitness: u, melee: v, ranged: w, unarmed: x, iaijutsu: y, meditation: z, tactics: _1, culture: _2, government: _3, sentiment: _4, theology: _5, medicine: _6, command: _7, courtesy: _8, games: _9, performance: _10, commerce: _11, labor: _12, seafaring: _13, skulduggery: _14, survival: _15};
 																																								};
 																																							};
 																																						};
@@ -16408,8 +16387,7 @@ var _user$project$Kami$getCharacter = F2(
 		if (_p2.ctor === 'Just') {
 			return _p2._0;
 		} else {
-			return _user$project$Kami$Character('[Narrative]')('')(true)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(
-				{ctor: '[]'})(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0);
+			return _user$project$Kami$Character('[Narrative]')('')(true)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)('')(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0);
 		}
 	});
 var _user$project$Kami$characterDecoder = A3(
@@ -16518,8 +16496,8 @@ var _user$project$Kami$characterDecoder = A3(
 																										_elm_lang$core$Json_Decode$int,
 																										A3(
 																											_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-																											'images',
-																											_elm_lang$core$Json_Decode$list(_elm_lang$core$Json_Decode$string),
+																											'image',
+																											_elm_lang$core$Json_Decode$string,
 																											A3(
 																												_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
 																												'bxp',
@@ -17345,8 +17323,7 @@ var _user$project$Kami$renderImageAndCharacterOptionsForPhone = F2(
 									_0: _elm_lang$html$Html_Attributes$class('character-image mt-1 mb-1 ml-0'),
 									_1: {
 										ctor: '::',
-										_0: _elm_lang$html$Html_Attributes$src(
-											A2(_elm_lang$core$Basics_ops['++'], 'http://aurum.aludel.xyz/gnkstatic/', model.post.image)),
+										_0: _elm_lang$html$Html_Attributes$src(model.post.image),
 										_1: {ctor: '[]'}
 									}
 								},
@@ -17416,27 +17393,7 @@ var _user$project$Kami$renderImageAndCharacterOptionsForPhone = F2(
 												_0: _elm_lang$html$Html$text(model.post.name),
 												_1: {ctor: '[]'}
 											}),
-										_1: {
-											ctor: '::',
-											_0: (_elm_lang$core$Native_Utils.cmp(
-												_elm_lang$core$List$length(selected.images),
-												0) > 0) ? A2(
-												_elm_lang$html$Html$select,
-												{
-													ctor: '::',
-													_0: _elm_lang$html$Html_Events$onInput(_user$project$Kami$ChangeImage),
-													_1: {
-														ctor: '::',
-														_0: _elm_lang$html$Html_Attributes$class('custom-select'),
-														_1: {ctor: '[]'}
-													}
-												},
-												A2(
-													_elm_lang$core$List$map,
-													_user$project$Kami$imageOption(model.post.image),
-													selected.images)) : _elm_lang$html$Html$text(''),
-											_1: {ctor: '[]'}
-										}
+										_1: {ctor: '[]'}
 									}),
 								_1: {ctor: '[]'}
 							}),
@@ -17457,8 +17414,7 @@ var _user$project$Kami$renderImageAndCharacterOptions = F2(
 					_0: _elm_lang$html$Html_Attributes$class('character-image'),
 					_1: {
 						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$src(
-							A2(_elm_lang$core$Basics_ops['++'], 'http://aurum.aludel.xyz/gnkstatic/', model.post.image)),
+						_0: _elm_lang$html$Html_Attributes$src(model.post.image),
 						_1: {ctor: '[]'}
 					}
 				},
@@ -17517,27 +17473,7 @@ var _user$project$Kami$renderImageAndCharacterOptions = F2(
 								_0: _elm_lang$html$Html$text(model.post.name),
 								_1: {ctor: '[]'}
 							}),
-						_1: {
-							ctor: '::',
-							_0: (_elm_lang$core$Native_Utils.cmp(
-								_elm_lang$core$List$length(selected.images),
-								0) > 0) ? A2(
-								_elm_lang$html$Html$select,
-								{
-									ctor: '::',
-									_0: _elm_lang$html$Html_Events$onInput(_user$project$Kami$ChangeImage),
-									_1: {
-										ctor: '::',
-										_0: _elm_lang$html$Html_Attributes$class('custom-select'),
-										_1: {ctor: '[]'}
-									}
-								},
-								A2(
-									_elm_lang$core$List$map,
-									_user$project$Kami$imageOption(model.post.image),
-									selected.images)) : _elm_lang$html$Html$text(''),
-							_1: {ctor: '[]'}
-						}
+						_1: {ctor: '[]'}
 					}),
 				_1: {ctor: '[]'}
 			}
@@ -18041,10 +17977,6 @@ var _user$project$Kami$update = F2(
 						_elm_lang$core$Basics_ops['++'],
 						character.family,
 						A2(_elm_lang$core$Basics_ops['++'], ' ', character.name));
-					var firstImage = A2(
-						_elm_lang$core$Maybe$withDefault,
-						'',
-						_elm_lang$core$List$head(character.images));
 					var initPost = function () {
 						var _p5 = admin;
 						if (_p5 === true) {
@@ -18052,7 +17984,7 @@ var _user$project$Kami$update = F2(
 								{ctor: '[]'})('')('')(0)(true)('')('')('');
 						} else {
 							return _user$project$Kami$Post(slug)(false)(false)(name)(character.glory)(character.status)('')(false)(0)(
-								{ctor: '[]'})('')('')(0)(true)(firstImage)('')('');
+								{ctor: '[]'})('')('')(0)(true)(character.image)('')('');
 						}
 					}();
 					return A2(
@@ -18136,13 +18068,9 @@ var _user$project$Kami$update = F2(
 					_elm_lang$core$Basics_ops['++'],
 					selected.family,
 					A2(_elm_lang$core$Basics_ops['++'], ' ', selected.name));
-				var firstImage = A2(
-					_elm_lang$core$Maybe$withDefault,
-					'',
-					_elm_lang$core$List$head(selected.images));
 				var newPost = _elm_lang$core$Native_Utils.update(
 					oldPost,
-					{name: full_name, author_slug: author_slug, narrative: narrative, image: firstImage, diceroll: false, skill_name: '', ring_name: '', glory: selected.glory, status: selected.status});
+					{name: full_name, author_slug: author_slug, narrative: narrative, image: selected.image, diceroll: false, skill_name: '', ring_name: '', glory: selected.glory, status: selected.status});
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(

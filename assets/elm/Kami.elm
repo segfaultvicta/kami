@@ -60,7 +60,7 @@ getCharacter list index =
             character
 
         Nothing ->
-            Character "[Narrative]" "" True 0 0 0 0 0 0 0 0 0 0 0 [] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+            Character "[Narrative]" "" True 0 0 0 0 0 0 0 0 0 0 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 
 
 type alias Character =
@@ -78,7 +78,7 @@ type alias Character =
     , user : Int
     , xp : Float
     , bxp : Float
-    , images : List String
+    , image : String
     , void_points : Int
     , aesthetics : Int
     , composition : Int
@@ -245,9 +245,6 @@ update msg model =
                         name =
                             character.family ++ " " ++ character.name
 
-                        firstImage =
-                            character.images |> List.head |> Maybe.withDefault ""
-
                         posts =
                             payloadContainer.posts
 
@@ -257,7 +254,7 @@ update msg model =
                                     Post "" False True "-=[Narrative]=-" 0 0 "" False 0 [] "" "" 0 True "" "" ""
 
                                 False ->
-                                    Post slug False False name character.glory character.status "" False 0 [] "" "" 0 True firstImage "" ""
+                                    Post slug False False name character.glory character.status "" False 0 [] "" "" 0 True character.image "" ""
                     in
                     { model | post = initPost, admin = admin, selectedCharacter = selectedCharacter, posts = payloadContainer.posts, characters = payloadContainer.characters } ! []
 
@@ -311,9 +308,6 @@ update msg model =
                 full_name =
                     selected.family ++ " " ++ selected.name
 
-                firstImage =
-                    selected.images |> List.head |> Maybe.withDefault ""
-
                 narrative =
                     s == "-1"
 
@@ -321,7 +315,7 @@ update msg model =
                     model.post
 
                 newPost =
-                    { oldPost | name = full_name, author_slug = author_slug, narrative = narrative, image = firstImage, diceroll = False, skill_name = "", ring_name = "", glory = selected.glory, status = selected.status }
+                    { oldPost | name = full_name, author_slug = author_slug, narrative = narrative, image = selected.image, diceroll = False, skill_name = "", ring_name = "", glory = selected.glory, status = selected.status }
             in
             { model | post = newPost, selectedCharacter = selectedCharacter } ! []
 
@@ -622,7 +616,7 @@ characterDecoder =
         |> required "user" JD.int
         |> required "xp" JD.float
         |> required "bxp" JD.float
-        |> required "images" (JD.list JD.string)
+        |> required "image" JD.string
         |> required "void_points" JD.int
         |> required "aesthetics" JD.int
         |> required "composition" JD.int
@@ -1001,7 +995,7 @@ renderImageAndCharacterOptionsForPhone model selected =
     [ div [ class "row" ]
         [ div [ class "col" ]
             [ if not (model.post.image == "") then
-                img [ class "character-image mt-1 mb-1 ml-0", src ("http://aurum.aludel.xyz/gnkstatic/" ++ model.post.image) ] []
+                img [ class "character-image mt-1 mb-1 ml-0", src model.post.image ] []
               else
                 text ""
             ]
@@ -1020,14 +1014,6 @@ renderImageAndCharacterOptionsForPhone model selected =
                         )
                   else
                     strong [] [ text model.post.name ]
-                , if (selected.images |> List.length) > 0 then
-                    select [ onInput ChangeImage, class "custom-select" ]
-                        (List.map
-                            (imageOption model.post.image)
-                            selected.images
-                        )
-                  else
-                    text ""
                 ]
             ]
         ]
@@ -1037,7 +1023,7 @@ renderImageAndCharacterOptionsForPhone model selected =
 renderImageAndCharacterOptions : Model -> Character -> List (Html Msg)
 renderImageAndCharacterOptions model selected =
     [ if not (model.post.image == "") then
-        img [ class "character-image", src ("http://aurum.aludel.xyz/gnkstatic/" ++ model.post.image) ] []
+        img [ class "character-image", src model.post.image ] []
       else
         text ""
     , div [ class "stats text-center options-grid" ]
@@ -1054,21 +1040,8 @@ renderImageAndCharacterOptions model selected =
                 )
           else
             strong [] [ text model.post.name ]
-        , if (selected.images |> List.length) > 0 then
-            select [ onInput ChangeImage, class "custom-select" ]
-                (List.map
-                    (imageOption model.post.image)
-                    selected.images
-                )
-          else
-            text ""
         ]
     ]
-
-
-imageOption : String -> String -> Html Msg
-imageOption current filename =
-    option [ selected (current == filename), value filename ] [ text filename ]
 
 
 characterOption : Int -> Character -> Html Msg
@@ -1109,7 +1082,7 @@ renderPost post =
                 a [ href ("/characters/" ++ post.author_slug) ]
                     [ div [ class "col-2 image" ]
                         [ if not (post.image == "") then
-                            img [ class "character-image", src ("http://aurum.aludel.xyz/gnkstatic/" ++ post.image), Html.Attributes.width 150 ] []
+                            img [ class "character-image", src post.image, Html.Attributes.width 150 ] []
                           else
                             text ""
                         , div [ class "stats text-center" ]

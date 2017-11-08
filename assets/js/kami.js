@@ -16246,7 +16246,7 @@ var _user$project$Kami$xpDialogHeader = function (selected) {
 			}
 		});
 };
-var _user$project$Kami$lobbySocket = 'ws://gaius.ddns.net:8686/socket/websocket';
+var _user$project$Kami$lobbySocket = 'ws://gannokoe.aludel.xyz:8686/socket/websocket';
 var _user$project$Kami$roundDownToSecond = function (ms) {
 	return _elm_lang$core$Basics$toFloat(
 		A2(

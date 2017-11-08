@@ -707,7 +707,7 @@ characterDecoder =
 
 lobbySocket : String
 lobbySocket =
-    "ws://gaius.ddns.net:8686/socket/websocket"
+    "ws://gannokoe.aludel.xyz:8686/socket/websocket"
 
 
 socket : Socket Msg

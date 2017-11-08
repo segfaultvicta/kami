@@ -1,6 +1,6 @@
 APP="kami"
 
-BUILD_HOST="45.55.206.245"
+BUILD_HOST="gannokoe.aludel.xyz"
 BUILD_USER="jon"
 BUILD_AT="/tmp/edeliver/$APP/builds"
 

@@ -15714,6 +15714,33 @@ var _user$project$Kami$hoverDice = function (face) {
 	}
 };
 var _user$project$Kami$renderPost = function (post) {
+	var roll_element = (_elm_lang$core$Native_Utils.eq(post.skill_name, '') || _elm_lang$core$Native_Utils.eq(post.ring_name, '')) ? _elm_lang$html$Html$text('Rolled: ') : _elm_lang$html$Html$text(
+		A2(
+			_elm_lang$core$Basics_ops['++'],
+			'Rolled ',
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				post.skill_name,
+				A2(
+					_elm_lang$core$Basics_ops['++'],
+					' (',
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						post.ring_name,
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							'), ',
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								_elm_lang$core$Basics$toString(
+									_elm_lang$core$List$length(post.results)),
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									'k',
+									A2(
+										_elm_lang$core$Basics_ops['++'],
+										_elm_lang$core$Basics$toString(post.ring_value),
+										': ')))))))));
 	var post_classes = function () {
 		var _p1 = {ctor: '_Tuple2', _0: post.narrative, _1: post.ooc};
 		if (_p1._0 === true) {
@@ -15928,33 +15955,7 @@ var _user$project$Kami$renderPost = function (post) {
 														_elm_lang$core$Basics_ops['++'],
 														{
 															ctor: '::',
-															_0: _elm_lang$html$Html$text(
-																A2(
-																	_elm_lang$core$Basics_ops['++'],
-																	'Rolled ',
-																	A2(
-																		_elm_lang$core$Basics_ops['++'],
-																		post.skill_name,
-																		A2(
-																			_elm_lang$core$Basics_ops['++'],
-																			' (',
-																			A2(
-																				_elm_lang$core$Basics_ops['++'],
-																				post.ring_name,
-																				A2(
-																					_elm_lang$core$Basics_ops['++'],
-																					'), ',
-																					A2(
-																						_elm_lang$core$Basics_ops['++'],
-																						_elm_lang$core$Basics$toString(
-																							_elm_lang$core$List$length(post.results)),
-																						A2(
-																							_elm_lang$core$Basics_ops['++'],
-																							'k',
-																							A2(
-																								_elm_lang$core$Basics_ops['++'],
-																								_elm_lang$core$Basics$toString(post.ring_value),
-																								': '))))))))),
+															_0: roll_element,
 															_1: {ctor: '[]'}
 														},
 														A2(
@@ -17133,7 +17134,7 @@ var _user$project$Kami$renderDice = F3(
 			},
 			{
 				ctor: '::',
-				_0: narrative ? _elm_lang$html$Html$text('') : A2(
+				_0: narrative ? A2(
 					_elm_lang$html$Html$select,
 					{
 						ctor: '::',
@@ -17149,80 +17150,147 @@ var _user$project$Kami$renderDice = F3(
 						_0: A4(_user$project$Kami$renderSelectableSkillOption, '', '-=[*]=-', -1, reset),
 						_1: {
 							ctor: '::',
-							_0: A3(_user$project$Kami$renderSkillOption, 'skill_aesthetics', 'Aesthetics', s.aesthetics),
+							_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:1', 'Skill Dice -', 1),
 							_1: {
 								ctor: '::',
-								_0: A3(_user$project$Kami$renderSkillOption, 'skill_composition', 'Composition', s.composition),
+								_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:2', 'Skill Dice -', 2),
 								_1: {
 									ctor: '::',
-									_0: A3(_user$project$Kami$renderSkillOption, 'skill_design', 'Design', s.design),
+									_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:3', 'Skill Dice -', 3),
 									_1: {
 										ctor: '::',
-										_0: A3(_user$project$Kami$renderSkillOption, 'skill_smithing', 'Smithing', s.smithing),
+										_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:4', 'Skill Dice -', 4),
 										_1: {
 											ctor: '::',
-											_0: A3(_user$project$Kami$renderSkillOption, 'skill_fitness', 'Fitness', s.fitness),
+											_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:5', 'Skill Dice -', 5),
 											_1: {
 												ctor: '::',
-												_0: A3(_user$project$Kami$renderSkillOption, 'skill_melee', 'Melee', s.melee),
+												_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:6', 'Skill Dice -', 6),
 												_1: {
 													ctor: '::',
-													_0: A3(_user$project$Kami$renderSkillOption, 'skill_ranged', 'Ranged', s.ranged),
+													_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:7', 'Skill Dice -', 7),
 													_1: {
 														ctor: '::',
-														_0: A3(_user$project$Kami$renderSkillOption, 'skill_unarmed', 'Unarmed', s.unarmed),
+														_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:8', 'Skill Dice -', 8),
 														_1: {
 															ctor: '::',
-															_0: A3(_user$project$Kami$renderSkillOption, 'skill_iaijutsu', 'Iaijutsu', s.iaijutsu),
+															_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:9', 'Skill Dice -', 9),
 															_1: {
 																ctor: '::',
-																_0: A3(_user$project$Kami$renderSkillOption, 'skill_meditation', 'Meditation', s.meditation),
+																_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:10', 'Skill Dice -', 10),
+																_1: {ctor: '[]'}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}) : A2(
+					_elm_lang$html$Html$select,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Events$onInput(_user$project$Kami$ChangeSelectedSkill),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('custom-select'),
+							_1: {ctor: '[]'}
+						}
+					},
+					{
+						ctor: '::',
+						_0: A4(_user$project$Kami$renderSelectableSkillOption, '', '-=[*]=-', -1, reset),
+						_1: {
+							ctor: '::',
+							_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:1', 'Skill Dice -', 1),
+							_1: {
+								ctor: '::',
+								_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:2', 'Skill Dice -', 2),
+								_1: {
+									ctor: '::',
+									_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:3', 'Skill Dice -', 3),
+									_1: {
+										ctor: '::',
+										_0: A3(_user$project$Kami$renderSkillOption, 'skill_aesthetics', 'Aesthetics', s.aesthetics),
+										_1: {
+											ctor: '::',
+											_0: A3(_user$project$Kami$renderSkillOption, 'skill_composition', 'Composition', s.composition),
+											_1: {
+												ctor: '::',
+												_0: A3(_user$project$Kami$renderSkillOption, 'skill_design', 'Design', s.design),
+												_1: {
+													ctor: '::',
+													_0: A3(_user$project$Kami$renderSkillOption, 'skill_smithing', 'Smithing', s.smithing),
+													_1: {
+														ctor: '::',
+														_0: A3(_user$project$Kami$renderSkillOption, 'skill_fitness', 'Fitness', s.fitness),
+														_1: {
+															ctor: '::',
+															_0: A3(_user$project$Kami$renderSkillOption, 'skill_melee', 'Melee', s.melee),
+															_1: {
+																ctor: '::',
+																_0: A3(_user$project$Kami$renderSkillOption, 'skill_ranged', 'Ranged', s.ranged),
 																_1: {
 																	ctor: '::',
-																	_0: A3(_user$project$Kami$renderSkillOption, 'skill_tactics', 'Tactics', s.tactics),
+																	_0: A3(_user$project$Kami$renderSkillOption, 'skill_unarmed', 'Unarmed', s.unarmed),
 																	_1: {
 																		ctor: '::',
-																		_0: A3(_user$project$Kami$renderSkillOption, 'skill_culture', 'Culture', s.culture),
+																		_0: A3(_user$project$Kami$renderSkillOption, 'skill_iaijutsu', 'Iaijutsu', s.iaijutsu),
 																		_1: {
 																			ctor: '::',
-																			_0: A3(_user$project$Kami$renderSkillOption, 'skill_government', 'Government', s.government),
+																			_0: A3(_user$project$Kami$renderSkillOption, 'skill_meditation', 'Meditation', s.meditation),
 																			_1: {
 																				ctor: '::',
-																				_0: A3(_user$project$Kami$renderSkillOption, 'skill_sentiment', 'Sentiment', s.sentiment),
+																				_0: A3(_user$project$Kami$renderSkillOption, 'skill_tactics', 'Tactics', s.tactics),
 																				_1: {
 																					ctor: '::',
-																					_0: A3(_user$project$Kami$renderSkillOption, 'skill_theology', 'Theology', s.theology),
+																					_0: A3(_user$project$Kami$renderSkillOption, 'skill_culture', 'Culture', s.culture),
 																					_1: {
 																						ctor: '::',
-																						_0: A3(_user$project$Kami$renderSkillOption, 'skill_medicine', 'Medicine', s.medicine),
+																						_0: A3(_user$project$Kami$renderSkillOption, 'skill_government', 'Government', s.government),
 																						_1: {
 																							ctor: '::',
-																							_0: A3(_user$project$Kami$renderSkillOption, 'skill_command', 'Command', s.command),
+																							_0: A3(_user$project$Kami$renderSkillOption, 'skill_sentiment', 'Sentiment', s.sentiment),
 																							_1: {
 																								ctor: '::',
-																								_0: A3(_user$project$Kami$renderSkillOption, 'skill_courtesy', 'Courtesy', s.courtesy),
+																								_0: A3(_user$project$Kami$renderSkillOption, 'skill_theology', 'Theology', s.theology),
 																								_1: {
 																									ctor: '::',
-																									_0: A3(_user$project$Kami$renderSkillOption, 'skill_games', 'Games', s.games),
+																									_0: A3(_user$project$Kami$renderSkillOption, 'skill_medicine', 'Medicine', s.medicine),
 																									_1: {
 																										ctor: '::',
-																										_0: A3(_user$project$Kami$renderSkillOption, 'skill_performance', 'Performance', s.performance),
+																										_0: A3(_user$project$Kami$renderSkillOption, 'skill_command', 'Command', s.command),
 																										_1: {
 																											ctor: '::',
-																											_0: A3(_user$project$Kami$renderSkillOption, 'skill_commerce', 'Commerce', s.commerce),
+																											_0: A3(_user$project$Kami$renderSkillOption, 'skill_courtesy', 'Courtesy', s.courtesy),
 																											_1: {
 																												ctor: '::',
-																												_0: A3(_user$project$Kami$renderSkillOption, 'skill_labor', 'Labor', s.labor),
+																												_0: A3(_user$project$Kami$renderSkillOption, 'skill_games', 'Games', s.games),
 																												_1: {
 																													ctor: '::',
-																													_0: A3(_user$project$Kami$renderSkillOption, 'skill_seafaring', 'Seafaring', s.seafaring),
+																													_0: A3(_user$project$Kami$renderSkillOption, 'skill_performance', 'Performance', s.performance),
 																													_1: {
 																														ctor: '::',
-																														_0: A3(_user$project$Kami$renderSkillOption, 'skill_skullduggery', 'Skulduggery', s.skulduggery),
+																														_0: A3(_user$project$Kami$renderSkillOption, 'skill_commerce', 'Commerce', s.commerce),
 																														_1: {
 																															ctor: '::',
-																															_0: A3(_user$project$Kami$renderSkillOption, 'skill_survival', 'Survival', s.survival),
-																															_1: {ctor: '[]'}
+																															_0: A3(_user$project$Kami$renderSkillOption, 'skill_labor', 'Labor', s.labor),
+																															_1: {
+																																ctor: '::',
+																																_0: A3(_user$project$Kami$renderSkillOption, 'skill_seafaring', 'Seafaring', s.seafaring),
+																																_1: {
+																																	ctor: '::',
+																																	_0: A3(_user$project$Kami$renderSkillOption, 'skill_skullduggery', 'Skulduggery', s.skulduggery),
+																																	_1: {
+																																		ctor: '::',
+																																		_0: A3(_user$project$Kami$renderSkillOption, 'skill_survival', 'Survival', s.survival),
+																																		_1: {ctor: '[]'}
+																																	}
+																																}
+																															}
 																														}
 																													}
 																												}
@@ -17251,7 +17319,7 @@ var _user$project$Kami$renderDice = F3(
 					}),
 				_1: {
 					ctor: '::',
-					_0: narrative ? _elm_lang$html$Html$text('') : A2(
+					_0: narrative ? A2(
 						_elm_lang$html$Html$select,
 						{
 							ctor: '::',
@@ -17267,20 +17335,87 @@ var _user$project$Kami$renderDice = F3(
 							_0: A4(_user$project$Kami$renderSelectableSkillOption, '', '-=[*]=-', -1, reset),
 							_1: {
 								ctor: '::',
-								_0: A3(_user$project$Kami$renderSkillOption, 'air', 'Air', s.air),
+								_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:1', 'Ring Dice -', 1),
 								_1: {
 									ctor: '::',
-									_0: A3(_user$project$Kami$renderSkillOption, 'earth', 'Earth', s.earth),
+									_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:2', 'Ring Dice -', 2),
 									_1: {
 										ctor: '::',
-										_0: A3(_user$project$Kami$renderSkillOption, 'fire', 'Fire', s.fire),
+										_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:3', 'Ring Dice -', 3),
 										_1: {
 											ctor: '::',
-											_0: A3(_user$project$Kami$renderSkillOption, 'water', 'Water', s.water),
+											_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:4', 'Ring Dice -', 4),
 											_1: {
 												ctor: '::',
-												_0: A3(_user$project$Kami$renderSkillOption, 'void', 'Void', s.$void),
-												_1: {ctor: '[]'}
+												_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:5', 'Ring Dice -', 5),
+												_1: {
+													ctor: '::',
+													_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:6', 'Ring Dice -', 6),
+													_1: {
+														ctor: '::',
+														_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:7', 'Ring Dice -', 7),
+														_1: {
+															ctor: '::',
+															_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:8', 'Ring Dice -', 8),
+															_1: {
+																ctor: '::',
+																_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:9', 'Ring Dice -', 9),
+																_1: {
+																	ctor: '::',
+																	_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:10', 'Ring Dice -', 10),
+																	_1: {ctor: '[]'}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}) : A2(
+						_elm_lang$html$Html$select,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Events$onInput(_user$project$Kami$ChangeSelectedRing),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$class('custom-select'),
+								_1: {ctor: '[]'}
+							}
+						},
+						{
+							ctor: '::',
+							_0: A4(_user$project$Kami$renderSelectableSkillOption, '', '-=[*]=-', -1, reset),
+							_1: {
+								ctor: '::',
+								_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:1', 'Ring Dice -', 1),
+								_1: {
+									ctor: '::',
+									_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:2', 'Ring Dice -', 2),
+									_1: {
+										ctor: '::',
+										_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:3', 'Ring Dice -', 3),
+										_1: {
+											ctor: '::',
+											_0: A3(_user$project$Kami$renderSkillOption, 'air', 'Air', s.air),
+											_1: {
+												ctor: '::',
+												_0: A3(_user$project$Kami$renderSkillOption, 'earth', 'Earth', s.earth),
+												_1: {
+													ctor: '::',
+													_0: A3(_user$project$Kami$renderSkillOption, 'fire', 'Fire', s.fire),
+													_1: {
+														ctor: '::',
+														_0: A3(_user$project$Kami$renderSkillOption, 'water', 'Water', s.water),
+														_1: {
+															ctor: '::',
+															_0: A3(_user$project$Kami$renderSkillOption, 'void', 'Void', s.$void),
+															_1: {ctor: '[]'}
+														}
+													}
+												}
 											}
 										}
 									}
@@ -18132,12 +18267,34 @@ var _user$project$Kami$update = F2(
 						{dialogSelectedRing: name, dialogSelectedRingValue: value}),
 					{ctor: '[]'});
 			case 'ChangeSelectedSkill':
-				var _p21 = _p3._0;
-				var diceroll = (!_elm_lang$core$Native_Utils.eq(_p21, '')) && (!_elm_lang$core$Native_Utils.eq(model.post.ring_name, ''));
+				var _p23 = _p3._0;
 				var oldPost = model.post;
+				var split = A2(_elm_lang$core$String$split, ':', _p23);
+				var name = function () {
+					var _p21 = _elm_lang$core$List$head(split);
+					if (_p21.ctor === 'Just') {
+						return _p21._0;
+					} else {
+						return '';
+					}
+				}();
+				var value = function () {
+					var _p22 = _elm_lang$core$List$tail(split);
+					if (((_p22.ctor === 'Just') && (_p22._0.ctor === '::')) && (_p22._0._1.ctor === '[]')) {
+						return A2(
+							_elm_lang$core$Result$withDefault,
+							0,
+							_elm_lang$core$String$toInt(_p22._0._0));
+					} else {
+						return 0;
+					}
+				}();
+				var arbitrary = (_elm_lang$core$Native_Utils.cmp(value, 0) > 0) && _elm_lang$core$Native_Utils.eq(name, 'arbitrary');
+				var parsed_skill = arbitrary ? name : _p23;
+				var diceroll = arbitrary || ((!_elm_lang$core$Native_Utils.eq(_p23, '')) && (!_elm_lang$core$Native_Utils.eq(model.post.ring_name, '')));
 				var newPost = _elm_lang$core$Native_Utils.update(
 					oldPost,
-					{skill_name: _p21, diceroll: diceroll});
+					{skill_name: parsed_skill, diceroll: diceroll, die_size: value});
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
@@ -18145,12 +18302,34 @@ var _user$project$Kami$update = F2(
 						{post: newPost, resetDice: false}),
 					{ctor: '[]'});
 			case 'ChangeSelectedRing':
-				var _p22 = _p3._0;
-				var diceroll = (!_elm_lang$core$Native_Utils.eq(_p22, '')) && (!_elm_lang$core$Native_Utils.eq(model.post.skill_name, ''));
+				var _p26 = _p3._0;
 				var oldPost = model.post;
+				var split = A2(_elm_lang$core$String$split, ':', _p26);
+				var name = function () {
+					var _p24 = _elm_lang$core$List$head(split);
+					if (_p24.ctor === 'Just') {
+						return _p24._0;
+					} else {
+						return '';
+					}
+				}();
+				var value = function () {
+					var _p25 = _elm_lang$core$List$tail(split);
+					if (((_p25.ctor === 'Just') && (_p25._0.ctor === '::')) && (_p25._0._1.ctor === '[]')) {
+						return A2(
+							_elm_lang$core$Result$withDefault,
+							0,
+							_elm_lang$core$String$toInt(_p25._0._0));
+					} else {
+						return 0;
+					}
+				}();
+				var arbitrary = (_elm_lang$core$Native_Utils.cmp(value, 0) > 0) && _elm_lang$core$Native_Utils.eq(name, 'arbitrary');
+				var parsed_ring = arbitrary ? name : _p26;
+				var diceroll = arbitrary || ((!_elm_lang$core$Native_Utils.eq(_p26, '')) && (!_elm_lang$core$Native_Utils.eq(model.post.skill_name, '')));
 				var newPost = _elm_lang$core$Native_Utils.update(
 					oldPost,
-					{ring_name: _p22, diceroll: diceroll});
+					{ring_name: parsed_ring, diceroll: diceroll, ring_value: value});
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
@@ -18169,12 +18348,12 @@ var _user$project$Kami$update = F2(
 						{post: newPost}),
 					{ctor: '[]'});
 			case 'ChangeText':
-				var _p23 = _p3._0;
-				var newRemaining = model.cMax - _elm_lang$core$String$length(_p23);
+				var _p27 = _p3._0;
+				var newRemaining = model.cMax - _elm_lang$core$String$length(_p27);
 				var oldPost = model.post;
 				var newPost = _elm_lang$core$Native_Utils.update(
 					oldPost,
-					{text: _p23});
+					{text: _p27});
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
@@ -18309,7 +18488,7 @@ var _user$project$Kami$update = F2(
 						_1: {ctor: '[]'}
 					});
 			case 'ModifyStatFailed':
-				var _p24 = A2(_elm_lang$core$Debug$log, 'modify stat returned an error code', _p3._0);
+				var _p28 = A2(_elm_lang$core$Debug$log, 'modify stat returned an error code', _p3._0);
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					model,
@@ -18499,7 +18678,7 @@ var _user$project$Kami$socket = A2(
 		_user$project$Kami$SocketClosedAbnormally,
 		A2(
 			_saschatimme$elm_phoenix$Phoenix_Socket$onClose,
-			function (_p25) {
+			function (_p29) {
 				return _user$project$Kami$ConnectionStatusChanged(_user$project$Kami$Disconnected);
 			},
 			A2(

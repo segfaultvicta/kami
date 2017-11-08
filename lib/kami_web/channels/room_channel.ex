@@ -58,10 +58,13 @@ defmodule KamiWeb.RoomChannel do
     character = if narr do nil else Kami.Accounts.get_character_by_name!(slug) end
     glory = if character != nil do character.glory else 0 end
     status = if character != nil do character.status else 0 end
-    skill_name = if dice and character != nil do String.split(skill, "_") |> Enum.at(1) |> String.capitalize else "" end
-    ring_name = if dice and character != nil do ring |> String.capitalize else "" end
-    ring_value = if dice and specialdice and character != nil do Kami.Accounts.Character.get_value(character, ring) else num end
-    skill_value = if dice and specialdice and character != nil do Kami.Accounts.Character.get_value(character, skill) else 0 end
+    arbitrary = skill == "arbitrary" or ring == "arbitrary"
+    skill_name = if dice and character != nil and not arbitrary do String.split(skill, "_") |> Enum.at(1) |> String.capitalize else "" end
+    ring_name = if dice and character != nil and not arbitrary do ring |> String.capitalize else "" end
+    ring_value = if dice and specialdice and character != nil and not arbitrary do Kami.Accounts.Character.get_value(character, ring) else num end
+    skill_value = if dice and specialdice and character != nil and not arbitrary do Kami.Accounts.Character.get_value(character, skill) else 0 end
+    ring_value = if arbitrary do num else ring_value end
+    skill_value = if arbitrary do face else skill_value end
     results = if specialdice do
       cond do
         ring_value > 0 and skill_value > 0 ->
@@ -70,6 +73,9 @@ defmodule KamiWeb.RoomChannel do
         skill_value == 0 ->
           (1..ring_value |> Enum.map(fn(_) -> Enum.random(0..5) end))
 
+        ring_value == 0 and arbitrary ->
+          (1..skill_value |> Enum.map(fn(_) -> Enum.random(6..17) end))
+
         true ->
           []
       end
@@ -77,7 +83,6 @@ defmodule KamiWeb.RoomChannel do
       []
     end
     text = if ooc && text == "" do "\n" else HtmlSanitizeEx.strip_tags(text) end
-    Logger.info text
     Kami.World.create_post(socket.assigns[:location], slug, %{ooc: ooc, narrative: narr, text: text, name: name, image: image, glory: glory, status: status,
                                                               diceroll: dice, skillroll: specialdice, ring_name: ring_name, skill_name: skill_name, results: results, ring_value: ring_value, die_size: face})
     broadcast!(socket, "update_posts", %{posts: get_posts(socket.assigns[:location])})

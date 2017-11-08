@@ -71,6 +71,8 @@ defmodule Kami.Accounts do
         _ ->
           {:error, "Error creating character for new user."}
       end
+    else
+      {:error, user}
     end
   end
 
@@ -256,7 +258,8 @@ defmodule Kami.Accounts do
   end
 
   def award_bxp(%Character{} = character) do
-    if character.bxp_this_week + Application.get_env(:kami, :bxp_per_post) <= Application.get_env(:kami, :bxp_per_week_max) do
+    bxp_max = Application.get_env(:kami, :bxp_per_week_max) + if character.patreon do Application.get_env(:kami, :bxp_per_week_patreon_bonus) else 0 end
+    if character.bxp_this_week + Application.get_env(:kami, :bxp_per_post) <= bxp_max do
       character
       |> Character.stat_changeset(%{bxp: Float.round(character.bxp + Application.get_env(:kami, :bxp_per_post), 2),
                                     bxp_this_week: Float.round(character.bxp_this_week + Application.get_env(:kami, :bxp_per_post), 2)})
@@ -272,7 +275,9 @@ defmodule Kami.Accounts do
     end
     xp = amount + to_unlock
     character
-    |> Character.stat_changeset(%{bxp: if new_bxp != 0 do Float.round(new_bxp, 2) else 0 end, xp: Float.round(character.xp + xp,2), total_xp: Float.round(character.total_xp + xp, 2) })
+    |> Character.stat_changeset(%{bxp: if new_bxp != 0 do Float.round(new_bxp, 2) else 0 end,
+                                  xp: Float.round(character.xp + xp,2),
+                                  total_xp: Float.round(character.total_xp + xp, 2) })
     |> Repo.update()
   end
 

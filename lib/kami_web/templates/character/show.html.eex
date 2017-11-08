@@ -43,7 +43,7 @@
       <strong>Banked XP:</strong> <%= @character.bxp %>
     </div>
     <div class="col mt-2">
-      <strong>BXP This Week:</strong> <%= @character.bxp_this_week %>
+      <strong>BXP This Week:</strong> <%= @character.bxp_this_week %> <%= if @character.patreon do %><i class="fa fa-star" aria-hidden="true"></i><% end %>
     </div>
   </div>
   <div class="row">

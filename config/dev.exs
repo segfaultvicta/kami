@@ -68,7 +68,8 @@ config :kami, Kami.Scheduler,
 config :kami,
   elm_secret: "seekrit",
   bxp_per_post: 0.1,
-  bxp_per_week_max: 10.0,
+  bxp_per_week_max: 4,
+  bxp_per_week_patreon_bonus: 2,
   xp_per_week: 2
 
 import_config "dev.secret.exs"

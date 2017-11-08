@@ -7,17 +7,21 @@
 
 <div class="container mt-2">
   <div class="form-group">
-    <span>APPROVED</span>
+    <span>APPROVED?</span>
     <%= checkbox f, :approved, class: "checkbox" %>
     <%= error_tag f, :approved %>
+    —
+    <span>PATREON REWARD?</span>
+    <%= checkbox f, :patreon, class: "checkbox" %>
+    <%= error_tag f, :patreon %>
   </div>
   <div class="row">
     <div class="col">
-      <%= text_input f, :family, class: "form-control" %>
+      <%= text_input f, :family, class: "form-control", placeholder: "Family Name" %>
       <%= error_tag f, :family %>
-      <%= text_input f, :name, class: "form-control" %>
+      <%= text_input f, :name, class: "form-control", placeholder: "Personal Name" %>
       <%= error_tag f, :name %>
-      <%= text_input f, :clan, class: "form-control" %>
+      <%= text_input f, :clan, class: "form-control", placeholder: "Clan" %>
       <%= error_tag f, :clan %>
     </div>
     <div class="col mt-4">
@@ -26,7 +30,7 @@
       <%= error_tag f, :honor %>
     </div>
     <div class="col mt-4">
-      <strong>Glory:</strong> 
+      <strong>Glory:</strong>
       <%= number_input f, :glory, class: "form-control character-edit-numeric" %>
       <%= error_tag f, :glory %>
     </div>
@@ -73,6 +77,7 @@
   <div class="row">
     <div class="col description-edit-text">
       <h5>DESCRIPTION </h5>
+      <em>List all public Advantages and Disadvantages at end of description (e.g. "PUBLIC QUALITIES: Blessed Lineage, Whispers of Doom")</em>
       <%= textarea f, :public_description, class: "form-control" %>
       <%= error_tag f, :public_description %>
     </div>
@@ -91,7 +96,7 @@
   </div>
   <div class="row">
     <div class="col description-edit-text">
-      <h5>OUTBURST</h5>
+      <h5>UNMASKING</h5>
       <%= textarea f, :outburst, class: "form-control" %>
       <%= error_tag f, :outburst %>
     </div>
@@ -169,7 +174,8 @@
   </div>
   <div class="row">
     <div class="col description-edit-text">
-      <h5>QUESTIONS</h5>
+      <h5>20 QUESTIONS</h5>
+      <em>List your answer to each question, numbered, with mechanical outcomes at the end of each question.</em>
       <%= textarea f, :questions, class: "form-control" %>
       <%= error_tag f, :questions %>
     </div>

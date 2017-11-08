@@ -367,27 +367,83 @@ update msg model =
 
         ChangeSelectedSkill skill ->
             let
+                split =
+                    String.split ":" skill
+
+                name =
+                    case List.head split of
+                        Just n ->
+                            n
+
+                        Nothing ->
+                            ""
+
+                value =
+                    case List.tail split of
+                        Just [ n ] ->
+                            String.toInt n |> Result.withDefault 0
+
+                        _ ->
+                            0
+
+                arbitrary =
+                    value > 0 && name == "arbitrary"
+
                 oldPost =
                     model.post
 
+                parsed_skill =
+                    if arbitrary then
+                        name
+                    else
+                        skill
+
                 diceroll =
-                    skill /= "" && model.post.ring_name /= ""
+                    arbitrary || (skill /= "" && model.post.ring_name /= "")
 
                 newPost =
-                    { oldPost | skill_name = skill, diceroll = diceroll }
+                    { oldPost | skill_name = parsed_skill, diceroll = diceroll, die_size = value }
             in
             { model | post = newPost, resetDice = False } ! []
 
         ChangeSelectedRing ring ->
             let
+                split =
+                    String.split ":" ring
+
+                name =
+                    case List.head split of
+                        Just n ->
+                            n
+
+                        Nothing ->
+                            ""
+
+                value =
+                    case List.tail split of
+                        Just [ n ] ->
+                            String.toInt n |> Result.withDefault 0
+
+                        _ ->
+                            0
+
+                arbitrary =
+                    value > 0 && name == "arbitrary"
+
+                parsed_ring =
+                    if arbitrary then
+                        name
+                    else
+                        ring
+
                 oldPost =
                     model.post
 
                 diceroll =
-                    ring /= "" && model.post.skill_name /= ""
+                    arbitrary || (ring /= "" && model.post.skill_name /= "")
 
                 newPost =
-                    { oldPost | ring_name = ring, diceroll = diceroll }
+                    { oldPost | ring_name = parsed_ring, diceroll = diceroll, ring_value = value }
             in
             { model | post = newPost, resetDice = False } ! []
 
@@ -922,10 +978,25 @@ renderDice : Character -> Bool -> Bool -> Html Msg
 renderDice s narrative reset =
     div [ class "mb-auto p-0" ]
         [ if narrative then
-            text ""
+            select [ onInput ChangeSelectedSkill, class "custom-select" ]
+                [ renderSelectableSkillOption "" "-=[*]=-" -1 reset
+                , renderSkillOption "arbitrary:1" "Skill Dice -" 1
+                , renderSkillOption "arbitrary:2" "Skill Dice -" 2
+                , renderSkillOption "arbitrary:3" "Skill Dice -" 3
+                , renderSkillOption "arbitrary:4" "Skill Dice -" 4
+                , renderSkillOption "arbitrary:5" "Skill Dice -" 5
+                , renderSkillOption "arbitrary:6" "Skill Dice -" 6
+                , renderSkillOption "arbitrary:7" "Skill Dice -" 7
+                , renderSkillOption "arbitrary:8" "Skill Dice -" 8
+                , renderSkillOption "arbitrary:9" "Skill Dice -" 9
+                , renderSkillOption "arbitrary:10" "Skill Dice -" 10
+                ]
           else
             select [ onInput ChangeSelectedSkill, class "custom-select" ]
                 [ renderSelectableSkillOption "" "-=[*]=-" -1 reset
+                , renderSkillOption "arbitrary:1" "Skill Dice -" 1
+                , renderSkillOption "arbitrary:2" "Skill Dice -" 2
+                , renderSkillOption "arbitrary:3" "Skill Dice -" 3
                 , renderSkillOption "skill_aesthetics" "Aesthetics" s.aesthetics
                 , renderSkillOption "skill_composition" "Composition" s.composition
                 , renderSkillOption "skill_design" "Design" s.design
@@ -953,10 +1024,25 @@ renderDice s narrative reset =
                 , renderSkillOption "skill_survival" "Survival" s.survival
                 ]
         , if narrative then
-            text ""
+            select [ onInput ChangeSelectedRing, class "custom-select" ]
+                [ renderSelectableSkillOption "" "-=[*]=-" -1 reset
+                , renderSkillOption "arbitrary:1" "Ring Dice -" 1
+                , renderSkillOption "arbitrary:2" "Ring Dice -" 2
+                , renderSkillOption "arbitrary:3" "Ring Dice -" 3
+                , renderSkillOption "arbitrary:4" "Ring Dice -" 4
+                , renderSkillOption "arbitrary:5" "Ring Dice -" 5
+                , renderSkillOption "arbitrary:6" "Ring Dice -" 6
+                , renderSkillOption "arbitrary:7" "Ring Dice -" 7
+                , renderSkillOption "arbitrary:8" "Ring Dice -" 8
+                , renderSkillOption "arbitrary:9" "Ring Dice -" 9
+                , renderSkillOption "arbitrary:10" "Ring Dice -" 10
+                ]
           else
             select [ onInput ChangeSelectedRing, class "custom-select" ]
                 [ renderSelectableSkillOption "" "-=[*]=-" -1 reset
+                , renderSkillOption "arbitrary:1" "Ring Dice -" 1
+                , renderSkillOption "arbitrary:2" "Ring Dice -" 2
+                , renderSkillOption "arbitrary:3" "Ring Dice -" 3
                 , renderSkillOption "air" "Air" s.air
                 , renderSkillOption "earth" "Earth" s.earth
                 , renderSkillOption "fire" "Fire" s.fire
@@ -1075,6 +1161,12 @@ renderPost post =
 
                 ( False, False ) ->
                     "post"
+
+        roll_element =
+            if post.skill_name == "" || post.ring_name == "" then
+                text "Rolled: "
+            else
+                text ("Rolled " ++ post.skill_name ++ " (" ++ post.ring_name ++ "), " ++ (List.length post.results |> toString) ++ "k" ++ toString post.ring_value ++ ": ")
     in
     div [ class post_classes ]
         [ div [ class "row" ]
@@ -1110,7 +1202,7 @@ renderPost post =
                     div [ class "diceroll text-center" ]
                         [ if post.skillroll then
                             div []
-                                ([ text ("Rolled " ++ post.skill_name ++ " (" ++ post.ring_name ++ "), " ++ (List.length post.results |> toString) ++ "k" ++ toString post.ring_value ++ ": ") ]
+                                ([ roll_element ]
                                     ++ (post.results
                                             |> List.map (\result -> a [ Html.Attributes.attribute "hovertitle" (hoverDice result) ] [ img [ class "dice-image", src ("http://aurum.aludel.xyz/gnkstatic/dice/" ++ toString result ++ ".png") ] [] ])
                                        )

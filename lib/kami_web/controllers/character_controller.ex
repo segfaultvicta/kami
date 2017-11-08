@@ -27,7 +27,8 @@ defmodule KamiWeb.CharacterController do
 
   def create(conn, %{"character" => character_params}) do
     if Kami.Guardian.Plug.current_resource(conn).admin do
-      case Accounts.create_character(character_params) do
+      user = Kami.Guardian.Plug.current_resource(conn)
+      case Accounts.create_character(user, character_params) do
         {:ok, character} ->
           conn
           |> put_flash(:info, "Character created successfully.")

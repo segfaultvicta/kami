@@ -15,7 +15,7 @@ use Mix.Config
 # which you typically run after static files are built.
 config :kami, KamiWeb.Endpoint,
   load_from_system_env: true,
-  url: [host: "example.com", port: 80],
+  url: [host: "gannokoe.aludel.xyz", port: 80],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
 # Do not print debug messages in production
@@ -23,9 +23,10 @@ config :logger, level: :info
 
 config :kami,
   bxp_per_post: 0.1,
-  bxp_per_week_max: 8.0,
+  bxp_per_week_max: 4,
+  bxp_per_week_patreon_bonus: 2,
   xp_per_week: 2
-  
+
 config :kami, Kami.Scheduler,
   jobs: [
     {"1 0 * * 1", {Kami.Accounts, :timer_award_xp, []}},

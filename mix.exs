@@ -20,7 +20,7 @@ defmodule Kami.Mixfile do
   def application do
     [
       mod: {Kami.Application, []},
-      extra_applications: [:logger, :runtime_tools, :ex_aws, :hackney, :arc_ecto, :thesis]
+      extra_applications: [:logger, :runtime_tools, :ex_aws, :hackney, :arc_ecto, :thesis, :edeliver]
     ]
   end
 
@@ -53,7 +53,9 @@ defmodule Kami.Mixfile do
       {:ex_aws, "~> 1.1"},
       {:sweet_xml, "~> 0.6"},
       {:arc_ecto, "~> 0.7.0"},
-      {:thesis, "~> 0.2.0"}
+      {:thesis, "~> 0.2.0"},
+      {:edeliver, "~> 1.4.2"},
+      {:distillery, "~> 1.4"}
     ]
   end
 

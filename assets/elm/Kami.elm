@@ -156,8 +156,8 @@ init flags =
       , selectedCharacter = 0
       , admin = False
       , phone = flags.width < 600
-      , cRemaining = 1500
-      , cMax = 1500
+      , cRemaining = 750
+      , cMax = 750
       , showDialog = False
       , resetDice = True
       , dialogSelectedRing = ""
@@ -707,7 +707,7 @@ characterDecoder =
 
 lobbySocket : String
 lobbySocket =
-    "ws://gannokoe.aludel.xyz:8686/socket/websocket"
+    "wss://gannokoe.aludel.xyz/socket/websocket"
 
 
 socket : Socket Msg

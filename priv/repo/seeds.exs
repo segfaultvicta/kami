@@ -10,10 +10,6 @@
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
-{_, admin} = Kami.Accounts.create_admin(%{name: "admin", password: "password"})
-
-Kami.Accounts.create_character(admin, %{name: "Teakwood", family: "Codefloof", image: ""})
-
 {_, lobby} = Kami.World.create_location(%{name: "Lobby", description: "OOC Discussion", locked: false, ooc: true})
 {_, sessions} = Kami.World.create_location(lobby, %{name: "Session Rooms", description: "Session Rooms", locked: true, ooc: true})
 Kami.World.create_location(sessions, %{name: "Session Room 1", description: "Session Room 1", locked: false, ooc: false})

@@ -16246,7 +16246,7 @@ var _user$project$Kami$xpDialogHeader = function (selected) {
 			}
 		});
 };
-var _user$project$Kami$lobbySocket = 'ws://gannokoe.aludel.xyz:8686/socket/websocket';
+var _user$project$Kami$lobbySocket = 'wss://gannokoe.aludel.xyz/socket/websocket';
 var _user$project$Kami$roundDownToSecond = function (ms) {
 	return _elm_lang$core$Basics$toFloat(
 		A2(
@@ -16717,8 +16717,8 @@ var _user$project$Kami$init = function (flags) {
 			selectedCharacter: 0,
 			admin: false,
 			phone: _elm_lang$core$Native_Utils.cmp(flags.width, 600) < 0,
-			cRemaining: 1500,
-			cMax: 1500,
+			cRemaining: 750,
+			cMax: 750,
 			showDialog: false,
 			resetDice: true,
 			dialogSelectedRing: '',
@@ -18735,7 +18735,7 @@ var _user$project$Kami$main = _elm_lang$html$Html$programWithFlags(
 var Elm = {};
 Elm['Kami'] = Elm['Kami'] || {};
 if (typeof _user$project$Kami$main !== 'undefined') {
-    _user$project$Kami$main(Elm['Kami'], 'Kami', {"types":{"message":"Kami.Msg","aliases":{"Json.Decode.Value":{"type":"Json.Encode.Value","args":[]},"Time.Time":{"type":"Float","args":[]},"Phoenix.Socket.AbnormalClose":{"type":"{ reconnectAttempt : Int, reconnectWait : Time.Time }","args":[]}},"unions":{"Kami.ConnectionStatus":{"tags":{"ScheduledReconnect":["{ time : Time.Time }"],"Connected":[],"Disconnected":[]},"args":[]},"Json.Encode.Value":{"tags":{"Value":[]},"args":[]},"Kami.Msg":{"tags":{"SpendXP":["String"],"UpdatePosts":["Json.Decode.Value"],"SocketClosedAbnormally":["Phoenix.Socket.AbnormalClose"],"DialogChangeSelectedRing":["String"],"ConnectionStatusChanged":["Kami.ConnectionStatus"],"ToggleSpecialDice":[],"ChangeDieSize":["Int"],"ChangeText":["String"],"PushPost":["Bool"],"DialogChangeSelectedSkill":["String"],"ModifyStatFailed":["Json.Decode.Value"],"ChangeImage":["String"],"AckDialog":[],"OpenDialog":[],"ModifyStat":["String","Int"],"Tick":["Time.Time"],"ChangeSelectedRing":["String"],"ChangeDieNum":["Int"],"UpdateCharacters":["Json.Decode.Value"],"ChangeSelectedCharacter":["String"],"ChangeSelectedSkill":["String"],"InitChannel":["Json.Decode.Value"]},"args":[]}}},"versions":{"elm":"0.18.0"}});
+    _user$project$Kami$main(Elm['Kami'], 'Kami', {"types":{"unions":{"Json.Encode.Value":{"args":[],"tags":{"Value":[]}},"Kami.Msg":{"args":[],"tags":{"OpenDialog":[],"ModifyStat":["String","Int"],"Tick":["Time.Time"],"ChangeSelectedRing":["String"],"ChangeDieNum":["Int"],"UpdateCharacters":["Json.Decode.Value"],"ChangeSelectedCharacter":["String"],"ChangeSelectedSkill":["String"],"InitChannel":["Json.Decode.Value"],"SpendXP":["String"],"UpdatePosts":["Json.Decode.Value"],"SocketClosedAbnormally":["Phoenix.Socket.AbnormalClose"],"DialogChangeSelectedRing":["String"],"ConnectionStatusChanged":["Kami.ConnectionStatus"],"ToggleSpecialDice":[],"ChangeDieSize":["Int"],"ChangeText":["String"],"PushPost":["Bool"],"DialogChangeSelectedSkill":["String"],"ChangeImage":["String"],"ModifyStatFailed":["Json.Decode.Value"],"AckDialog":[]}},"Kami.ConnectionStatus":{"args":[],"tags":{"Connected":[],"Disconnected":[],"ScheduledReconnect":["{ time : Time.Time }"]}}},"aliases":{"Json.Decode.Value":{"args":[],"type":"Json.Encode.Value"},"Time.Time":{"args":[],"type":"Float"},"Phoenix.Socket.AbnormalClose":{"args":[],"type":"{ reconnectAttempt : Int, reconnectWait : Time.Time }"}},"message":"Kami.Msg"},"versions":{"elm":"0.18.0"}});
 }
 
 if (typeof define === "function" && define['amd'])

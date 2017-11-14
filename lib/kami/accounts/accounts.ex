@@ -180,8 +180,7 @@ defmodule Kami.Accounts do
   end
 
   def image_url(%Character{} = character) do
-    Kami.Avatar.url({character.image, character})
-    #"https://gannokoe.s3.amazonaws.com/uploads/" <> character.image.file_name
+    if character.image.file_name == "" do "" else Kami.Avatar.url({character.image, character}) end
   end
 
   @doc """

@@ -56,7 +56,7 @@
   </div>
   <div class="row">
     <div class="col public-description">
-      <strong>Public Description: </strong><%= @character.public_description %><br  />
+      <strong>Public Description: </strong><%= t(@character.public_description) %><br  />
       <%= if not @as_admin and @character.approved do %>
         <span><%= link "Edit Description", to: character_path(@conn, :edit, @character) %></span>
       <% end %>
@@ -66,53 +66,53 @@
   <div class="row">
     <div class="col description-text">
       <h5>GIRI</h5>
-      <%= @character.giri %>
+      <%= t(@character.giri) %>
     </div>
     <div class="col description-text">
       <h5>NINJO</h5>
-      <%= @character.ninjo %>
+      <%= t(@character.ninjo) %>
     </div>
   </div>
   <div class="row">
     <div class="col description-text">
       <h5>OUTBURST</h5>
-      <%= @character.outburst %>
+      <%= t(@character.outburst) %>
     </div>
   </div>
   <div class="row">
     <div class="col description-text">
       <h5>PASSIONS</h5>
-      <%= @character.passions %>
+      <%= t(@character.passions) %>
     </div>
     <div class="col description-text">
       <h5>ANXIETIES</h5>
-      <%= @character.anxieties %>
+      <%= t(@character.anxieties) %>
     </div>
     <div class="col description-text">
       <h5>DISTINCTIONS</h5>
-      <%= @character.distinctions %>
+      <%= t(@character.distinctions) %>
     </div>
     <div class="col description-text">
       <h5>ADVERSITIES</h5>
-      <%= @character.adversities %>
+      <%= t(@character.adversities) %>
     </div>
   </div>
   <div class="row">
     <div class="col description-text">
       <h5>TITLES</h5>
-      <%= @character.titles %>
+      <%= t(@character.titles) %>
     </div>
     <div class="col description-text">
       <h5>TECHNIQUES</h5>
-      <%= @character.techniques %>
+      <%= t(@character.techniques) %>
     </div>
     <div class="col description-text">
       <h5>WEAPONS</h5>
-      <%= @character.weapons %>
+      <%= t(@character.weapons) %>
     </div>
     <div class="col description-text">
       <h5>ARMOR</h5>
-      <%= @character.armor %>
+      <%= t(@character.armor) %>
     </div>
   </div>
   <hr />
@@ -194,7 +194,7 @@
   <div class="row">
     <div class="col-0 col-md-1 mt-2"></div>
     <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
-      <div>Composition</div><div class="right-skill-display"><%= @character.skill_fitness %></div>
+      <div>Composition</div><div class="right-skill-display"><%= @character.skill_composition %></div>
     </div>
     <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
       <div>Melee</div><div class="right-skill-display"><%= @character.skill_melee %></div>
@@ -386,7 +386,23 @@
   <h4>TWENTY QUESTIONS</h4>
   <div class="row">
     <div class="col description-text">
-      <%= @character.questions %>
+      <%= t(@character.questions) %>
     </div>
   </div>
+
+  <h4>GM NOTES</h4>
+  <div class="row">
+    <div class="col description-text">
+      <%= t(@character.gm_notes) %>
+    </div>
+  </div>
+
+  <%= if @as_admin do %>
+  <h4>SECRET GM NOTES</h4>
+  <div class="row">
+    <div class="col description-text">
+      <%= t(@character.secret_gm_notes) %>
+    </div>
+  </div>
+  <% end %>
 </div>

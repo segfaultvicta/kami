@@ -16,7 +16,7 @@ defmodule KamiWeb.ViewHelpers do
         1 ->
           false
         llid ->
-          Kami.World.get_location!(llid)  
+          Kami.World.get_location!(llid)
       end
     end
   end
@@ -31,5 +31,9 @@ defmodule KamiWeb.ViewHelpers do
     else
       false
     end
+  end
+  def t(text) when is_nil(text) do "" end
+  def t(text) do
+    Phoenix.HTML.Format.text_to_html(text, [wrapper_tag: :span])
   end
 end

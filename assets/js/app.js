@@ -29,6 +29,12 @@ function getCookie(cname) {
   return "";
 }
 
+function getSocketUrl() {
+  var host = window.location.host
+  var protocol = window.location.protocol == "https:" ? "wss://" : "ws://";
+  return protocol + host + "/socket/websocket"
+}
+
 import Elm from "./kami.js"
 
 // Import local files
@@ -43,7 +49,9 @@ import Elm from "./kami.js"
 
 let kamiDiv = document.getElementById('kami-main')
 if (kamiDiv !== undefined && kamiDiv !== null) {
-  var app = Elm.Kami.embed(kamiDiv, {uid: getCookie("user-id"), loc: getCookie("location-id"), key: getCookie("elm-key"), width: window.innerWidth})
+  var app = Elm.Kami.embed(kamiDiv, {uid: getCookie("user-id"),
+    loc: getCookie("location-id"), key: getCookie("elm-key"),
+    width: window.innerWidth, socketUrl: getSocketUrl()})
 }
 
 // elmApp.ports.loc.send(window.location.search);

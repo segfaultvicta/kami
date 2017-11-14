@@ -50,6 +50,7 @@ type alias Model =
     , dialogSelectedRing : String
     , dialogSelectedSkillValue : Int
     , dialogSelectedRingValue : Int
+    , socketUrl : String
     }
 
 
@@ -134,6 +135,7 @@ type alias InitFlags =
     , loc : String
     , key : String
     , width : Int
+    , socketUrl : String
     }
 
 
@@ -164,6 +166,7 @@ init flags =
       , dialogSelectedSkill = ""
       , dialogSelectedRingValue = -1
       , dialogSelectedSkillValue = -1
+      , socketUrl = flags.socketUrl
       }
     , Cmd.none
     )
@@ -517,7 +520,7 @@ update msg model =
                         |> Push.onError ModifyStatFailed
                         |> Push.onOk (\response -> UpdateCharacters response)
             in
-            model ! [ Phoenix.push lobbySocket push ]
+            model ! [ Phoenix.push model.socketUrl push ]
 
         SpendXP stat_key ->
             let
@@ -535,7 +538,7 @@ update msg model =
                         |> Push.onError ModifyStatFailed
                         |> Push.onOk (\response -> UpdateCharacters response)
             in
-            { model | showDialog = False, dialogSelectedRing = "", dialogSelectedSkill = "", dialogSelectedRingValue = -1, dialogSelectedSkillValue = -1 } ! [ Phoenix.push lobbySocket push ]
+            { model | showDialog = False, dialogSelectedRing = "", dialogSelectedSkill = "", dialogSelectedRingValue = -1, dialogSelectedSkillValue = -1 } ! [ Phoenix.push model.socketUrl push ]
 
         ModifyStatFailed value ->
             let
@@ -572,7 +575,7 @@ update msg model =
                 newPost =
                     { oldPost | text = "", diceroll = False, die_size = 0, ring_value = 0, skill_name = "", ring_name = "" }
             in
-            { model | post = newPost, cRemaining = model.cMax, resetDice = True } ! [ Phoenix.push lobbySocket push ]
+            { model | post = newPost, cRemaining = model.cMax, resetDice = True } ! [ Phoenix.push model.socketUrl push ]
 
 
 
@@ -705,14 +708,9 @@ characterDecoder =
 -- SUBSCRIPTIONS
 
 
-lobbySocket : String
-lobbySocket =
-    "wss://gannokoe.aludel.xyz/socket/websocket"
-
-
-socket : Socket Msg
-socket =
-    Socket.init lobbySocket
+socket : Model -> Socket Msg
+socket model =
+    Socket.init model.socketUrl
         |> Socket.onOpen (ConnectionStatusChanged Connected)
         |> Socket.onClose (\_ -> ConnectionStatusChanged Disconnected)
         |> Socket.onAbnormalClose SocketClosedAbnormally
@@ -734,7 +732,7 @@ subscriptions model =
 
 
 phoenixSubscription model =
-    Phoenix.connect socket [ connect model ]
+    Phoenix.connect (socket model) [ connect model ]
 
 
 

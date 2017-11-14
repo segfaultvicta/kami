@@ -16246,7 +16246,6 @@ var _user$project$Kami$xpDialogHeader = function (selected) {
 			}
 		});
 };
-var _user$project$Kami$lobbySocket = 'wss://gannokoe.aludel.xyz/socket/websocket';
 var _user$project$Kami$roundDownToSecond = function (ms) {
 	return _elm_lang$core$Basics$toFloat(
 		A2(
@@ -16276,7 +16275,9 @@ var _user$project$Kami$Model = function (a) {
 																return function (q) {
 																	return function (r) {
 																		return function (s) {
-																			return {uid: a, loc: b, key: c, connectionStatus: d, currentTime: e, posts: f, characters: g, post: h, selectedCharacter: i, admin: j, phone: k, cRemaining: l, cMax: m, showDialog: n, resetDice: o, dialogSelectedSkill: p, dialogSelectedRing: q, dialogSelectedSkillValue: r, dialogSelectedRingValue: s};
+																			return function (t) {
+																				return {uid: a, loc: b, key: c, connectionStatus: d, currentTime: e, posts: f, characters: g, post: h, selectedCharacter: i, admin: j, phone: k, cRemaining: l, cMax: m, showDialog: n, resetDice: o, dialogSelectedSkill: p, dialogSelectedRing: q, dialogSelectedSkillValue: r, dialogSelectedRingValue: s, socketUrl: t};
+																			};
 																		};
 																	};
 																};
@@ -16662,9 +16663,9 @@ var _user$project$Kami$postDecoder = A3(
 																	_elm_lang$core$Json_Decode$string,
 																	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Kami$Post))))))))))))))))));
 var _user$project$Kami$postListDecoder = _elm_lang$core$Json_Decode$list(_user$project$Kami$postDecoder);
-var _user$project$Kami$InitFlags = F4(
-	function (a, b, c, d) {
-		return {uid: a, loc: b, key: c, width: d};
+var _user$project$Kami$InitFlags = F5(
+	function (a, b, c, d, e) {
+		return {uid: a, loc: b, key: c, width: d, socketUrl: e};
 	});
 var _user$project$Kami$InitPayloadContainer = F3(
 	function (a, b, c) {
@@ -16724,7 +16725,8 @@ var _user$project$Kami$init = function (flags) {
 			dialogSelectedRing: '',
 			dialogSelectedSkill: '',
 			dialogSelectedRingValue: -1,
-			dialogSelectedSkillValue: -1
+			dialogSelectedSkillValue: -1,
+			socketUrl: flags.socketUrl
 		},
 		_1: _elm_lang$core$Platform_Cmd$none
 	};
@@ -18440,7 +18442,7 @@ var _user$project$Kami$update = F2(
 					model,
 					{
 						ctor: '::',
-						_0: A2(_saschatimme$elm_phoenix$Phoenix$push, _user$project$Kami$lobbySocket, push),
+						_0: A2(_saschatimme$elm_phoenix$Phoenix$push, model.socketUrl, push),
 						_1: {ctor: '[]'}
 					});
 			case 'SpendXP':
@@ -18484,7 +18486,7 @@ var _user$project$Kami$update = F2(
 						{showDialog: false, dialogSelectedRing: '', dialogSelectedSkill: '', dialogSelectedRingValue: -1, dialogSelectedSkillValue: -1}),
 					{
 						ctor: '::',
-						_0: A2(_saschatimme$elm_phoenix$Phoenix$push, _user$project$Kami$lobbySocket, push),
+						_0: A2(_saschatimme$elm_phoenix$Phoenix$push, model.socketUrl, push),
 						_1: {ctor: '[]'}
 					});
 			case 'ModifyStatFailed':
@@ -18614,7 +18616,7 @@ var _user$project$Kami$update = F2(
 						{post: newPost, cRemaining: model.cMax, resetDice: true}),
 					{
 						ctor: '::',
-						_0: A2(_saschatimme$elm_phoenix$Phoenix$push, _user$project$Kami$lobbySocket, push),
+						_0: A2(_saschatimme$elm_phoenix$Phoenix$push, model.socketUrl, push),
 						_1: {ctor: '[]'}
 					});
 		}
@@ -18668,27 +18670,29 @@ var _user$project$Kami$ConnectionStatusChanged = function (a) {
 var _user$project$Kami$SocketClosedAbnormally = function (a) {
 	return {ctor: 'SocketClosedAbnormally', _0: a};
 };
-var _user$project$Kami$socket = A2(
-	_saschatimme$elm_phoenix$Phoenix_Socket$reconnectTimer,
-	function (backoffIteration) {
-		return _elm_lang$core$Basics$toFloat((backoffIteration + 1) * 5000);
-	},
-	A2(
-		_saschatimme$elm_phoenix$Phoenix_Socket$onAbnormalClose,
-		_user$project$Kami$SocketClosedAbnormally,
+var _user$project$Kami$socket = function (model) {
+	return A2(
+		_saschatimme$elm_phoenix$Phoenix_Socket$reconnectTimer,
+		function (backoffIteration) {
+			return _elm_lang$core$Basics$toFloat((backoffIteration + 1) * 5000);
+		},
 		A2(
-			_saschatimme$elm_phoenix$Phoenix_Socket$onClose,
-			function (_p29) {
-				return _user$project$Kami$ConnectionStatusChanged(_user$project$Kami$Disconnected);
-			},
+			_saschatimme$elm_phoenix$Phoenix_Socket$onAbnormalClose,
+			_user$project$Kami$SocketClosedAbnormally,
 			A2(
-				_saschatimme$elm_phoenix$Phoenix_Socket$onOpen,
-				_user$project$Kami$ConnectionStatusChanged(_user$project$Kami$Connected),
-				_saschatimme$elm_phoenix$Phoenix_Socket$init(_user$project$Kami$lobbySocket)))));
+				_saschatimme$elm_phoenix$Phoenix_Socket$onClose,
+				function (_p29) {
+					return _user$project$Kami$ConnectionStatusChanged(_user$project$Kami$Disconnected);
+				},
+				A2(
+					_saschatimme$elm_phoenix$Phoenix_Socket$onOpen,
+					_user$project$Kami$ConnectionStatusChanged(_user$project$Kami$Connected),
+					_saschatimme$elm_phoenix$Phoenix_Socket$init(model.socketUrl)))));
+};
 var _user$project$Kami$phoenixSubscription = function (model) {
 	return A2(
 		_saschatimme$elm_phoenix$Phoenix$connect,
-		_user$project$Kami$socket,
+		_user$project$Kami$socket(model),
 		{
 			ctor: '::',
 			_0: _user$project$Kami$connect(model),
@@ -18717,16 +18721,21 @@ var _user$project$Kami$main = _elm_lang$html$Html$programWithFlags(
 				function (loc) {
 					return A2(
 						_elm_lang$core$Json_Decode$andThen,
-						function (uid) {
+						function (socketUrl) {
 							return A2(
 								_elm_lang$core$Json_Decode$andThen,
-								function (width) {
-									return _elm_lang$core$Json_Decode$succeed(
-										{key: key, loc: loc, uid: uid, width: width});
+								function (uid) {
+									return A2(
+										_elm_lang$core$Json_Decode$andThen,
+										function (width) {
+											return _elm_lang$core$Json_Decode$succeed(
+												{key: key, loc: loc, socketUrl: socketUrl, uid: uid, width: width});
+										},
+										A2(_elm_lang$core$Json_Decode$field, 'width', _elm_lang$core$Json_Decode$int));
 								},
-								A2(_elm_lang$core$Json_Decode$field, 'width', _elm_lang$core$Json_Decode$int));
+								A2(_elm_lang$core$Json_Decode$field, 'uid', _elm_lang$core$Json_Decode$string));
 						},
-						A2(_elm_lang$core$Json_Decode$field, 'uid', _elm_lang$core$Json_Decode$string));
+						A2(_elm_lang$core$Json_Decode$field, 'socketUrl', _elm_lang$core$Json_Decode$string));
 				},
 				A2(_elm_lang$core$Json_Decode$field, 'loc', _elm_lang$core$Json_Decode$string));
 		},
@@ -18735,7 +18744,7 @@ var _user$project$Kami$main = _elm_lang$html$Html$programWithFlags(
 var Elm = {};
 Elm['Kami'] = Elm['Kami'] || {};
 if (typeof _user$project$Kami$main !== 'undefined') {
-    _user$project$Kami$main(Elm['Kami'], 'Kami', {"types":{"unions":{"Json.Encode.Value":{"args":[],"tags":{"Value":[]}},"Kami.Msg":{"args":[],"tags":{"OpenDialog":[],"ModifyStat":["String","Int"],"Tick":["Time.Time"],"ChangeSelectedRing":["String"],"ChangeDieNum":["Int"],"UpdateCharacters":["Json.Decode.Value"],"ChangeSelectedCharacter":["String"],"ChangeSelectedSkill":["String"],"InitChannel":["Json.Decode.Value"],"SpendXP":["String"],"UpdatePosts":["Json.Decode.Value"],"SocketClosedAbnormally":["Phoenix.Socket.AbnormalClose"],"DialogChangeSelectedRing":["String"],"ConnectionStatusChanged":["Kami.ConnectionStatus"],"ToggleSpecialDice":[],"ChangeDieSize":["Int"],"ChangeText":["String"],"PushPost":["Bool"],"DialogChangeSelectedSkill":["String"],"ChangeImage":["String"],"ModifyStatFailed":["Json.Decode.Value"],"AckDialog":[]}},"Kami.ConnectionStatus":{"args":[],"tags":{"Connected":[],"Disconnected":[],"ScheduledReconnect":["{ time : Time.Time }"]}}},"aliases":{"Json.Decode.Value":{"args":[],"type":"Json.Encode.Value"},"Time.Time":{"args":[],"type":"Float"},"Phoenix.Socket.AbnormalClose":{"args":[],"type":"{ reconnectAttempt : Int, reconnectWait : Time.Time }"}},"message":"Kami.Msg"},"versions":{"elm":"0.18.0"}});
+    _user$project$Kami$main(Elm['Kami'], 'Kami', {"types":{"message":"Kami.Msg","aliases":{"Json.Decode.Value":{"type":"Json.Encode.Value","args":[]},"Time.Time":{"type":"Float","args":[]},"Phoenix.Socket.AbnormalClose":{"type":"{ reconnectAttempt : Int, reconnectWait : Time.Time }","args":[]}},"unions":{"Kami.ConnectionStatus":{"tags":{"ScheduledReconnect":["{ time : Time.Time }"],"Connected":[],"Disconnected":[]},"args":[]},"Json.Encode.Value":{"tags":{"Value":[]},"args":[]},"Kami.Msg":{"tags":{"SpendXP":["String"],"UpdatePosts":["Json.Decode.Value"],"SocketClosedAbnormally":["Phoenix.Socket.AbnormalClose"],"DialogChangeSelectedRing":["String"],"ConnectionStatusChanged":["Kami.ConnectionStatus"],"ToggleSpecialDice":[],"ChangeDieSize":["Int"],"ChangeText":["String"],"PushPost":["Bool"],"DialogChangeSelectedSkill":["String"],"ModifyStatFailed":["Json.Decode.Value"],"ChangeImage":["String"],"AckDialog":[],"OpenDialog":[],"ModifyStat":["String","Int"],"Tick":["Time.Time"],"ChangeSelectedRing":["String"],"ChangeDieNum":["Int"],"UpdateCharacters":["Json.Decode.Value"],"ChangeSelectedCharacter":["String"],"ChangeSelectedSkill":["String"],"InitChannel":["Json.Decode.Value"]},"args":[]}}},"versions":{"elm":"0.18.0"}});
 }
 
 if (typeof define === "function" && define['amd'])

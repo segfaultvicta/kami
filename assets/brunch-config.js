@@ -64,4 +64,10 @@ exports.config = {
   npm: {
     enabled: true
   }
+
+  overrides: {
+    production: {
+      plugins: {elmBrunch: { makeParameters: []}}
+    }
+  }
 };

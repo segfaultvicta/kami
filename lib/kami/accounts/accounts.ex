@@ -310,7 +310,7 @@ defmodule Kami.Accounts do
       if Enum.member?(["void", "air", "earth", "fire", "water"], stat_key) and (new_value > (least_ring + character.void)) do
         {:error, "tried to increase a ring above its maximum value"}
       else
-        if new_xp > 0 do
+        if new_xp >= 0 do
           character
           |> Character.stat_changeset(%{atom => new_value, :xp => new_xp})
           |> Repo.update()

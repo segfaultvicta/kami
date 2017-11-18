@@ -1,5 +1,5 @@
 <div class="archives-heading">
-  <h2>ARCHIVES - <%= @loc.name %></h2>
+  <h2>ARCHIVES - <%= link @loc.name, to: archive_path(@conn, :show, @loc.slug) %> - <%= @day %></h2>
 </div>
 
 <div class="archives-body">

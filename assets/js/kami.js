@@ -12297,6 +12297,17 @@ var _user$project$Kami$roundDownToSecond = function (ms) {
 			1000,
 			_elm_lang$core$Basics$truncate(ms / 1000)));
 };
+var _user$project$Kami$activity = _elm_lang$core$Native_Platform.incomingPort('activity', _elm_lang$core$Json_Decode$bool);
+var _user$project$Kami$title = _elm_lang$core$Native_Platform.outgoingPort(
+	'title',
+	function (v) {
+		return v;
+	});
+var _user$project$Kami$donk = _elm_lang$core$Native_Platform.outgoingPort(
+	'donk',
+	function (v) {
+		return null;
+	});
 var _user$project$Kami$Model = function (a) {
 	return function (b) {
 		return function (c) {
@@ -12317,7 +12328,9 @@ var _user$project$Kami$Model = function (a) {
 																	return function (r) {
 																		return function (s) {
 																			return function (t) {
-																				return {uid: a, loc: b, key: c, connectionStatus: d, currentTime: e, posts: f, characters: g, post: h, selectedCharacter: i, admin: j, phone: k, cRemaining: l, cMax: m, showDialog: n, resetDice: o, dialogSelectedSkill: p, dialogSelectedRing: q, dialogSelectedSkillValue: r, dialogSelectedRingValue: s, socketUrl: t};
+																				return function (u) {
+																					return {uid: a, loc: b, key: c, connectionStatus: d, currentTime: e, posts: f, characters: g, post: h, selectedCharacter: i, admin: j, phone: k, cRemaining: l, cMax: m, showDialog: n, resetDice: o, dialogSelectedSkill: p, dialogSelectedRing: q, dialogSelectedSkillValue: r, dialogSelectedRingValue: s, socketUrl: t, active: u};
+																				};
 																			};
 																		};
 																	};
@@ -12767,12 +12780,16 @@ var _user$project$Kami$init = function (flags) {
 			dialogSelectedSkill: '',
 			dialogSelectedRingValue: -1,
 			dialogSelectedSkillValue: -1,
-			socketUrl: flags.socketUrl
+			socketUrl: flags.socketUrl,
+			active: true
 		},
 		_1: _elm_lang$core$Platform_Cmd$none
 	};
 };
 var _user$project$Kami$Connected = {ctor: 'Connected'};
+var _user$project$Kami$Activity = function (a) {
+	return {ctor: 'Activity', _0: a};
+};
 var _user$project$Kami$DialogChangeSelectedRing = function (a) {
 	return {ctor: 'DialogChangeSelectedRing', _0: a};
 };
@@ -14185,12 +14202,22 @@ var _user$project$Kami$update = F2(
 				var _p11 = _p3._0;
 				var _p9 = A2(_elm_lang$core$Json_Decode$decodeValue, _user$project$Kami$postContainerDecoder, _p11);
 				if (_p9.ctor === 'Ok') {
+					var commands = model.active ? {ctor: '[]'} : {
+						ctor: '::',
+						_0: _user$project$Kami$title('[*] Legend Of Five Rings Online'),
+						_1: {
+							ctor: '::',
+							_0: _user$project$Kami$donk(
+								{ctor: '_Tuple0'}),
+							_1: {ctor: '[]'}
+						}
+					};
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
 						_elm_lang$core$Native_Utils.update(
 							model,
 							{posts: _p9._0.posts}),
-						{ctor: '[]'});
+						commands);
 				} else {
 					var _p10 = A2(
 						_elm_lang$core$Debug$log,
@@ -14536,6 +14563,19 @@ var _user$project$Kami$update = F2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					model,
 					{ctor: '[]'});
+			case 'Activity':
+				var _p29 = _p3._0;
+				var commands = _elm_lang$core$Native_Utils.eq(_p29, true) ? {
+					ctor: '::',
+					_0: _user$project$Kami$title('Legend Of Five Rings Online'),
+					_1: {ctor: '[]'}
+				} : {ctor: '[]'};
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{active: _p29}),
+					commands);
 			default:
 				var oldPost = model.post;
 				var newPost = _elm_lang$core$Native_Utils.update(
@@ -14722,7 +14762,7 @@ var _user$project$Kami$socket = function (model) {
 			_user$project$Kami$SocketClosedAbnormally,
 			A2(
 				_saschatimme$elm_phoenix$Phoenix_Socket$onClose,
-				function (_p29) {
+				function (_p30) {
 					return _user$project$Kami$ConnectionStatusChanged(_user$project$Kami$Disconnected);
 				},
 				A2(
@@ -14748,7 +14788,11 @@ var _user$project$Kami$subscriptions = function (model) {
 			_1: {
 				ctor: '::',
 				_0: A2(_elm_lang$core$Time$every, _elm_lang$core$Time$second, _user$project$Kami$Tick),
-				_1: {ctor: '[]'}
+				_1: {
+					ctor: '::',
+					_0: _user$project$Kami$activity(_user$project$Kami$Activity),
+					_1: {ctor: '[]'}
+				}
 			}
 		});
 };

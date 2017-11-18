@@ -1,4 +1,4 @@
-module Kami exposing (..)
+port module Kami exposing (..)
 
 import Array exposing (Array)
 import Dialog
@@ -51,6 +51,7 @@ type alias Model =
     , dialogSelectedSkillValue : Int
     , dialogSelectedRingValue : Int
     , socketUrl : String
+    , active : Bool
     }
 
 
@@ -167,6 +168,7 @@ init flags =
       , dialogSelectedRingValue = -1
       , dialogSelectedSkillValue = -1
       , socketUrl = flags.socketUrl
+      , active = True
       }
     , Cmd.none
     )
@@ -199,6 +201,7 @@ type Msg
     | AckDialog
     | DialogChangeSelectedSkill String
     | DialogChangeSelectedRing String
+    | Activity Bool
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -271,7 +274,14 @@ update msg model =
         UpdatePosts payload ->
             case JD.decodeValue postContainerDecoder payload of
                 Ok payloadContainer ->
-                    { model | posts = payloadContainer.posts } ! []
+                    let
+                        commands =
+                            if model.active then
+                                []
+                            else
+                                [ title "[*] Legend Of Five Rings Online", donk () ]
+                    in
+                    { model | posts = payloadContainer.posts } ! commands
 
                 Err err ->
                     let
@@ -547,6 +557,16 @@ update msg model =
             in
             model ! []
 
+        Activity status ->
+            let
+                commands =
+                    if status == True then
+                        [ title "Legend Of Five Rings Online" ]
+                    else
+                        []
+            in
+            { model | active = status } ! commands
+
         PushPost ooc ->
             let
                 push =
@@ -705,6 +725,19 @@ characterDecoder =
 
 
 
+-- PORTS
+
+
+port activity : (Bool -> msg) -> Sub msg
+
+
+port title : String -> Cmd msg
+
+
+port donk : () -> Cmd msg
+
+
+
 -- SUBSCRIPTIONS
 
 
@@ -728,7 +761,7 @@ connect model =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.batch [ phoenixSubscription model, Time.every Time.second Tick ]
+    Sub.batch [ phoenixSubscription model, Time.every Time.second Tick, activity Activity ]
 
 
 phoenixSubscription model =

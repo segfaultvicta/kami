@@ -39,43 +39,38 @@ defmodule Kami.World do
   def get_post!(id), do: Repo.get!(Post, id)
 
   def get_posts!(location_id) do
-    query = Post
+    Post
     |> where([p], p.location_id == type(^location_id, :integer))
     |> order_by(asc: :inserted_at)
     |> Repo.all
   end
-  
+
   def get_posts!(location_id, limit) do
-    query = Post
+    Post
     |> where([p], p.location_id == type(^location_id, :integer))
     |> order_by(asc: :inserted_at)
     |> limit(type(^limit, :integer))
     |> Repo.all
   end
-  
+
   def get_backfill!(location_id, limit) do
-    query = Post
+    Post
     |> where([p], p.location_id == type(^location_id, :integer))
     |> order_by(desc: :inserted_at)
     |> limit(type(^limit, :integer))
     |> Repo.all
   end
-  
-  def get_posts!(location_id, begins, ends) do
-    
-  end
 
   def get_posts_in_channel_format(location_id) do
-    posts = 
-      get_backfill!(location_id, 20)
-      |> Enum.map(fn(post) ->  %{author_slug: post.author_slug, ooc: post.ooc, narrative: post.narrative, name: post.name, 
-                                 glory: post.glory, status: post.status, text: post.text, diceroll: post.diceroll, die_size: post.die_size, 
-                                 results: l(post.results), ring_name: post.ring_name, ring_value: post.ring_value, skill_name: post.skill_name, 
-                                 skillroll: post.skillroll, image: post.image, 
+    get_backfill!(location_id, 20)
+      |> Enum.map(fn(post) ->  %{author_slug: post.author_slug, ooc: post.ooc, narrative: post.narrative, name: post.name,
+                                 glory: post.glory, status: post.status, text: post.text, diceroll: post.diceroll, die_size: post.die_size,
+                                 results: l(post.results), ring_name: post.ring_name, ring_value: post.ring_value, skill_name: post.skill_name,
+                                 skillroll: post.skillroll, image: post.image,
                                  date: Timex.format(Timex.Timezone.convert(post.inserted_at, Timex.Timezone.get("America/New_York")), "{D} {Mshort} {YYYY}") |> Tuple.to_list |> List.last,
                                  time: Timex.format(Timex.Timezone.convert(post.inserted_at, Timex.Timezone.get("America/New_York")), "{h24}:{m}") |> Tuple.to_list |> List.last } end)
   end
-  
+
   defp l(i) do
     if is_nil(i) do
       []
@@ -83,7 +78,7 @@ defmodule Kami.World do
       i
     end
   end
-  
+
   @doc """
   Creates a post.
 
@@ -97,7 +92,7 @@ defmodule Kami.World do
 
   """
   def create_post(location_id, author_slug, attrs \\ %{}) do
-    {status, post_or_changeset} = %Post{}
+    %Post{}
     |> Post.changeset(attrs)
     |> Ecto.Changeset.put_change(:location_id, location_id)
     |> Ecto.Changeset.put_change(:author_slug, author_slug)
@@ -185,7 +180,7 @@ defmodule Kami.World do
       ** (Ecto.NoResultsError)
 
   """
-  def get_location!(id) do 
+  def get_location!(id) do
     Location
     |> Repo.get!(id)
     |> Repo.preload([:children, :parent])
@@ -196,7 +191,7 @@ defmodule Kami.World do
     |> Repo.get_by!(slug: slug)
     |> Repo.preload([:children, :parent])
   end
-  
+
   def is_ooc?(id) do
     location = get_location!(id)
     location.ooc
@@ -219,7 +214,7 @@ defmodule Kami.World do
     |> Location.changeset(attrs)
     |> Repo.insert()
   end
-  
+
   def create_location(%Location{} = parent, attrs) do
     %Location{}
     |> Location.changeset(attrs)

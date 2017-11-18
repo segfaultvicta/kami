@@ -35,6 +35,35 @@ function getSocketUrl() {
   return protocol + host + "/socket/websocket"
 }
 
+function inactivate(app) {
+  app.ports.activity.send(false);
+}
+
+function activate(app) {
+  app.ports.activity.send(true);
+}
+
+function idle(app) {
+    var t;
+    window.onload = resetTimer;
+    window.onfocus = resetTimer;
+    window.onmousedown = resetTimer; // catches touchscreen presses
+    window.onclick = resetTimer;     // catches touchpad clicks
+    window.onscroll = resetTimer;    // catches scrolling with arrow keys
+    window.onkeypress = resetTimer;
+
+    function inactivateIdle() {
+        inactivate(app);
+    }
+
+    function resetTimer() {
+        activate(app);
+        clearTimeout(t);
+        t = setTimeout(inactivateIdle, 10000);  // time is in milliseconds
+    }
+}
+
+
 import Elm from "./kami.js"
 
 // Import local files
@@ -51,7 +80,17 @@ let kamiDiv = document.getElementById('kami-main')
 if (kamiDiv !== undefined && kamiDiv !== null) {
   var app = Elm.Kami.embed(kamiDiv, {uid: getCookie("user-id"),
     loc: getCookie("location-id"), key: getCookie("elm-key"),
-    width: window.innerWidth, socketUrl: getSocketUrl()})
-}
+    width: window.innerWidth, socketUrl: getSocketUrl()});
 
-// elmApp.ports.loc.send(window.location.search);
+  app.ports.title.subscribe(function(title) {
+    document.title = title;
+  });
+
+  app.ports.donk.subscribe(function() {
+    console.log("donk!");
+    var audio = new Audio("https://s3.us-east-2.amazonaws.com/gannokoe/uploads/assets/donk2.ogg");
+    audio.play();
+  });
+
+  idle(app);
+}

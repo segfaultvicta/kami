@@ -1,0 +1,7 @@
+<h2>ARCHIVES - <%= @loc.name %></h2>
+
+<ul class="list-group">
+<%= for day <- @days do %>
+  <%= link day, to: archive_path(@conn, :show, @loc.slug, day: day), class: "list-group-item" %>
+<% end %>
+</ul>

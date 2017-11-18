@@ -243,9 +243,10 @@ defmodule Kami.Accounts do
       atom = String.to_existing_atom(stat_key)
       current_stat = Map.get(character, atom)
       new_value = current_stat + delta
-      if ((stat_key == "void_points" and new_value > character.void) or (stat_key == "strife" and new_value > (character.earth + character.fire) * 2) or new_value < 0) do
+      if ((stat_key == "void_points" and new_value > character.void) or (stat_key == "strife" and new_value > (character.earth + character.fire) * 2)) do
         {:error, "cannot modify a stat below 0 or above any relevant stat cap"}
       else
+        delta = if stat_key == "strife" and new_value < 0 do -1 * current_stat else delta end
         character
         |> Character.stat_changeset(%{atom => current_stat + delta})
         |> Repo.update()
@@ -295,6 +296,12 @@ defmodule Kami.Accounts do
     Character
     |> Repo.all
     |> Enum.each(fn(character) -> update_stat(character, "strife", (-1 * character.water)) end)
+  end
+
+  def timer_increment_void() do
+    Character
+    |> Repo.all
+    |> Enum.each(fn(character) -> update_stat(character, "void_points", 1) end)
   end
 
   def buy_upgrade_for_stat(%Character{} = character, stat_key) do

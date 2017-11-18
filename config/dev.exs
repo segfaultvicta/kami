@@ -60,9 +60,10 @@ config :kami, Kami.Repo,
 
 config :kami, Kami.Scheduler,
   jobs: [
-    {"0/10 * * * *", {Kami.Accounts, :timer_award_xp, []}},
-    {"0/5 * * * *", {Kami.Accounts, :timer_decrement_strife, []}},
-    {"0/10 * * * *", {Kami.Accounts, :timer_reset_bxp, []}}
+    {"0-59 * * * *", {Kami.Accounts, :timer_award_xp, []}},
+    {"0-59 * * * *", {Kami.Accounts, :timer_increment_void, []}},
+    {"0-59 * * * *", {Kami.Accounts, :timer_decrement_strife, []}},
+    {"0-59 * * * *", {Kami.Accounts, :timer_reset_bxp, []}}
   ]
 
 config :kami,

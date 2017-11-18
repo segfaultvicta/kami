@@ -36,6 +36,7 @@ config :kami, Kami.Scheduler,
   jobs: [
     {"1 0 * * 1", {Kami.Accounts, :timer_award_xp, []}},
     {"1 0 * * 1", {Kami.Accounts, :timer_reset_bxp, []}},
+    {"1 0 * * 1", {Kami.Accounts, :timer_increment_void, []}},
     {"1 0 * * 1,4", {Kami.Accounts, :timer_decrement_strife, []}},
   ]
 

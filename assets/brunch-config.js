@@ -50,7 +50,7 @@ exports.config = {
     },
     elmBrunch: {
       mainModules: ['elm/Kami.elm'],
-      makeParameters: ['--debug'],
+      //makeParameters: ['--debug'],
       outputFolder: "../assets/js"
     }
   },
@@ -65,9 +65,4 @@ exports.config = {
     enabled: true
   }
 
-  overrides: {
-    production: {
-      plugins: {elmBrunch: { makeParameters: []}}
-    }
-  }
 };

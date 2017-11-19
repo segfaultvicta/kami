@@ -59,7 +59,7 @@ function idle(app) {
     function resetTimer() {
         activate(app);
         clearTimeout(t);
-        t = setTimeout(inactivateIdle, 10000);  // time is in milliseconds
+        t = setTimeout(inactivateIdle, 30000);  // time is in milliseconds
     }
 }
 

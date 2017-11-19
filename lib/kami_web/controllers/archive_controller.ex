@@ -1,5 +1,6 @@
 defmodule KamiWeb.ArchiveController do
   use KamiWeb, :controller
+  use Timex
 
   alias Kami.World
 
@@ -11,8 +12,12 @@ defmodule KamiWeb.ArchiveController do
   def show(conn, %{"loc" => loc, "day" => day}) do
     location = World.get_location_by_slug!(loc)
     [y, m, d] = String.split(day, "-")
+    start = Timex.to_datetime({String.to_integer(y), String.to_integer(m), String.to_integer(d)}, "America/Chicago")
+    finish = Timex.shift(start, days: 1)
     posts = World.get_posts!(location.id)
-    |> Enum.filter(fn(p) -> (p.inserted_at.year == String.to_integer(y)) and (p.inserted_at.month == String.to_integer(m)) and (p.inserted_at.day == String.to_integer(d)) end)
+    |> Enum.filter(fn(p) ->
+      Timex.to_datetime(p.inserted_at) |> Timex.shift(hours: -1) |> Timex.between?(start, finish, [inclusive: true])
+    end)
     render conn, "show.html", loc: location, day: day, posts: posts
   end
 

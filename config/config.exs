@@ -27,7 +27,7 @@ config :kami, Kami.Guardian,
   secret_key: "y97ylha5R1Rooz4DM7plkJp9XhaT8V2tdTgb7G0rC5J8Uvk8Ze/xUXxe7CVslAy5"
 
 config :kami, Kami.Scheduler,
-  timezone: "America/New_York"
+  timezone: "America/Chicago"
 
 config :arc,
   storage: Arc.Storage.S3,

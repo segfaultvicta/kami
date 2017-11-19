@@ -59,10 +59,10 @@
       %>
       <%= if info do %>
         <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <%= end %>
+      <% end %>
       <%= if error do %>
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-      <%= end %>
+      <% end %>
 
       <main role="main">
         <div class="container">

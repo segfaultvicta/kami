@@ -40,8 +40,8 @@
       </div>
       <% end %>
       <div class="timestamp text-center font-weight-light">
-        <%= Timex.format(Timex.Timezone.convert(post.inserted_at, Timex.Timezone.get("America/New_York")), "{D} {Mshort} {YYYY}") |> Tuple.to_list |> List.last %> <br />
-        <%= Timex.format(Timex.Timezone.convert(post.inserted_at, Timex.Timezone.get("America/New_York")), "{h24}:{m}") |> Tuple.to_list |> List.last %>
+        <%= Timex.format(Timex.Timezone.convert(post.inserted_at, Timex.Timezone.get("America/Chicago")), "{D} {Mshort} {YYYY}") |> Tuple.to_list |> List.last %> <br />
+        <%= Timex.format(Timex.Timezone.convert(post.inserted_at, Timex.Timezone.get("America/Chicago")), "{h24}:{m}") |> Tuple.to_list |> List.last %>
       </div>
     </div>
   </div>

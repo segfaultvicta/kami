@@ -4,7 +4,6 @@ defmodule KamiWeb.LocationController do
   require Logger
 
   alias Kami.World
-  alias Kami.World.Location
 
   def index(conn, _params) do
     if Kami.Guardian.Plug.current_resource(conn).admin do
@@ -15,18 +14,13 @@ defmodule KamiWeb.LocationController do
       |> redirect(to: location_path(conn, :show, "lobby"))
     end
   end
-  
+
   def show(conn, %{"id" => id, "loadroom" => "true"}) do
-    {location, slug} = case Integer.parse(id) do
+    {location, _} = case Integer.parse(id) do
       :error ->
         {World.get_location_by_slug!(id), id}
       {lid, _} ->
         {World.get_location!(lid), nil}
-    end
-    slug = if slug == nil do
-      location.slug
-    else
-      slug
     end
     if location.locked do
       conn
@@ -48,7 +42,7 @@ defmodule KamiWeb.LocationController do
       end
     end
   end
-  
+
   def show(conn, %{"id" => id}) do
     location = case Integer.parse(id) do
       :error ->
@@ -62,7 +56,7 @@ defmodule KamiWeb.LocationController do
       p ->
         %{name: p.name, id: p.id, slug: p.slug}
     end
-    children = if Enum.count(location.children) > 0 do 
+    children = if Enum.count(location.children) > 0 do
       Enum.map(location.children, fn(child) -> %{name: child.name, id: child.id, slug: child.slug} end)
     else
       false
@@ -72,7 +66,7 @@ defmodule KamiWeb.LocationController do
 
   def edit(conn, %{"id" => id}) do
     if Kami.Guardian.Plug.current_resource(conn).admin do
-      location = location = case Integer.parse(id) do
+      location = case Integer.parse(id) do
         :error ->
           World.get_location_by_slug!(id)
         {lid, _} ->

@@ -33,6 +33,28 @@
   background-image: -o-linear-gradient(top, #eeeeee, #cccccc);
 }
 
+.diceroll .die-selected {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #fff;
+    box-shadow:
+        0 0 5px 2px #fff,
+        0 0 10px 5px #f06,
+        0 0 20px 10px #000;
+}
+
+.diceroll .die-special {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #fff;
+  box-shadow:
+      0 0 5px 2px #fff,
+      0 0 10px 5px #06f,
+      0 0 20px 10px #000;
+}
+
 .modal-backdrop {
   background-color: rgba(0,0,0,0.9);
 }

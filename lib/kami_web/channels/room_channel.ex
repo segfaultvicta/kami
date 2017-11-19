@@ -1,5 +1,6 @@
 defmodule KamiWeb.RoomChannel do
   use KamiWeb, :channel
+  alias Kami.Actors.Dice
   require Logger
 
   def join("room:" <> loc_id, %{"id" => user_id, "key" => key}, socket) do
@@ -13,7 +14,8 @@ defmodule KamiWeb.RoomChannel do
       |> Phoenix.Socket.assign(:admin, is_admin)
       posts = get_posts(loc_id)
       characters = get_characters(user_id)
-      {:ok, %{posts: posts, characters: characters, admin: is_admin}, socket}
+      dice = Dice.get(loc_id)
+      {:ok, %{posts: posts, characters: characters, admin: is_admin, dice: dice}, socket}
     else
       {:error, %{reason: "unauthorized"}}
     end
@@ -49,6 +51,18 @@ defmodule KamiWeb.RoomChannel do
         end
     else
       {:reply, {:error, %{reason: "unauthorised to update that character"}}, socket}
+    end
+  end
+
+  def handle_in("die_toggle", %{"idx" => index, "author" => author, "time" => time, "hash" => hash}, socket) do
+    user = if (author == "") || author == "[narrative]" do -1 else Kami.Accounts.get_character_by_name!(author).user_id end
+    if socket.assigns[:user] == user || (socket.assigns[:admin]) do
+      id = "#{author}-#{index}-#{time}-#{hash}"
+      Dice.trigger(id, DateTime.utc_now(), socket.assigns[:location])
+      broadcast!(socket, "update_dice", %{dice: Dice.get(socket.assigns[:location])})
+      {:reply, {:ok, %{}}, socket}
+    else
+      {:reply, {:error, %{reason: "unauthorised to update that character's dice results"}}, socket}
     end
   end
 
@@ -93,13 +107,13 @@ defmodule KamiWeb.RoomChannel do
   end
 
   defp get_posts(location_id) do
-    Kami.World.get_backfill!(location_id, 20)
+    Kami.World.get_backfill!(location_id, Application.get_env(:kami, :posts_to_show))
     |> Enum.map(fn(post) ->  %{author_slug: post.author_slug, ooc: post.ooc, narrative: post.narrative, name: post.name,
                                glory: post.glory, status: post.status, text: post.text, diceroll: post.diceroll, die_size: post.die_size,
                                results: l(post.results), ring_name: post.ring_name, ring_value: post.ring_value, skill_name: post.skill_name,
                                skillroll: post.skillroll, image: post.image,
-                               date: Timex.format(Timex.Timezone.convert(post.inserted_at, Timex.Timezone.get("America/New_York")), "{D} {Mshort} {YYYY}") |> Tuple.to_list |> List.last,
-                               time: Timex.format(Timex.Timezone.convert(post.inserted_at, Timex.Timezone.get("America/New_York")), "{h24}:{m}") |> Tuple.to_list |> List.last } end)
+                               date: Timex.format(Timex.Timezone.convert(post.inserted_at, Timex.Timezone.get("America/Chicago")), "{D} {Mshort} {YYYY}") |> Tuple.to_list |> List.last,
+                               time: Timex.format(Timex.Timezone.convert(post.inserted_at, Timex.Timezone.get("America/Chicago")), "{h24}:{m}") |> Tuple.to_list |> List.last } end)
   end
 
 

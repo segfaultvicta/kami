@@ -1,6 +1,8 @@
 port module Kami exposing (..)
 
 import Array exposing (Array)
+import Bitwise exposing (shiftLeftBy)
+import Char exposing (toCode)
 import Dialog
 import Dict
 import Html exposing (..)
@@ -13,6 +15,7 @@ import Phoenix
 import Phoenix.Channel as Channel exposing (Channel)
 import Phoenix.Push as Push
 import Phoenix.Socket as Socket exposing (AbnormalClose, Socket)
+import String exposing (foldl)
 import Time exposing (Time)
 
 
@@ -38,6 +41,7 @@ type alias Model =
     , currentTime : Time
     , posts : List Post
     , characters : List Character
+    , dice : List DieMeta
     , post : Post
     , selectedCharacter : Int
     , admin : Bool
@@ -131,6 +135,12 @@ type alias Post =
     }
 
 
+type alias DieMeta =
+    { die_id : String
+    , enum : Int
+    }
+
+
 type alias InitFlags =
     { uid : String
     , loc : String
@@ -155,6 +165,7 @@ init flags =
       , currentTime = 0
       , posts = []
       , characters = []
+      , dice = []
       , post = Post "" False False "" 0 0 "" False 0 [] "" "" 0 False "" "" ""
       , selectedCharacter = 0
       , admin = False
@@ -185,6 +196,7 @@ type Msg
     | InitChannel JD.Value
     | UpdatePosts JD.Value
     | UpdateCharacters JD.Value
+    | UpdateDice JD.Value
     | PushPost Bool
     | ChangeSelectedCharacter String
     | ChangeSelectedSkill String
@@ -202,6 +214,7 @@ type Msg
     | DialogChangeSelectedSkill String
     | DialogChangeSelectedRing String
     | Activity Bool
+    | DiceClick Int Post
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -254,6 +267,9 @@ update msg model =
                         posts =
                             payloadContainer.posts
 
+                        dice =
+                            payloadContainer.dice
+
                         initPost =
                             case admin of
                                 True ->
@@ -262,7 +278,7 @@ update msg model =
                                 False ->
                                     Post slug False False name character.glory character.status "" False 0 [] "" "" 0 True character.image "" ""
                     in
-                    { model | post = initPost, admin = admin, selectedCharacter = selectedCharacter, posts = payloadContainer.posts, characters = payloadContainer.characters } ! []
+                    { model | post = initPost, dice = dice, admin = admin, selectedCharacter = selectedCharacter, posts = payloadContainer.posts, characters = payloadContainer.characters } ! []
 
                 Err err ->
                     let
@@ -299,6 +315,18 @@ update msg model =
                     let
                         _ =
                             Debug.log "updateCharacters payload error " ( err, payload )
+                    in
+                    model ! []
+
+        UpdateDice payload ->
+            case JD.decodeValue diceContainerDecoder payload of
+                Ok payloadContainer ->
+                    { model | dice = payloadContainer.dice } ! []
+
+                Err err ->
+                    let
+                        _ =
+                            Debug.log "updateDice payload error " ( err, payload )
                     in
                     model ! []
 
@@ -567,6 +595,27 @@ update msg model =
             in
             { model | active = status } ! commands
 
+        DiceClick idx post ->
+            let
+                dbj2 =
+                    foldl updateDbjHash 5381 post.text
+
+                selected =
+                    getCharacter model.characters model.selectedCharacter
+
+                push =
+                    Push.init ("room:" ++ model.loc) "die_toggle"
+                        |> Push.withPayload
+                            (JE.object
+                                [ ( "idx", JE.int idx )
+                                , ( "author", JE.string post.author_slug )
+                                , ( "time", JE.string post.time )
+                                , ( "hash", JE.int dbj2 )
+                                ]
+                            )
+            in
+            model ! [ Phoenix.push model.socketUrl push ]
+
         PushPost ooc ->
             let
                 push =
@@ -607,6 +656,11 @@ roundDownToSecond ms =
     (ms / 1000) |> truncate |> (*) 1000 |> toFloat
 
 
+updateDbjHash : Char -> Int -> Int
+updateDbjHash c h =
+    shiftLeftBy h 5 + h + toCode c
+
+
 
 -- DECODERS
 
@@ -615,15 +669,17 @@ type alias InitPayloadContainer =
     { posts : List Post
     , characters : List Character
     , admin : Bool
+    , dice : List DieMeta
     }
 
 
 initDecoder : JD.Decoder InitPayloadContainer
 initDecoder =
-    JD.map3 (\posts characters admin -> InitPayloadContainer posts characters admin)
+    JD.map4 (\posts characters admin dice -> InitPayloadContainer posts characters admin dice)
         (JD.field "posts" postListDecoder)
         (JD.field "characters" characterListDecoder)
         (JD.field "admin" JD.bool)
+        (JD.field "dice" diceListDecoder)
 
 
 type alias PostPayloadContainer =
@@ -646,6 +702,16 @@ charactersContainerDecoder =
         (JD.field "characters" characterListDecoder)
 
 
+type alias DicePayloadContainer =
+    { dice : List DieMeta }
+
+
+diceContainerDecoder : JD.Decoder DicePayloadContainer
+diceContainerDecoder =
+    JD.map (\dice -> DicePayloadContainer dice)
+        (JD.field "dice" diceListDecoder)
+
+
 postListDecoder : JD.Decoder (List Post)
 postListDecoder =
     JD.list postDecoder
@@ -654,6 +720,11 @@ postListDecoder =
 characterListDecoder : JD.Decoder (List Character)
 characterListDecoder =
     JD.list characterDecoder
+
+
+diceListDecoder : JD.Decoder (List DieMeta)
+diceListDecoder =
+    JD.list dieMetaDecoder
 
 
 postDecoder : JD.Decoder Post
@@ -724,6 +795,13 @@ characterDecoder =
         |> required "survival" JD.int
 
 
+dieMetaDecoder : JD.Decoder DieMeta
+dieMetaDecoder =
+    decode DieMeta
+        |> required "die_id" JD.string
+        |> required "enum" JD.int
+
+
 
 -- PORTS
 
@@ -756,6 +834,7 @@ connect model =
         |> Channel.withPayload (JE.object [ ( "id", JE.string model.uid ), ( "key", JE.string model.key ) ])
         |> Channel.onJoin InitChannel
         |> Channel.on "update_posts" (\msg -> UpdatePosts msg)
+        |> Channel.on "update_dice" (\msg -> UpdateDice msg)
         |> Channel.withDebug
 
 
@@ -782,7 +861,7 @@ view model =
                 "posts-desktop"
     in
     div []
-        ([ renderInputBar model ] ++ [ div [ class ("posts " ++ posts_sub) ] (List.map renderPost model.posts) ] ++ [ xpDialog model ])
+        ([ renderInputBar model ] ++ [ div [ class ("posts " ++ posts_sub) ] (List.map (renderPost model.dice) model.posts) ] ++ [ xpDialog model ])
 
 
 xpDialog : Model -> Html Msg
@@ -1176,8 +1255,8 @@ checkbox msg status name classextras =
         ]
 
 
-renderPost : Post -> Html Msg
-renderPost post =
+renderPost : List DieMeta -> Post -> Html Msg
+renderPost dice post =
     let
         post_classes =
             case ( post.narrative, post.ooc ) of
@@ -1235,7 +1314,7 @@ renderPost post =
                             div []
                                 ([ roll_element ]
                                     ++ (post.results
-                                            |> List.map (\result -> a [ Html.Attributes.attribute "hovertitle" (hoverDice result) ] [ img [ class "dice-image", src ("http://aurum.aludel.xyz/gnkstatic/dice/" ++ toString result ++ ".png") ] [] ])
+                                            |> List.indexedMap (\idx result -> a [ Html.Attributes.attribute "hovertitle" (hoverDice result), onClick (DiceClick idx post) ] [ img [ class ("dice-image " ++ diceClass idx post dice), src ("https://s3.us-east-2.amazonaws.com/gannokoe/uploads/assets/" ++ toString result ++ ".png") ] [] ])
                                        )
                                 )
                           else
@@ -1261,6 +1340,51 @@ renderPost post =
                 ]
             ]
         ]
+
+
+diceClass : Int -> Post -> List DieMeta -> String
+diceClass index post dice =
+    let
+        dbj =
+            foldl updateDbjHash 5381 post.text
+
+        die_id =
+            post.author_slug ++ "-" ++ (index |> toString) ++ "-" ++ post.time ++ "-" ++ (dbj |> toString)
+
+        selected =
+            List.any
+                (\die -> die.die_id == die_id)
+                dice
+
+        match =
+            List.filter (\die -> die.die_id == die_id) dice
+
+        h =
+            List.head match
+
+        enum =
+            if selected then
+                case h of
+                    Just m ->
+                        m.enum
+
+                    Nothing ->
+                        0
+            else
+                0
+    in
+    if selected then
+        case enum of
+            1 ->
+                "die-selected"
+
+            2 ->
+                "die-special"
+
+            _ ->
+                "die-unselected"
+    else
+        "die-unselected"
 
 
 hoverDice : Int -> String

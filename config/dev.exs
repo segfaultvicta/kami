@@ -71,6 +71,8 @@ config :kami,
   bxp_per_post: 0.1,
   bxp_per_week_max: 4,
   bxp_per_week_patreon_bonus: 2,
-  xp_per_week: 2
+  xp_per_week: 2,
+  dice_lifetime: 1000,
+  posts_to_show: 40
 
 import_config "dev.secret.exs"

@@ -16,7 +16,7 @@ defmodule KamiWeb.ArchiveController do
     finish = Timex.shift(start, days: 1)
     posts = World.get_posts!(location.id)
     |> Enum.filter(fn(p) ->
-      Timex.to_datetime(p.inserted_at) |> Timex.shift(hours: -1) |> Timex.between?(start, finish, [inclusive: true])
+      Timex.to_datetime(p.inserted_at) |> Timex.between?(start, finish, [inclusive: true])
     end)
     render conn, "show.html", loc: location, day: day, posts: posts
   end
@@ -24,7 +24,9 @@ defmodule KamiWeb.ArchiveController do
   def show(conn, %{"loc" => loc}) do
     location = World.get_location_by_slug!(loc)
     days = World.get_posts!(location.id)
-      |> Enum.map(fn(post) -> Integer.to_string(post.inserted_at.year) <> "-" <> Integer.to_string(post.inserted_at.month) <> "-" <> Integer.to_string(post.inserted_at.day) end)
+      |> Enum.map(fn(post) ->
+        Timex.to_datetime(post.inserted_at) |> Timex.Timezone.convert("America/Chicago") |> Timex.format!("{YYYY}-{M}-{D}")
+      end)
       |> Enum.uniq
     render conn, "daylocation.html", loc: location, days: days
   end

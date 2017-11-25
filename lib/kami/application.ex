@@ -16,6 +16,7 @@ defmodule Kami.Application do
       # worker(Kami.Worker, [arg1, arg2, arg3]),
       worker(Kami.Scheduler, []),
       worker(Kami.Actors.Dice, []),
+      worker(Kami.Actors.Activity, []),
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

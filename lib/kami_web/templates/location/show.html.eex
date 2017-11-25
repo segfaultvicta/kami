@@ -23,7 +23,7 @@
 
 <%= if @children do %>
   <p class="text-center">
-    Continue to 
+    Continue to
     <%= for {child, index} <- Enum.with_index(@children) do %>
       <%= link child.name, to: location_path(@conn, :show, child.slug) %>
       <%= if (index + 1) != Enum.count(@children) do %>
@@ -31,4 +31,23 @@
       <% end %>
     <% end %>
   </p>
+<% end %>
+
+<hr />
+
+<%= if @recents do %>
+  <h4>Recent activity:</h4>
+  <ul class="list-group recents">
+    <%= for recent <- @recents do %>
+      <%= if @location.id == 1 do %>
+        <li class="list-group-item">
+          <%= recent.author %>, in <%= link recent.location, to: location_path(@conn, :show, recent.location_slug) %> <%= recent.ts %>
+        </li>
+      <% else %>
+        <li class="list-group-item">
+          <%= recent.author %>, <%= recent.ts %>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
 <% end %>

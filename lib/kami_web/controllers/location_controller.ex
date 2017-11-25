@@ -61,7 +61,8 @@ defmodule KamiWeb.LocationController do
     else
       false
     end
-    render(conn, "show.html", location: location, parent: parent, children: children)
+    recents = World.get_recent_post_authors(location.id)
+    render(conn, "show.html", location: location, parent: parent, children: children, recents: recents)
   end
 
   def edit(conn, %{"id" => id}) do

@@ -1,6 +1,7 @@
 defmodule KamiWeb.RoomChannel do
   use KamiWeb, :channel
   alias Kami.Actors.Dice
+  alias Kami.Actors.Activity
   require Logger
 
   def join("room:" <> loc_id, %{"id" => user_id, "key" => key}, socket) do
@@ -15,10 +16,24 @@ defmodule KamiWeb.RoomChannel do
       posts = get_posts(loc_id)
       characters = get_characters(user_id)
       dice = Dice.get(loc_id)
+      Activity.join(user_id, loc_id)
       {:ok, %{posts: posts, characters: characters, admin: is_admin, dice: dice}, socket}
     else
       {:error, %{reason: "unauthorized"}}
     end
+  end
+
+  def terminate(_, socket) do
+    Activity.part(socket.assigns[:user])
+  end
+
+  def handle_in("still_alive", _, socket) do
+    Activity.ping(socket.assigns[:user])
+    {:noreply, socket}
+  end
+
+  def handle_in("presence", _, socket) do
+    {:reply, {:ok, %{activity: Activity.get}}, socket}
   end
 
   # Channels can be used in a request/response fashion

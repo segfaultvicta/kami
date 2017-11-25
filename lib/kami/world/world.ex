@@ -61,22 +61,48 @@ defmodule Kami.World do
     |> Repo.all
   end
 
-  def get_posts_in_channel_format(location_id) do
-    get_backfill!(location_id, 20)
-      |> Enum.map(fn(post) ->  %{author_slug: post.author_slug, ooc: post.ooc, narrative: post.narrative, name: post.name,
-                                 glory: post.glory, status: post.status, text: post.text, diceroll: post.diceroll, die_size: post.die_size,
-                                 results: l(post.results), ring_name: post.ring_name, ring_value: post.ring_value, skill_name: post.skill_name,
-                                 skillroll: post.skillroll, image: post.image,
-                                 date: Timex.format(Timex.Timezone.convert(post.inserted_at, Timex.Timezone.get("America/New_York")), "{D} {Mshort} {YYYY}") |> Tuple.to_list |> List.last,
-                                 time: Timex.format(Timex.Timezone.convert(post.inserted_at, Timex.Timezone.get("America/New_York")), "{h24}:{m}") |> Tuple.to_list |> List.last } end)
+  def get_recent_post_authors(1) do
+    Post
+    |> where([p], p.ooc == false and p.location_id != 1)
+    |> order_by(desc: :inserted_at)
+    |> limit(100)
+    |> Repo.all
+    |> Repo.preload([:location])
+    |> Enum.map(fn(p) -> %{location: p.location.name, location_slug: p.location.slug, author: String.capitalize(p.author_slug),
+      ts: Timex.to_datetime(p.inserted_at) |> Timex.Timezone.convert("America/Chicago") |> Timex.format!("at {h24}:{m} on {WDfull}, {D} {Mshort} {YYYY}")} end)
+    |> Enum.filter(fn(p) -> p.author != "" and p.author != "[narrative]" end)
+    |> filter_ignoring_timestamps
+    |> Enum.take(10)
   end
 
-  defp l(i) do
-    if is_nil(i) do
-      []
+  def get_recent_post_authors(location_id) do
+    Post
+    |> where([p], p.ooc == false and p.location_id == ^location_id)
+    |> order_by(desc: :inserted_at)
+    |> limit(100)
+    |> Repo.all
+    |> Repo.preload([:location])
+    |> Enum.map(fn(p) -> %{location: p.location.name, location_slug: p.location.slug, author: String.capitalize(p.author_slug),
+      ts: Timex.to_datetime(p.inserted_at) |> Timex.Timezone.convert("America/Chicago") |> Timex.format!("at {h24}:{m} on {WDfull}, {D} {Mshort} {YYYY}")} end)
+    |> Enum.filter(fn(p) -> p.author != "" and p.author != "[narrative]" end)
+    |> filter_ignoring_timestamps
+    |> Enum.take(5)
+  end
+
+  defp filter_ignoring_timestamps(posts) do
+    filter_ignoring_timestamps(posts, MapSet.new)
+  end
+
+  defp filter_ignoring_timestamps([x|rest], found) do
+    if MapSet.member?(found, {x.author, x.location_slug}) do
+      filter_ignoring_timestamps(rest, found)
     else
-      i
+      [x | filter_ignoring_timestamps(rest, MapSet.put(found, {x.author, x.location_slug}))]
     end
+  end
+
+  defp filter_ignoring_timestamps([], _) do
+    []
   end
 
   @doc """

@@ -42,6 +42,7 @@ type alias Model =
     , posts : List Post
     , characters : List Character
     , dice : List DieMeta
+    , presence : List PresenceMeta
     , post : Post
     , selectedCharacter : Int
     , admin : Bool
@@ -49,6 +50,7 @@ type alias Model =
     , cRemaining : Int
     , cMax : Int
     , showDialog : Bool
+    , showPresence : Bool
     , resetDice : Bool
     , dialogSelectedSkill : String
     , dialogSelectedRing : String
@@ -141,6 +143,14 @@ type alias DieMeta =
     }
 
 
+type alias PresenceMeta =
+    { timestamp : String
+    , real_ts : Int
+    , name : String
+    , location : String
+    }
+
+
 type alias InitFlags =
     { uid : String
     , loc : String
@@ -166,6 +176,7 @@ init flags =
       , posts = []
       , characters = []
       , dice = []
+      , presence = []
       , post = Post "" False False "" 0 0 "" False 0 [] "" "" 0 False "" "" ""
       , selectedCharacter = 0
       , admin = False
@@ -173,6 +184,7 @@ init flags =
       , cRemaining = 750
       , cMax = 750
       , showDialog = False
+      , showPresence = False
       , resetDice = True
       , dialogSelectedRing = ""
       , dialogSelectedSkill = ""
@@ -210,6 +222,8 @@ type Msg
     | SpendXP String
     | ModifyStatFailed JD.Value
     | OpenDialog
+    | OpenPresence
+    | UpdatePresence JD.Value
     | AckDialog
     | DialogChangeSelectedSkill String
     | DialogChangeSelectedRing String
@@ -236,8 +250,28 @@ update msg model =
         OpenDialog ->
             { model | showDialog = True } ! []
 
+        OpenPresence ->
+            let
+                push =
+                    Push.init ("room:" ++ model.loc) "presence"
+                        |> Push.onOk (\response -> UpdatePresence response)
+            in
+            model ! [ Phoenix.push model.socketUrl push ]
+
+        UpdatePresence payload ->
+            case JD.decodeValue presenceDecoder payload of
+                Ok payloadContainer ->
+                    { model | showPresence = True, presence = payloadContainer.presence } ! []
+
+                Err err ->
+                    let
+                        _ =
+                            Debug.log "updatePresence payload error " ( err, payload )
+                    in
+                    model ! []
+
         AckDialog ->
-            { model | showDialog = False, dialogSelectedRing = "", dialogSelectedSkill = "", dialogSelectedRingValue = -1, dialogSelectedSkillValue = -1 } ! []
+            { model | showPresence = False, showDialog = False, dialogSelectedRing = "", dialogSelectedSkill = "", dialogSelectedRingValue = -1, dialogSelectedSkillValue = -1 } ! []
 
         InitChannel payload ->
             case JD.decodeValue initDecoder payload of
@@ -587,9 +621,12 @@ update msg model =
 
         Activity status ->
             let
+                push =
+                    Push.init ("room:" ++ model.loc) "still_alive"
+
                 commands =
                     if status == True then
-                        [ title "Legend Of Five Rings Online" ]
+                        [ title "Legend Of Five Rings Online", Phoenix.push model.socketUrl push ]
                     else
                         []
             in
@@ -712,6 +749,16 @@ diceContainerDecoder =
         (JD.field "dice" diceListDecoder)
 
 
+type alias PresencePayloadContainer =
+    { presence : List PresenceMeta }
+
+
+presenceDecoder : JD.Decoder PresencePayloadContainer
+presenceDecoder =
+    JD.map (\presence -> PresencePayloadContainer presence)
+        (JD.field "activity" presenceListDecoder)
+
+
 postListDecoder : JD.Decoder (List Post)
 postListDecoder =
     JD.list postDecoder
@@ -725,6 +772,11 @@ characterListDecoder =
 diceListDecoder : JD.Decoder (List DieMeta)
 diceListDecoder =
     JD.list dieMetaDecoder
+
+
+presenceListDecoder : JD.Decoder (List PresenceMeta)
+presenceListDecoder =
+    JD.list presenceMetaDecoder
 
 
 postDecoder : JD.Decoder Post
@@ -802,6 +854,15 @@ dieMetaDecoder =
         |> required "enum" JD.int
 
 
+presenceMetaDecoder : JD.Decoder PresenceMeta
+presenceMetaDecoder =
+    decode PresenceMeta
+        |> required "timestamp" JD.string
+        |> required "real_ts" JD.int
+        |> required "name" JD.string
+        |> required "location" JD.string
+
+
 
 -- PORTS
 
@@ -861,22 +922,38 @@ view model =
                 "posts-desktop"
     in
     div []
-        ([ renderInputBar model ] ++ [ div [ class ("posts " ++ posts_sub) ] (List.map (renderPost model.dice) model.posts) ] ++ [ xpDialog model ])
+        ([ renderInputBar model ] ++ [ div [ class ("posts " ++ posts_sub) ] (List.map (renderPost model.dice) model.posts) ] ++ [ dialog model ])
 
 
-xpDialog : Model -> Html Msg
-xpDialog model =
+dialog : Model -> Html Msg
+dialog model =
     let
         selected =
             getCharacter model.characters model.selectedCharacter
     in
     Dialog.view
-        (if model.showDialog then
+        (if model.showDialog || model.showPresence then
             Just
                 { closeMessage = Nothing
                 , containerClass = Just "modal-container"
-                , header = Just (div [ class "d-flex fill" ] [ xpDialogHeader selected, i [ class "p-2 fa fa-times fa-4x cancel-icon", onClick AckDialog ] [] ])
-                , body = Just (div [ class "modal-body" ] [ xpDialogBody selected model ])
+                , header =
+                    Just
+                        (div [ class "d-flex fill" ]
+                            (if model.showPresence then
+                                [ presenceDialogHeader, i [ class "p-2 fa fa-times fa-4x cancel-icon", onClick AckDialog ] [] ]
+                             else
+                                [ xpDialogHeader selected, i [ class "p-2 fa fa-times fa-4x cancel-icon", onClick AckDialog ] [] ]
+                            )
+                        )
+                , body =
+                    Just
+                        (div [ class "modal-body" ]
+                            (if model.showPresence then
+                                [ presenceDialogBody model.presence ]
+                             else
+                                [ xpDialogBody selected model ]
+                            )
+                        )
                 , footer = Nothing
                 }
          else
@@ -889,12 +966,28 @@ xpDialogHeader selected =
     div [ class "mr-auto p-2" ] [ span [ class "xp-available" ] [ text (selected.xp |> toString) ], span [ class "xp-available-text" ] [ text " XP Available" ] ]
 
 
+presenceDialogHeader : Html Msg
+presenceDialogHeader =
+    div [ class "mr-auto p-2" ] [ span [ class "xp-available-text" ] [ text "Currently Online:" ] ]
+
+
 xpDialogBody : Character -> Model -> Html Msg
 xpDialogBody selected model =
     div [ class "d-flex fill flex-column" ]
         [ div [ class "xp-menu-item d-flex flex-row" ] ([ xpDialogSkills selected ] ++ spend selected model.dialogSelectedSkill model.dialogSelectedSkillValue 2 True)
         , div [ class "xp-menu-item d-flex flew-row" ] ([ xpDialogRings selected ] ++ spend selected model.dialogSelectedRing model.dialogSelectedRingValue 3 False)
         ]
+
+
+presenceDialogBody : List PresenceMeta -> Html Msg
+presenceDialogBody presence =
+    div [ class "d-flex fill flex-column" ]
+        [ presence |> List.sortBy .real_ts |> List.reverse |> List.map presenceItem |> ul [ class "presence-list" ] ]
+
+
+presenceItem : PresenceMeta -> Html Msg
+presenceItem item =
+    li [ class "presence-item" ] [ text (item.name ++ " @ " ++ item.location ++ ", " ++ item.timestamp) ]
 
 
 spend : Character -> String -> Int -> Int -> Bool -> List (Html Msg)
@@ -1075,6 +1168,7 @@ renderInputBar model =
                                     text ""
                                   else
                                     button [ Html.Attributes.type_ "button", class "btn btn-success post-button", onClick OpenDialog ] [ text "Spend XP" ]
+                                , button [ Html.Attributes.type_ "button", class "btn btn-info post-button", onClick OpenPresence ] [ text "Activity" ]
                                 ]
                             ]
                         ]

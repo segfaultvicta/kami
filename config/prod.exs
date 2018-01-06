@@ -30,7 +30,7 @@ config :kami,
   bxp_per_post: 0.1,
   bxp_per_week_max: 4,
   bxp_per_week_patreon_bonus: 2,
-  xp_per_week: 3,
+  xp_per_week: 2,
   dice_lifetime: 21600,
   posts_to_show: 30
 
@@ -38,7 +38,7 @@ config :kami, Kami.Scheduler,
   jobs: [
     {"1 0 * * 1", {Kami.Accounts, :timer_award_xp, []}},
     {"1 0 * * 1", {Kami.Accounts, :timer_reset_bxp, []}},
-    {"1 0 * * 1", {Kami.Accounts, :timer_increment_void, []}},
+    {"1 0 * * 1,4", {Kami.Accounts, :timer_increment_void, []}},
     {"1 0 * * 1,4", {Kami.Accounts, :timer_decrement_strife, []}},
   ]
 

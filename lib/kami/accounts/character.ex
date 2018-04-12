@@ -70,6 +70,25 @@ defmodule Kami.Accounts.Character do
     field :patreon, :boolean, default: false
     field :gm_notes, :string
     field :secret_gm_notes, :string
+    field :cabal, :string
+    field :concept, :string
+    field :objectives, :string
+    field :rage, :string
+    field :noble, :string
+    field :fear, :string
+    field :helplessness_hardened, :integer
+    field :helplessness_failures, :integer
+    field :isolation_hardened, :integer
+    field :isolation_failures, :integer
+    field :self_hardened, :integer
+    field :self_failures, :integer
+    field :unnatural_hardened, :integer
+    field :unnatural_failures, :integer
+    field :violence_hardened, :integer
+    field :violence_failures, :integer
+    field :identities, :string
+    field :other, :string
+    field :distinguishing_characteristics, :string
 
 
     belongs_to :user, Kami.Accounts.User

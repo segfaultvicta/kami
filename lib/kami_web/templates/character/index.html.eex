@@ -6,17 +6,6 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Clan</th>
-      <th>Family</th>
-      <th>Honor</th>
-      <th>Glory</th>
-      <th>Status</th>
-      <th>Strife</th>
-      <th>Air</th>
-      <th>Earth</th>
-      <th>Fire</th>
-      <th>Water</th>
-      <th>Void</th>
       <th>Total xp</th>
 
       <th></th>
@@ -26,17 +15,6 @@
 <%= for character <- @characters do %>
     <tr class="<%= if character.approved do "approved" else "unapproved" end %>">
       <td><%= character.name %><%= if not character.approved do " - Unapproved" end %></td>
-      <td><%= character.clan %></td>
-      <td><%= character.family %></td>
-      <td><%= character.honor %></td>
-      <td><%= character.glory %></td>
-      <td><%= character.status %></td>
-      <td><%= character.strife %></td>
-      <td><%= character.air %></td>
-      <td><%= character.earth %></td>
-      <td><%= character.fire %></td>
-      <td><%= character.water %></td>
-      <td><%= character.void %></td>
       <td><%= character.total_xp %></td>
 
       <td class="text-right">

@@ -15,12 +15,6 @@
         <div>
           <strong><%= post.name %></strong>
         </div>
-        <div>
-          <strong>Glory</strong> <%= post.glory %>
-        </div>
-        <div>
-          <strong>Status</strong> <%= post.status %>
-        </div>
       </div>
     </div> </a>
     <% end %>

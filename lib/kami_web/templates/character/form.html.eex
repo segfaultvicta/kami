@@ -17,37 +17,8 @@
   </div>
   <div class="row">
     <div class="col">
-      <%= text_input f, :family, class: "form-control", placeholder: "Family Name" %>
-      <%= error_tag f, :family %>
       <%= text_input f, :name, class: "form-control", placeholder: "Personal Name" %>
       <%= error_tag f, :name %>
-      <%= text_input f, :clan, class: "form-control", placeholder: "Clan" %>
-      <%= error_tag f, :clan %>
-    </div>
-    <div class="col mt-4">
-      <strong>Honor:</strong>
-      <%= number_input f, :honor, class: "form-control character-edit-numeric" %>
-      <%= error_tag f, :honor %>
-    </div>
-    <div class="col mt-4">
-      <strong>Glory:</strong>
-      <%= number_input f, :glory, class: "form-control character-edit-numeric" %>
-      <%= error_tag f, :glory %>
-    </div>
-    <div class="col mt-4">
-      <strong>Status:</strong>
-      <%= number_input f, :status, class: "form-control character-edit-numeric" %>
-      <%= error_tag f, :status %>
-    </div>
-    <div class="col mt-4">
-      <strong>Void Points: </strong>
-      <%= number_input f, :void_points, class: "form-control character-edit-numeric" %>
-      <%= error_tag f, :void_points %>
-    </div>
-    <div class="col mt-4">
-      <strong>Strife: </strong>
-      <%= number_input f, :strife, class: "form-control character-edit-numeric" %>
-      <%= error_tag f, :strife %>
     </div>
   </div>
   <div class="row">
@@ -64,119 +35,94 @@
   </div>
   <div class="row">
     <div class="col description-edit-text">
-      <h5>SCHOOL</h5>
-      <%= text_input f, :school, class: "form-control" %>
-      <%= error_tag f, :school %>
-    </div>
-    <div class="col edit-character-margin">
-      <strong>Rank</strong>
-      <%= number_input f, :school_rank, class: "form-control character-edit-numeric" %>
-      <%= error_tag f, :school_rank %>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col description-edit-text">
       <h5>DESCRIPTION </h5>
-      <em>List all public Advantages and Disadvantages at end of description (e.g. "PUBLIC QUALITIES: Blessed Lineage, Whispers of Doom")</em>
       <%= textarea f, :public_description, class: "form-control" %>
       <%= error_tag f, :public_description %>
     </div>
   </div>
   <div class="row">
     <div class="col description-edit-text">
-      <h5>GIRI</h5>
-      <%= textarea f, :giri, class: "form-control" %>
-      <%= error_tag f, :giri %>
+      <h5>RAGE</h5>
+      <%= textarea f, :rage, class: "form-control" %>
+      <%= error_tag f, :rage %>
     </div>
     <div class="col description-edit-text">
-      <h5>NINJO</h5>
-      <%= textarea f, :ninjo, class: "form-control" %>
-      <%= error_tag f, :ninjo %>
+      <h5>NOBLE</h5>
+      <%= textarea f, :noble, class: "form-control" %>
+      <%= error_tag f, :noble %>
     </div>
-  </div>
-  <div class="row">
     <div class="col description-edit-text">
-      <h5>UNMASKING</h5>
-      <%= textarea f, :outburst, class: "form-control" %>
-      <%= error_tag f, :outburst %>
+      <h5>FEAR</h5>
+      <%= textarea f, :fear, class: "form-control" %>
+      <%= error_tag f, :fear %>
     </div>
   </div>
   <div class="row">
-    <div class="col description-edit-text">
-      <h5>PASSIONS</h5>
-      <%= textarea f, :passions, class: "form-control" %>
-      <%= error_tag f, :passions %>
-    </div>
-    <div class="col description-edit-text">
-      <h5>ANXIETIES</h5>
-      <%= textarea f, :anxieties, class: "form-control" %>
-      <%= error_tag f, :anxieties %>
-    </div>
-    <div class="col description-edit-text">
-      <h5>DISTINCTIONS</h5>
-      <%= textarea f, :distinctions, class: "form-control" %>
-      <%= error_tag f, :distinctions %>
-    </div>
-    <div class="col description-edit-text">
-      <h5>ADVERSITIES</h5>
-      <%= textarea f, :adversities, class: "form-control" %>
-      <%= error_tag f, :adversities %>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col description-edit-text">
-      <h5>TITLES</h5>
-      <%= textarea f, :titles, class: "form-control" %>
-      <%= error_tag f, :titles %>
-    </div>
-    <div class="col description-edit-text">
-      <h5>TECHNIQUES</h5>
-      <%= textarea f, :techniques, class: "form-control" %>
-      <%= error_tag f, :techniques %>
-    </div>
-    <div class="col description-edit-text">
-      <h5>WEAPONS</h5>
-      <%= textarea f, :weapons, class: "form-control" %>
-      <%= error_tag f, :weapons %>
-    </div>
-    <div class="col description-edit-text">
-      <h5>ARMOR</h5>
-      <%= textarea f, :armor, class: "form-control" %>
-      <%= error_tag f, :armor %>
+    <div class="col description-text">
+      <h5>OBJECTIVES</h5>
+      <%= textarea f, :objectives, class: "form-control" %>
+      <%= error_tag f, :objectives %>
     </div>
   </div>
   <div class="row">
     <div class="col mt-2">
-      <strong>Air: </strong>
-      <%= number_input f, :air, class: "form-control character-edit-numeric" %>
-      <%= error_tag f, :air %>
+      <strong>Helplessness (Hardened): </strong>
+      <%= number_input f, :helplessness_hardened, class: "form-control character-edit-numeric" %>
+      <%= error_tag f, :helplessness_hardened %>
     </div>
     <div class="col mt-2">
-      <strong>Fire: </strong>
-      <%= number_input f, :fire, class: "form-control character-edit-numeric" %>
-      <%= error_tag f, :fire %>
+      <strong>Isolation (Hardened): </strong>
+      <%= number_input f, :isolation_hardened, class: "form-control character-edit-numeric" %>
+      <%= error_tag f, :isolation_hardened %>
     </div>
     <div class="col mt-2">
-      <strong>Water: </strong>
-      <%= number_input f, :water, class: "form-control character-edit-numeric" %>
-      <%= error_tag f, :water %>
+      <strong>Self (Hardened): </strong>
+      <%= number_input f, :self_hardened, class: "form-control character-edit-numeric" %>
+      <%= error_tag f, :self_hardened %>
     </div>
     <div class="col mt-2">
-      <strong>Earth: </strong>
-      <%= number_input f, :earth, class: "form-control character-edit-numeric" %>
-      <%= error_tag f, :earth %>
+      <strong>Unnatural (Hardened): </strong>
+      <%= number_input f, :unnatural_hardened, class: "form-control character-edit-numeric" %>
+      <%= error_tag f, :unnatural_hardened %>
     </div>
     <div class="col mt-2">
-      <strong>Void: </strong>
-      <%= number_input f, :void, class: "form-control character-edit-numeric" %>
-      <%= error_tag f, :void %>
+      <strong>Violence (Hardened): </strong>
+      <%= number_input f, :violence_hardened, class: "form-control character-edit-numeric" %>
+      <%= error_tag f, :violence_hardened %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col mt-2">
+      <strong>Helplessness (Failures): </strong>
+      <%= number_input f, :helplessness_failures, class: "form-control character-edit-numeric" %>
+      <%= error_tag f, :helplessness_failures %>
+    </div>
+    <div class="col mt-2">
+      <strong>Isolation (Failures): </strong>
+      <%= number_input f, :isolation_failures, class: "form-control character-edit-numeric" %>
+      <%= error_tag f, :isolation_failures %>
+    </div>
+    <div class="col mt-2">
+      <strong>Self (Failures): </strong>
+      <%= number_input f, :self_failures, class: "form-control character-edit-numeric" %>
+      <%= error_tag f, :self_failures %>
+    </div>
+    <div class="col mt-2">
+      <strong>Unnatural (Failures): </strong>
+      <%= number_input f, :unnatural_failures, class: "form-control character-edit-numeric" %>
+      <%= error_tag f, :unnatural_failures %>
+    </div>
+    <div class="col mt-2">
+      <strong>Violence (Failures): </strong>
+      <%= number_input f, :violence_failures, class: "form-control character-edit-numeric" %>
+      <%= error_tag f, :violence_failures %>
     </div>
   </div>
   <div class="row">
     <div class="col description-edit-text">
-      <h5>20 QUESTIONS</h5>
-      <%= textarea f, :questions, class: "form-control" %>
-      <%= error_tag f, :questions %>
+      <h5>IDENTITIES</h5>
+      <%= textarea f, :identities, class: "form-control" %>
+      <%= error_tag f, :identities %>
     </div>
   </div>
   <div class="row">
@@ -191,174 +137,6 @@
       <h5>SECRET GM NOTES</h5>
       <%= textarea f, :secret_gm_notes, class: "form-control" %>
       <%= error_tag f, :secret_gm_notes %>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-0 col-md-1 mt-2"></div>
-    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
-      <div>Aesthetics</div><div class="right-skill-display">
-        <%= number_input f, :skill_aesthetics, class: "form-control character-edit-numeric" %>
-        <%= error_tag f, :skill_aesthetics %>
-      </div>
-    </div>
-    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
-      <div>Fitness</div><div class="right-skill-display">
-      <%= number_input f, :skill_fitness, class: "form-control character-edit-numeric" %>
-      <%= error_tag f, :skill_fitness %></div>
-    </div>
-    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
-      <div>Culture</div><div class="right-skill-display">
-      <%= number_input f, :skill_culture, class: "form-control character-edit-numeric" %>
-      <%= error_tag f, :skill_culture %></div>
-    </div>
-    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
-      <div>Command</div><div class="right-skill-display">
-      <%= number_input f, :skill_command, class: "form-control character-edit-numeric" %>
-      <%= error_tag f, :skill_command %></div>
-    </div>
-    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
-      <div>Commerce</div><div class="right-skill-display">
-      <%= number_input f, :skill_commerce, class: "form-control character-edit-numeric" %>
-      <%= error_tag f, :skill_commerce %></div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-0 col-md-1 mt-2"></div>
-    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
-      <div>Composition</div><div class="right-skill-display">
-      <%= number_input f, :skill_composition, class: "form-control character-edit-numeric" %>
-      <%= error_tag f, :skill_composition %></div>
-    </div>
-    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
-      <div>Melee</div><div class="right-skill-display">
-      <%= number_input f, :skill_melee, class: "form-control character-edit-numeric" %>
-      <%= error_tag f, :skill_melee %></div>
-    </div>
-    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
-      <div>Government</div><div class="right-skill-display">
-      <%= number_input f, :skill_government, class: "form-control character-edit-numeric" %>
-      <%= error_tag f, :skill_government %></div>
-    </div>
-    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
-      <div>Courtesy</div><div class="right-skill-display">
-      <%= number_input f, :skill_courtesy, class: "form-control character-edit-numeric" %>
-      <%= error_tag f, :skill_courtesy %></div>
-    </div>
-    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
-      <div>Labor</div><div class="right-skill-display">
-      <%= number_input f, :skill_labor, class: "form-control character-edit-numeric" %>
-      <%= error_tag f, :skill_labor %></div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-0 col-md-1 mt-2"></div>
-    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
-      <div>Design</div><div class="right-skill-display">
-      <%= number_input f, :skill_design, class: "form-control character-edit-numeric" %>
-      <%= error_tag f, :skill_design %></div>
-    </div>
-    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
-      <div>Ranged</div><div class="right-skill-display">
-      <%= number_input f, :skill_ranged, class: "form-control character-edit-numeric" %>
-      <%= error_tag f, :skill_ranged %></div>
-    </div>
-    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
-      <div>Sentiment</div><div class="right-skill-display">
-      <%= number_input f, :skill_sentiment, class: "form-control character-edit-numeric" %>
-      <%= error_tag f, :skill_sentiment %></div>
-    </div>
-    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
-      <div>Games</div><div class="right-skill-display">
-      <%= number_input f, :skill_games, class: "form-control character-edit-numeric" %>
-      <%= error_tag f, :skill_games %></div>
-    </div>
-    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
-      <div>Seafaring</div><div class="right-skill-display">
-      <%= number_input f, :skill_seafaring, class: "form-control character-edit-numeric" %>
-      <%= error_tag f, :skill_seafaring %></div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-0 col-md-1 mt-2"></div>
-    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
-      <div>Smithing</div><div class="right-skill-display">
-      <%= number_input f, :skill_smithing, class: "form-control character-edit-numeric" %>
-      <%= error_tag f, :skill_smithing %></div>
-    </div>
-    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
-      <div>Unarmed</div><div class="right-skill-display">
-      <%= number_input f, :skill_unarmed, class: "form-control character-edit-numeric" %>
-      <%= error_tag f, :skill_unarmed %></div>
-    </div>
-    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
-      <div>Theology</div><div class="right-skill-display">
-      <%= number_input f, :skill_theology, class: "form-control character-edit-numeric" %>
-      <%= error_tag f, :skill_theology %></div>
-    </div>
-    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
-      <div>Performance</div><div class="right-skill-display">
-      <%= number_input f, :skill_performance, class: "form-control character-edit-numeric" %>
-      <%= error_tag f, :skill_performance %></div>
-    </div>
-    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
-      <div>Skulduggery</div><div class="right-skill-display">
-      <%= number_input f, :skill_skullduggery, class: "form-control character-edit-numeric" %>
-      <%= error_tag f, :skill_skullduggery %></div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-0 col-md-1 mt-md-2"></div>
-    <div class="col-0 col-md-2 mt-md-2 d-flex justify-content-between">
-      <div></div><div class="right-skill-display"></div>
-    </div>
-    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
-      <div>Iaijutsu</div><div class="right-skill-display">
-      <%= number_input f, :skill_iaijutsu, class: "form-control character-edit-numeric" %>
-      <%= error_tag f, :skill_iaijutsu %></div>
-    </div>
-    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
-      <div>Medicine</div><div class="right-skill-display">
-      <%= number_input f, :skill_medicine, class: "form-control character-edit-numeric" %>
-      <%= error_tag f, :skill_medicine %></div>
-    </div>
-    <div class="col-0 col-md-2 mt-md-2 d-flex justify-content-between">
-      <div></div><div class="right-skill-display"></div>
-    </div>
-    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
-      <div>Survival</div><div class="right-skill-display">
-      <%= number_input f, :skill_survival, class: "form-control character-edit-numeric" %>
-      <%= error_tag f, :skill_survival %></div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-0 col-md-1 mt-md-2"></div>
-    <div class="col-0 col-md-2 mt-md-2 d-flex justify-content-between">
-      <div></div><div class="right-skill-display"></div>
-    </div>
-    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
-      <div>Meditation</div><div class="right-skill-display">
-      <%= number_input f, :skill_meditation, class: "form-control character-edit-numeric" %>
-      <%= error_tag f, :skill_meditation %></div>
-    </div>
-    <div class="col-0 col-md-2 mt-md-2 d-flex justify-content-between">
-      <div></div><div class="right-skill-display"></div>
-    </div>
-    <div class="col-0 col-md-2 mt-md-2 d-flex justify-content-between">
-      <div></div><div class="right-skill-display"></div>
-    </div>
-    <div class="col-0 col-md-2 mt-md-2 d-flex justify-content-between">
-      <div></div><div class="right-skill-display"></div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-0 col-md-1 mt-md-2"></div>
-    <div class="col-0 col-md-2 mt-md-2 d-flex justify-content-between">
-      <div></div><div class="right-skill-display"></div>
-    </div>
-    <div class="col-0 col-md-2 mt-2 d-flex justify-content-between">
-      <div>Tactics</div><div class="right-skill-display">
-      <%= number_input f, :skill_tactics, class: "form-control character-edit-numeric" %>
-      <%= error_tag f, :skill_tactics %></div>
     </div>
   </div>
 </div>

@@ -68,51 +68,17 @@ getCharacter list index =
             character
 
         Nothing ->
-            Character "[Narrative]" "" True 0 0 0 0 0 0 0 0 0 0 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+            Character "[Narrative]" "" True 0 0 0 ""
 
 
 type alias Character =
     { name : String
     , family : String
     , approved : Bool
-    , status : Int
-    , glory : Int
-    , air : Int
-    , earth : Int
-    , fire : Int
-    , water : Int
-    , void : Int
-    , strife : Int
     , user : Int
     , xp : Float
     , bxp : Float
     , image : String
-    , void_points : Int
-    , aesthetics : Int
-    , composition : Int
-    , design : Int
-    , smithing : Int
-    , fitness : Int
-    , melee : Int
-    , ranged : Int
-    , unarmed : Int
-    , iaijutsu : Int
-    , meditation : Int
-    , tactics : Int
-    , culture : Int
-    , government : Int
-    , sentiment : Int
-    , theology : Int
-    , medicine : Int
-    , command : Int
-    , courtesy : Int
-    , games : Int
-    , performance : Int
-    , commerce : Int
-    , labor : Int
-    , seafaring : Int
-    , skulduggery : Int
-    , survival : Int
     }
 
 
@@ -310,7 +276,7 @@ update msg model =
                                     Post "" False True "-=[Narrative]=-" 0 0 "" False 0 [] "" "" 0 True "" "" ""
 
                                 False ->
-                                    Post slug False False name character.glory character.status "" False 0 [] "" "" 0 True character.image "" ""
+                                    Post slug False False name 0 0 "" False 0 [] "" "" 0 True character.image "" ""
                     in
                     { model | post = initPost, dice = dice, admin = admin, selectedCharacter = selectedCharacter, posts = payloadContainer.posts, characters = payloadContainer.characters } ! []
 
@@ -390,7 +356,7 @@ update msg model =
                     model.post
 
                 newPost =
-                    { oldPost | name = full_name, author_slug = author_slug, narrative = narrative, image = selected.image, diceroll = False, skill_name = "", ring_name = "", glory = selected.glory, status = selected.status }
+                    { oldPost | name = full_name, author_slug = author_slug, narrative = narrative, image = selected.image, diceroll = False, skill_name = "", ring_name = "", glory = 0, status = 0 }
             in
             { model | post = newPost, selectedCharacter = selectedCharacter } ! []
 
@@ -807,44 +773,10 @@ characterDecoder =
         |> required "name" JD.string
         |> required "family" JD.string
         |> required "approved" JD.bool
-        |> required "status" JD.int
-        |> required "glory" JD.int
-        |> required "air" JD.int
-        |> required "earth" JD.int
-        |> required "fire" JD.int
-        |> required "water" JD.int
-        |> required "void" JD.int
-        |> required "strife" JD.int
         |> required "user" JD.int
         |> required "xp" JD.float
         |> required "bxp" JD.float
         |> required "image" JD.string
-        |> required "void_points" JD.int
-        |> required "aesthetics" JD.int
-        |> required "composition" JD.int
-        |> required "design" JD.int
-        |> required "smithing" JD.int
-        |> required "fitness" JD.int
-        |> required "melee" JD.int
-        |> required "ranged" JD.int
-        |> required "unarmed" JD.int
-        |> required "iaijutsu" JD.int
-        |> required "meditation" JD.int
-        |> required "tactics" JD.int
-        |> required "culture" JD.int
-        |> required "government" JD.int
-        |> required "sentiment" JD.int
-        |> required "theology" JD.int
-        |> required "medicine" JD.int
-        |> required "command" JD.int
-        |> required "courtesy" JD.int
-        |> required "games" JD.int
-        |> required "performance" JD.int
-        |> required "commerce" JD.int
-        |> required "labor" JD.int
-        |> required "seafaring" JD.int
-        |> required "skulduggery" JD.int
-        |> required "survival" JD.int
 
 
 dieMetaDecoder : JD.Decoder DieMeta
@@ -999,14 +931,8 @@ spend s key value multiplier ignoreValidity =
         cost =
             newValue * multiplier
 
-        smallestRing =
-            List.minimum [ s.fire, s.air, s.earth, s.water, s.void ]
-
-        valid =
-            newValue <= (Maybe.withDefault 0 smallestRing + s.void)
-
         allow =
-            (ignoreValidity || valid) && newValue /= 0
+            False
 
         allowBuy =
             allow && (s.xp >= (cost |> toFloat))
@@ -1032,31 +958,6 @@ xpDialogSkills : Character -> Html Msg
 xpDialogSkills s =
     select [ onInput DialogChangeSelectedSkill, class "custom-select mr-auto p-1" ]
         [ renderDialogSkillOption "" "-=[*]=-" -1
-        , renderDialogSkillOption "skill_aesthetics" "Aesthetics" s.aesthetics
-        , renderDialogSkillOption "skill_composition" "Composition" s.composition
-        , renderDialogSkillOption "skill_design" "Design" s.design
-        , renderDialogSkillOption "skill_smithing" "Smithing" s.smithing
-        , renderDialogSkillOption "skill_fitness" "Fitness" s.fitness
-        , renderDialogSkillOption "skill_melee" "Melee" s.melee
-        , renderDialogSkillOption "skill_ranged" "Ranged" s.ranged
-        , renderDialogSkillOption "skill_unarmed" "Unarmed" s.unarmed
-        , renderDialogSkillOption "skill_iaijutsu" "Iaijutsu" s.iaijutsu
-        , renderDialogSkillOption "skill_meditation" "Meditation" s.meditation
-        , renderDialogSkillOption "skill_tactics" "Tactics" s.tactics
-        , renderDialogSkillOption "skill_culture" "Culture" s.culture
-        , renderDialogSkillOption "skill_government" "Government" s.government
-        , renderDialogSkillOption "skill_sentiment" "Sentiment" s.sentiment
-        , renderDialogSkillOption "skill_theology" "Theology" s.theology
-        , renderDialogSkillOption "skill_medicine" "Medicine" s.medicine
-        , renderDialogSkillOption "skill_command" "Command" s.command
-        , renderDialogSkillOption "skill_courtesy" "Courtesy" s.courtesy
-        , renderDialogSkillOption "skill_games" "Games" s.games
-        , renderDialogSkillOption "skill_performance" "Performance" s.performance
-        , renderDialogSkillOption "skill_commerce" "Commerce" s.commerce
-        , renderDialogSkillOption "skill_labor" "Labor" s.labor
-        , renderDialogSkillOption "skill_seafaring" "Seafaring" s.seafaring
-        , renderDialogSkillOption "skill_skullduggery" "Skulduggery" s.skulduggery
-        , renderDialogSkillOption "skill_survival" "Survival" s.survival
         ]
 
 
@@ -1064,11 +965,6 @@ xpDialogRings : Character -> Html Msg
 xpDialogRings s =
     select [ onInput DialogChangeSelectedRing, class "custom-select mr-auto p-1" ]
         [ renderDialogSkillOption "" "-=[*]=-" -1
-        , renderDialogSkillOption "air" "Air" s.air
-        , renderDialogSkillOption "earth" "Earth" s.earth
-        , renderDialogSkillOption "fire" "Fire" s.fire
-        , renderDialogSkillOption "water" "Water" s.water
-        , renderDialogSkillOption "void" "Void" s.void
         ]
 
 
@@ -1101,23 +997,8 @@ renderInputBar model =
                 "container right-rail"
             else
                 "container right-rail right-rail-desktop"
-
-        composure =
-            (selected.earth + selected.fire) * 2
-
-        panic =
-            if not model.post.narrative && (selected.strife == composure) && composure > 0 then
-                " panic-mode"
-            else
-                ""
-
-        disable_post =
-            if model.cRemaining == 1500 then
-                " btn-disabled"
-            else
-                ""
     in
-    div [ class ("navbar navbar-expand interface " ++ interface_sub ++ panic) ]
+    div [ class ("navbar navbar-expand interface " ++ interface_sub) ]
         [ div [ class "container" ]
             [ div [ class "row interface-main no-gutters" ]
                 [ div [ class "col col-3-lg image" ]
@@ -1142,18 +1023,6 @@ renderInputBar model =
                                     [ text
                                         ((model.cRemaining |> toString) ++ " Characters Remaining")
                                     ]
-                                , if not model.post.narrative then
-                                    div []
-                                        [ span [ class "fa fa-minus", onClick (ModifyStat "void_points" -1) ] []
-                                        , span [] [ text (" " ++ (selected.void_points |> toString) ++ "/" ++ (selected.void |> toString) ++ " Void ") ]
-                                        , span [ class "fa fa-plus", onClick (ModifyStat "void_points" 1) ] []
-                                        , span [ class "spacer-span" ] []
-                                        , span [ class "fa fa-minus", onClick (ModifyStat "strife" -1) ] []
-                                        , span [] [ text (" " ++ (selected.strife |> toString) ++ "/" ++ (((selected.earth + selected.fire) * 2) |> toString) ++ " Strife ") ]
-                                        , span [ class "fa fa-plus", onClick (ModifyStat "strife" 1) ] []
-                                        ]
-                                  else
-                                    text ""
                                 ]
                             , if not model.post.narrative then
                                 div [ class "p-0" ]
@@ -1201,31 +1070,6 @@ renderDice s narrative reset =
                 , renderSkillOption "arbitrary:1" "Skill Dice -" 1
                 , renderSkillOption "arbitrary:2" "Skill Dice -" 2
                 , renderSkillOption "arbitrary:3" "Skill Dice -" 3
-                , renderSkillOption "skill_aesthetics" "Aesthetics" s.aesthetics
-                , renderSkillOption "skill_composition" "Composition" s.composition
-                , renderSkillOption "skill_design" "Design" s.design
-                , renderSkillOption "skill_smithing" "Smithing" s.smithing
-                , renderSkillOption "skill_fitness" "Fitness" s.fitness
-                , renderSkillOption "skill_melee" "Melee" s.melee
-                , renderSkillOption "skill_ranged" "Ranged" s.ranged
-                , renderSkillOption "skill_unarmed" "Unarmed" s.unarmed
-                , renderSkillOption "skill_iaijutsu" "Iaijutsu" s.iaijutsu
-                , renderSkillOption "skill_meditation" "Meditation" s.meditation
-                , renderSkillOption "skill_tactics" "Tactics" s.tactics
-                , renderSkillOption "skill_culture" "Culture" s.culture
-                , renderSkillOption "skill_government" "Government" s.government
-                , renderSkillOption "skill_sentiment" "Sentiment" s.sentiment
-                , renderSkillOption "skill_theology" "Theology" s.theology
-                , renderSkillOption "skill_medicine" "Medicine" s.medicine
-                , renderSkillOption "skill_command" "Command" s.command
-                , renderSkillOption "skill_courtesy" "Courtesy" s.courtesy
-                , renderSkillOption "skill_games" "Games" s.games
-                , renderSkillOption "skill_performance" "Performance" s.performance
-                , renderSkillOption "skill_commerce" "Commerce" s.commerce
-                , renderSkillOption "skill_labor" "Labor" s.labor
-                , renderSkillOption "skill_seafaring" "Seafaring" s.seafaring
-                , renderSkillOption "skill_skullduggery" "Skulduggery" s.skulduggery
-                , renderSkillOption "skill_survival" "Survival" s.survival
                 ]
         , if narrative then
             select [ onInput ChangeSelectedRing, class "custom-select" ]
@@ -1247,11 +1091,6 @@ renderDice s narrative reset =
                 , renderSkillOption "arbitrary:1" "Ring Dice -" 1
                 , renderSkillOption "arbitrary:2" "Ring Dice -" 2
                 , renderSkillOption "arbitrary:3" "Ring Dice -" 3
-                , renderSkillOption "air" "Air" s.air
-                , renderSkillOption "earth" "Earth" s.earth
-                , renderSkillOption "fire" "Fire" s.fire
-                , renderSkillOption "water" "Water" s.water
-                , renderSkillOption "void" "Void" s.void
                 ]
         ]
 
@@ -1383,8 +1222,6 @@ renderPost dice post =
                             text ""
                         , div [ class "stats text-center" ]
                             [ div [] [ strong [] [ text post.name ] ]
-                            , div [] [ strong [] [ text "Glory " ], text (toString post.glory) ]
-                            , div [] [ strong [] [ text "Status " ], text (toString post.status) ]
                             ]
                         ]
                     ]

@@ -4,13 +4,7 @@
       <img class="character-image" src="<%= @character.image_url %>" width=150>
     </div>
     <div class="col">
-      <h2 class="text-uppercase"><%= @character.family %> <%= @character.name %></h2>
-    </div>
-    <div class="col mt-2">
-      <strong>Glory:</strong> <%= @character.glory %>
-    </div>
-    <div class="col mt-2">
-      <strong>Status:</strong> <%= @character.status %>
+      <h2 class="text-uppercase"><%= @character.name %></h2>
     </div>
   </div>
   <div class="row">

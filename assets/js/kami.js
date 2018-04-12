@@ -12175,89 +12175,10 @@ var _user$project$Kami$Model = function (a) {
 		};
 	};
 };
-var _user$project$Kami$Character = function (a) {
-	return function (b) {
-		return function (c) {
-			return function (d) {
-				return function (e) {
-					return function (f) {
-						return function (g) {
-							return function (h) {
-								return function (i) {
-									return function (j) {
-										return function (k) {
-											return function (l) {
-												return function (m) {
-													return function (n) {
-														return function (o) {
-															return function (p) {
-																return function (q) {
-																	return function (r) {
-																		return function (s) {
-																			return function (t) {
-																				return function (u) {
-																					return function (v) {
-																						return function (w) {
-																							return function (x) {
-																								return function (y) {
-																									return function (z) {
-																										return function (_1) {
-																											return function (_2) {
-																												return function (_3) {
-																													return function (_4) {
-																														return function (_5) {
-																															return function (_6) {
-																																return function (_7) {
-																																	return function (_8) {
-																																		return function (_9) {
-																																			return function (_10) {
-																																				return function (_11) {
-																																					return function (_12) {
-																																						return function (_13) {
-																																							return function (_14) {
-																																								return function (_15) {
-																																									return {name: a, family: b, approved: c, status: d, glory: e, air: f, earth: g, fire: h, water: i, $void: j, strife: k, user: l, xp: m, bxp: n, image: o, void_points: p, aesthetics: q, composition: r, design: s, smithing: t, fitness: u, melee: v, ranged: w, unarmed: x, iaijutsu: y, meditation: z, tactics: _1, culture: _2, government: _3, sentiment: _4, theology: _5, medicine: _6, command: _7, courtesy: _8, games: _9, performance: _10, commerce: _11, labor: _12, seafaring: _13, skulduggery: _14, survival: _15};
-																																								};
-																																							};
-																																						};
-																																					};
-																																				};
-																																			};
-																																		};
-																																	};
-																																};
-																															};
-																														};
-																													};
-																												};
-																											};
-																										};
-																									};
-																								};
-																							};
-																						};
-																					};
-																				};
-																			};
-																		};
-																	};
-																};
-															};
-														};
-													};
-												};
-											};
-										};
-									};
-								};
-							};
-						};
-					};
-				};
-			};
-		};
-	};
-};
+var _user$project$Kami$Character = F7(
+	function (a, b, c, d, e, f, g) {
+		return {name: a, family: b, approved: c, user: d, xp: e, bxp: f, image: g};
+	});
 var _user$project$Kami$getCharacter = F2(
 	function (list, index) {
 		var _p3 = A2(
@@ -12267,174 +12188,38 @@ var _user$project$Kami$getCharacter = F2(
 		if (_p3.ctor === 'Just') {
 			return _p3._0;
 		} else {
-			return _user$project$Kami$Character('[Narrative]')('')(true)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)('')(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0);
+			return A7(_user$project$Kami$Character, '[Narrative]', '', true, 0, 0, 0, '');
 		}
 	});
 var _user$project$Kami$characterDecoder = A3(
 	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-	'survival',
-	_elm_lang$core$Json_Decode$int,
+	'image',
+	_elm_lang$core$Json_Decode$string,
 	A3(
 		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-		'skulduggery',
-		_elm_lang$core$Json_Decode$int,
+		'bxp',
+		_elm_lang$core$Json_Decode$float,
 		A3(
 			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-			'seafaring',
-			_elm_lang$core$Json_Decode$int,
+			'xp',
+			_elm_lang$core$Json_Decode$float,
 			A3(
 				_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-				'labor',
+				'user',
 				_elm_lang$core$Json_Decode$int,
 				A3(
 					_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-					'commerce',
-					_elm_lang$core$Json_Decode$int,
+					'approved',
+					_elm_lang$core$Json_Decode$bool,
 					A3(
 						_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-						'performance',
-						_elm_lang$core$Json_Decode$int,
+						'family',
+						_elm_lang$core$Json_Decode$string,
 						A3(
 							_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-							'games',
-							_elm_lang$core$Json_Decode$int,
-							A3(
-								_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-								'courtesy',
-								_elm_lang$core$Json_Decode$int,
-								A3(
-									_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-									'command',
-									_elm_lang$core$Json_Decode$int,
-									A3(
-										_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-										'medicine',
-										_elm_lang$core$Json_Decode$int,
-										A3(
-											_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-											'theology',
-											_elm_lang$core$Json_Decode$int,
-											A3(
-												_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-												'sentiment',
-												_elm_lang$core$Json_Decode$int,
-												A3(
-													_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-													'government',
-													_elm_lang$core$Json_Decode$int,
-													A3(
-														_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-														'culture',
-														_elm_lang$core$Json_Decode$int,
-														A3(
-															_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-															'tactics',
-															_elm_lang$core$Json_Decode$int,
-															A3(
-																_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-																'meditation',
-																_elm_lang$core$Json_Decode$int,
-																A3(
-																	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-																	'iaijutsu',
-																	_elm_lang$core$Json_Decode$int,
-																	A3(
-																		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-																		'unarmed',
-																		_elm_lang$core$Json_Decode$int,
-																		A3(
-																			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-																			'ranged',
-																			_elm_lang$core$Json_Decode$int,
-																			A3(
-																				_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-																				'melee',
-																				_elm_lang$core$Json_Decode$int,
-																				A3(
-																					_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-																					'fitness',
-																					_elm_lang$core$Json_Decode$int,
-																					A3(
-																						_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-																						'smithing',
-																						_elm_lang$core$Json_Decode$int,
-																						A3(
-																							_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-																							'design',
-																							_elm_lang$core$Json_Decode$int,
-																							A3(
-																								_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-																								'composition',
-																								_elm_lang$core$Json_Decode$int,
-																								A3(
-																									_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-																									'aesthetics',
-																									_elm_lang$core$Json_Decode$int,
-																									A3(
-																										_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-																										'void_points',
-																										_elm_lang$core$Json_Decode$int,
-																										A3(
-																											_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-																											'image',
-																											_elm_lang$core$Json_Decode$string,
-																											A3(
-																												_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-																												'bxp',
-																												_elm_lang$core$Json_Decode$float,
-																												A3(
-																													_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-																													'xp',
-																													_elm_lang$core$Json_Decode$float,
-																													A3(
-																														_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-																														'user',
-																														_elm_lang$core$Json_Decode$int,
-																														A3(
-																															_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-																															'strife',
-																															_elm_lang$core$Json_Decode$int,
-																															A3(
-																																_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-																																'void',
-																																_elm_lang$core$Json_Decode$int,
-																																A3(
-																																	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-																																	'water',
-																																	_elm_lang$core$Json_Decode$int,
-																																	A3(
-																																		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-																																		'fire',
-																																		_elm_lang$core$Json_Decode$int,
-																																		A3(
-																																			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-																																			'earth',
-																																			_elm_lang$core$Json_Decode$int,
-																																			A3(
-																																				_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-																																				'air',
-																																				_elm_lang$core$Json_Decode$int,
-																																				A3(
-																																					_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-																																					'glory',
-																																					_elm_lang$core$Json_Decode$int,
-																																					A3(
-																																						_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-																																						'status',
-																																						_elm_lang$core$Json_Decode$int,
-																																						A3(
-																																							_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-																																							'approved',
-																																							_elm_lang$core$Json_Decode$bool,
-																																							A3(
-																																								_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-																																								'family',
-																																								_elm_lang$core$Json_Decode$string,
-																																								A3(
-																																									_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-																																									'name',
-																																									_elm_lang$core$Json_Decode$string,
-																																									_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Kami$Character))))))))))))))))))))))))))))))))))))))))));
+							'name',
+							_elm_lang$core$Json_Decode$string,
+							_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Kami$Character))))))));
 var _user$project$Kami$characterListDecoder = _elm_lang$core$Json_Decode$list(_user$project$Kami$characterDecoder);
 var _user$project$Kami$Post = function (a) {
 	return function (b) {
@@ -12797,53 +12582,7 @@ var _user$project$Kami$renderPost = F2(
 																}),
 															_1: {ctor: '[]'}
 														}),
-													_1: {
-														ctor: '::',
-														_0: A2(
-															_elm_lang$html$Html$div,
-															{ctor: '[]'},
-															{
-																ctor: '::',
-																_0: A2(
-																	_elm_lang$html$Html$strong,
-																	{ctor: '[]'},
-																	{
-																		ctor: '::',
-																		_0: _elm_lang$html$Html$text('Glory '),
-																		_1: {ctor: '[]'}
-																	}),
-																_1: {
-																	ctor: '::',
-																	_0: _elm_lang$html$Html$text(
-																		_elm_lang$core$Basics$toString(post.glory)),
-																	_1: {ctor: '[]'}
-																}
-															}),
-														_1: {
-															ctor: '::',
-															_0: A2(
-																_elm_lang$html$Html$div,
-																{ctor: '[]'},
-																{
-																	ctor: '::',
-																	_0: A2(
-																		_elm_lang$html$Html$strong,
-																		{ctor: '[]'},
-																		{
-																			ctor: '::',
-																			_0: _elm_lang$html$Html$text('Status '),
-																			_1: {ctor: '[]'}
-																		}),
-																	_1: {
-																		ctor: '::',
-																		_0: _elm_lang$html$Html$text(
-																			_elm_lang$core$Basics$toString(post.status)),
-																		_1: {ctor: '[]'}
-																	}
-																}),
-															_1: {ctor: '[]'}
-														}
-													}
+													_1: {ctor: '[]'}
 												}),
 											_1: {ctor: '[]'}
 										}
@@ -13051,27 +12790,7 @@ var _user$project$Kami$xpDialogRings = function (s) {
 		{
 			ctor: '::',
 			_0: A3(_user$project$Kami$renderDialogSkillOption, '', '-=[*]=-', -1),
-			_1: {
-				ctor: '::',
-				_0: A3(_user$project$Kami$renderDialogSkillOption, 'air', 'Air', s.air),
-				_1: {
-					ctor: '::',
-					_0: A3(_user$project$Kami$renderDialogSkillOption, 'earth', 'Earth', s.earth),
-					_1: {
-						ctor: '::',
-						_0: A3(_user$project$Kami$renderDialogSkillOption, 'fire', 'Fire', s.fire),
-						_1: {
-							ctor: '::',
-							_0: A3(_user$project$Kami$renderDialogSkillOption, 'water', 'Water', s.water),
-							_1: {
-								ctor: '::',
-								_0: A3(_user$project$Kami$renderDialogSkillOption, 'void', 'Void', s.$void),
-								_1: {ctor: '[]'}
-							}
-						}
-					}
-				}
-			}
+			_1: {ctor: '[]'}
 		});
 };
 var _user$project$Kami$DialogChangeSelectedSkill = function (a) {
@@ -13092,107 +12811,7 @@ var _user$project$Kami$xpDialogSkills = function (s) {
 		{
 			ctor: '::',
 			_0: A3(_user$project$Kami$renderDialogSkillOption, '', '-=[*]=-', -1),
-			_1: {
-				ctor: '::',
-				_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_aesthetics', 'Aesthetics', s.aesthetics),
-				_1: {
-					ctor: '::',
-					_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_composition', 'Composition', s.composition),
-					_1: {
-						ctor: '::',
-						_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_design', 'Design', s.design),
-						_1: {
-							ctor: '::',
-							_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_smithing', 'Smithing', s.smithing),
-							_1: {
-								ctor: '::',
-								_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_fitness', 'Fitness', s.fitness),
-								_1: {
-									ctor: '::',
-									_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_melee', 'Melee', s.melee),
-									_1: {
-										ctor: '::',
-										_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_ranged', 'Ranged', s.ranged),
-										_1: {
-											ctor: '::',
-											_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_unarmed', 'Unarmed', s.unarmed),
-											_1: {
-												ctor: '::',
-												_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_iaijutsu', 'Iaijutsu', s.iaijutsu),
-												_1: {
-													ctor: '::',
-													_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_meditation', 'Meditation', s.meditation),
-													_1: {
-														ctor: '::',
-														_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_tactics', 'Tactics', s.tactics),
-														_1: {
-															ctor: '::',
-															_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_culture', 'Culture', s.culture),
-															_1: {
-																ctor: '::',
-																_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_government', 'Government', s.government),
-																_1: {
-																	ctor: '::',
-																	_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_sentiment', 'Sentiment', s.sentiment),
-																	_1: {
-																		ctor: '::',
-																		_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_theology', 'Theology', s.theology),
-																		_1: {
-																			ctor: '::',
-																			_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_medicine', 'Medicine', s.medicine),
-																			_1: {
-																				ctor: '::',
-																				_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_command', 'Command', s.command),
-																				_1: {
-																					ctor: '::',
-																					_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_courtesy', 'Courtesy', s.courtesy),
-																					_1: {
-																						ctor: '::',
-																						_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_games', 'Games', s.games),
-																						_1: {
-																							ctor: '::',
-																							_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_performance', 'Performance', s.performance),
-																							_1: {
-																								ctor: '::',
-																								_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_commerce', 'Commerce', s.commerce),
-																								_1: {
-																									ctor: '::',
-																									_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_labor', 'Labor', s.labor),
-																									_1: {
-																										ctor: '::',
-																										_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_seafaring', 'Seafaring', s.seafaring),
-																										_1: {
-																											ctor: '::',
-																											_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_skullduggery', 'Skulduggery', s.skulduggery),
-																											_1: {
-																												ctor: '::',
-																												_0: A3(_user$project$Kami$renderDialogSkillOption, 'skill_survival', 'Survival', s.survival),
-																												_1: {ctor: '[]'}
-																											}
-																										}
-																									}
-																								}
-																							}
-																						}
-																					}
-																				}
-																			}
-																		}
-																	}
-																}
-															}
-														}
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
+			_1: {ctor: '[]'}
 		});
 };
 var _user$project$Kami$AckDialog = {ctor: 'AckDialog'};
@@ -13209,34 +12828,9 @@ var _user$project$Kami$SpendXP = function (a) {
 };
 var _user$project$Kami$spend = F5(
 	function (s, key, value, multiplier, ignoreValidity) {
-		var smallestRing = _elm_lang$core$List$minimum(
-			{
-				ctor: '::',
-				_0: s.fire,
-				_1: {
-					ctor: '::',
-					_0: s.air,
-					_1: {
-						ctor: '::',
-						_0: s.earth,
-						_1: {
-							ctor: '::',
-							_0: s.water,
-							_1: {
-								ctor: '::',
-								_0: s.$void,
-								_1: {ctor: '[]'}
-							}
-						}
-					}
-				}
-			});
+		var allow = false;
 		var newValue = value + 1;
 		var cost = newValue * multiplier;
-		var valid = _elm_lang$core$Native_Utils.cmp(
-			newValue,
-			A2(_elm_lang$core$Maybe$withDefault, 0, smallestRing) + s.$void) < 1;
-		var allow = (ignoreValidity || valid) && (!_elm_lang$core$Native_Utils.eq(newValue, 0));
 		var allowBuy = allow && (_elm_lang$core$Native_Utils.cmp(
 			s.xp,
 			_elm_lang$core$Basics$toFloat(cost)) > -1);
@@ -13542,107 +13136,7 @@ var _user$project$Kami$renderDice = F3(
 								_1: {
 									ctor: '::',
 									_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:3', 'Skill Dice -', 3),
-									_1: {
-										ctor: '::',
-										_0: A3(_user$project$Kami$renderSkillOption, 'skill_aesthetics', 'Aesthetics', s.aesthetics),
-										_1: {
-											ctor: '::',
-											_0: A3(_user$project$Kami$renderSkillOption, 'skill_composition', 'Composition', s.composition),
-											_1: {
-												ctor: '::',
-												_0: A3(_user$project$Kami$renderSkillOption, 'skill_design', 'Design', s.design),
-												_1: {
-													ctor: '::',
-													_0: A3(_user$project$Kami$renderSkillOption, 'skill_smithing', 'Smithing', s.smithing),
-													_1: {
-														ctor: '::',
-														_0: A3(_user$project$Kami$renderSkillOption, 'skill_fitness', 'Fitness', s.fitness),
-														_1: {
-															ctor: '::',
-															_0: A3(_user$project$Kami$renderSkillOption, 'skill_melee', 'Melee', s.melee),
-															_1: {
-																ctor: '::',
-																_0: A3(_user$project$Kami$renderSkillOption, 'skill_ranged', 'Ranged', s.ranged),
-																_1: {
-																	ctor: '::',
-																	_0: A3(_user$project$Kami$renderSkillOption, 'skill_unarmed', 'Unarmed', s.unarmed),
-																	_1: {
-																		ctor: '::',
-																		_0: A3(_user$project$Kami$renderSkillOption, 'skill_iaijutsu', 'Iaijutsu', s.iaijutsu),
-																		_1: {
-																			ctor: '::',
-																			_0: A3(_user$project$Kami$renderSkillOption, 'skill_meditation', 'Meditation', s.meditation),
-																			_1: {
-																				ctor: '::',
-																				_0: A3(_user$project$Kami$renderSkillOption, 'skill_tactics', 'Tactics', s.tactics),
-																				_1: {
-																					ctor: '::',
-																					_0: A3(_user$project$Kami$renderSkillOption, 'skill_culture', 'Culture', s.culture),
-																					_1: {
-																						ctor: '::',
-																						_0: A3(_user$project$Kami$renderSkillOption, 'skill_government', 'Government', s.government),
-																						_1: {
-																							ctor: '::',
-																							_0: A3(_user$project$Kami$renderSkillOption, 'skill_sentiment', 'Sentiment', s.sentiment),
-																							_1: {
-																								ctor: '::',
-																								_0: A3(_user$project$Kami$renderSkillOption, 'skill_theology', 'Theology', s.theology),
-																								_1: {
-																									ctor: '::',
-																									_0: A3(_user$project$Kami$renderSkillOption, 'skill_medicine', 'Medicine', s.medicine),
-																									_1: {
-																										ctor: '::',
-																										_0: A3(_user$project$Kami$renderSkillOption, 'skill_command', 'Command', s.command),
-																										_1: {
-																											ctor: '::',
-																											_0: A3(_user$project$Kami$renderSkillOption, 'skill_courtesy', 'Courtesy', s.courtesy),
-																											_1: {
-																												ctor: '::',
-																												_0: A3(_user$project$Kami$renderSkillOption, 'skill_games', 'Games', s.games),
-																												_1: {
-																													ctor: '::',
-																													_0: A3(_user$project$Kami$renderSkillOption, 'skill_performance', 'Performance', s.performance),
-																													_1: {
-																														ctor: '::',
-																														_0: A3(_user$project$Kami$renderSkillOption, 'skill_commerce', 'Commerce', s.commerce),
-																														_1: {
-																															ctor: '::',
-																															_0: A3(_user$project$Kami$renderSkillOption, 'skill_labor', 'Labor', s.labor),
-																															_1: {
-																																ctor: '::',
-																																_0: A3(_user$project$Kami$renderSkillOption, 'skill_seafaring', 'Seafaring', s.seafaring),
-																																_1: {
-																																	ctor: '::',
-																																	_0: A3(_user$project$Kami$renderSkillOption, 'skill_skullduggery', 'Skulduggery', s.skulduggery),
-																																	_1: {
-																																		ctor: '::',
-																																		_0: A3(_user$project$Kami$renderSkillOption, 'skill_survival', 'Survival', s.survival),
-																																		_1: {ctor: '[]'}
-																																	}
-																																}
-																															}
-																														}
-																													}
-																												}
-																											}
-																										}
-																									}
-																								}
-																							}
-																						}
-																					}
-																				}
-																			}
-																		}
-																	}
-																}
-															}
-														}
-													}
-												}
-											}
-										}
-									}
+									_1: {ctor: '[]'}
 								}
 							}
 						}
@@ -13727,27 +13221,7 @@ var _user$project$Kami$renderDice = F3(
 									_1: {
 										ctor: '::',
 										_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:3', 'Ring Dice -', 3),
-										_1: {
-											ctor: '::',
-											_0: A3(_user$project$Kami$renderSkillOption, 'air', 'Air', s.air),
-											_1: {
-												ctor: '::',
-												_0: A3(_user$project$Kami$renderSkillOption, 'earth', 'Earth', s.earth),
-												_1: {
-													ctor: '::',
-													_0: A3(_user$project$Kami$renderSkillOption, 'fire', 'Fire', s.fire),
-													_1: {
-														ctor: '::',
-														_0: A3(_user$project$Kami$renderSkillOption, 'water', 'Water', s.water),
-														_1: {
-															ctor: '::',
-															_0: A3(_user$project$Kami$renderSkillOption, 'void', 'Void', s.$void),
-															_1: {ctor: '[]'}
-														}
-													}
-												}
-											}
-										}
+										_1: {ctor: '[]'}
 									}
 								}
 							}
@@ -13948,21 +13422,15 @@ var _user$project$Kami$PushPost = function (a) {
 	return {ctor: 'PushPost', _0: a};
 };
 var _user$project$Kami$renderInputBar = function (model) {
-	var disable_post = _elm_lang$core$Native_Utils.eq(model.cRemaining, 1500) ? ' btn-disabled' : '';
 	var right_rail = model.phone ? 'container right-rail' : 'container right-rail right-rail-desktop';
 	var interface_sub = model.phone ? 'interface-phone' : 'fixed-top interface-desktop';
 	var selected = A2(_user$project$Kami$getCharacter, model.characters, model.selectedCharacter);
-	var composure = (selected.earth + selected.fire) * 2;
-	var panic = ((!model.post.narrative) && (_elm_lang$core$Native_Utils.eq(selected.strife, composure) && (_elm_lang$core$Native_Utils.cmp(composure, 0) > 0))) ? ' panic-mode' : '';
 	return A2(
 		_elm_lang$html$Html$div,
 		{
 			ctor: '::',
 			_0: _elm_lang$html$Html_Attributes$class(
-				A2(
-					_elm_lang$core$Basics_ops['++'],
-					'navbar navbar-expand interface ',
-					A2(_elm_lang$core$Basics_ops['++'], interface_sub, panic))),
+				A2(_elm_lang$core$Basics_ops['++'], 'navbar navbar-expand interface ', interface_sub)),
 			_1: {ctor: '[]'}
 		},
 		{
@@ -14075,137 +13543,7 @@ var _user$project$Kami$renderInputBar = function (model) {
 																						' Characters Remaining')),
 																				_1: {ctor: '[]'}
 																			}),
-																		_1: {
-																			ctor: '::',
-																			_0: (!model.post.narrative) ? A2(
-																				_elm_lang$html$Html$div,
-																				{ctor: '[]'},
-																				{
-																					ctor: '::',
-																					_0: A2(
-																						_elm_lang$html$Html$span,
-																						{
-																							ctor: '::',
-																							_0: _elm_lang$html$Html_Attributes$class('fa fa-minus'),
-																							_1: {
-																								ctor: '::',
-																								_0: _elm_lang$html$Html_Events$onClick(
-																									A2(_user$project$Kami$ModifyStat, 'void_points', -1)),
-																								_1: {ctor: '[]'}
-																							}
-																						},
-																						{ctor: '[]'}),
-																					_1: {
-																						ctor: '::',
-																						_0: A2(
-																							_elm_lang$html$Html$span,
-																							{ctor: '[]'},
-																							{
-																								ctor: '::',
-																								_0: _elm_lang$html$Html$text(
-																									A2(
-																										_elm_lang$core$Basics_ops['++'],
-																										' ',
-																										A2(
-																											_elm_lang$core$Basics_ops['++'],
-																											_elm_lang$core$Basics$toString(selected.void_points),
-																											A2(
-																												_elm_lang$core$Basics_ops['++'],
-																												'/',
-																												A2(
-																													_elm_lang$core$Basics_ops['++'],
-																													_elm_lang$core$Basics$toString(selected.$void),
-																													' Void '))))),
-																								_1: {ctor: '[]'}
-																							}),
-																						_1: {
-																							ctor: '::',
-																							_0: A2(
-																								_elm_lang$html$Html$span,
-																								{
-																									ctor: '::',
-																									_0: _elm_lang$html$Html_Attributes$class('fa fa-plus'),
-																									_1: {
-																										ctor: '::',
-																										_0: _elm_lang$html$Html_Events$onClick(
-																											A2(_user$project$Kami$ModifyStat, 'void_points', 1)),
-																										_1: {ctor: '[]'}
-																									}
-																								},
-																								{ctor: '[]'}),
-																							_1: {
-																								ctor: '::',
-																								_0: A2(
-																									_elm_lang$html$Html$span,
-																									{
-																										ctor: '::',
-																										_0: _elm_lang$html$Html_Attributes$class('spacer-span'),
-																										_1: {ctor: '[]'}
-																									},
-																									{ctor: '[]'}),
-																								_1: {
-																									ctor: '::',
-																									_0: A2(
-																										_elm_lang$html$Html$span,
-																										{
-																											ctor: '::',
-																											_0: _elm_lang$html$Html_Attributes$class('fa fa-minus'),
-																											_1: {
-																												ctor: '::',
-																												_0: _elm_lang$html$Html_Events$onClick(
-																													A2(_user$project$Kami$ModifyStat, 'strife', -1)),
-																												_1: {ctor: '[]'}
-																											}
-																										},
-																										{ctor: '[]'}),
-																									_1: {
-																										ctor: '::',
-																										_0: A2(
-																											_elm_lang$html$Html$span,
-																											{ctor: '[]'},
-																											{
-																												ctor: '::',
-																												_0: _elm_lang$html$Html$text(
-																													A2(
-																														_elm_lang$core$Basics_ops['++'],
-																														' ',
-																														A2(
-																															_elm_lang$core$Basics_ops['++'],
-																															_elm_lang$core$Basics$toString(selected.strife),
-																															A2(
-																																_elm_lang$core$Basics_ops['++'],
-																																'/',
-																																A2(
-																																	_elm_lang$core$Basics_ops['++'],
-																																	_elm_lang$core$Basics$toString((selected.earth + selected.fire) * 2),
-																																	' Strife '))))),
-																												_1: {ctor: '[]'}
-																											}),
-																										_1: {
-																											ctor: '::',
-																											_0: A2(
-																												_elm_lang$html$Html$span,
-																												{
-																													ctor: '::',
-																													_0: _elm_lang$html$Html_Attributes$class('fa fa-plus'),
-																													_1: {
-																														ctor: '::',
-																														_0: _elm_lang$html$Html_Events$onClick(
-																															A2(_user$project$Kami$ModifyStat, 'strife', 1)),
-																														_1: {ctor: '[]'}
-																													}
-																												},
-																												{ctor: '[]'}),
-																											_1: {ctor: '[]'}
-																										}
-																									}
-																								}
-																							}
-																						}
-																					}
-																				}) : _elm_lang$html$Html$text(''),
-																			_1: {ctor: '[]'}
-																		}
+																		_1: {ctor: '[]'}
 																	}),
 																_1: {
 																	ctor: '::',
@@ -14516,7 +13854,7 @@ var _user$project$Kami$update = F2(
 							return _user$project$Kami$Post('')(false)(true)('-=[Narrative]=-')(0)(0)('')(false)(0)(
 								{ctor: '[]'})('')('')(0)(true)('')('')('');
 						} else {
-							return _user$project$Kami$Post(slug)(false)(false)(name)(character.glory)(character.status)('')(false)(0)(
+							return _user$project$Kami$Post(slug)(false)(false)(name)(0)(0)('')(false)(0)(
 								{ctor: '[]'})('')('')(0)(true)(character.image)('')('');
 						}
 					}();
@@ -14633,7 +13971,7 @@ var _user$project$Kami$update = F2(
 					A2(_elm_lang$core$Basics_ops['++'], ' ', selected.name));
 				var newPost = _elm_lang$core$Native_Utils.update(
 					oldPost,
-					{name: full_name, author_slug: author_slug, narrative: narrative, image: selected.image, diceroll: false, skill_name: '', ring_name: '', glory: selected.glory, status: selected.status});
+					{name: full_name, author_slug: author_slug, narrative: narrative, image: selected.image, diceroll: false, skill_name: '', ring_name: '', glory: 0, status: 0});
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(

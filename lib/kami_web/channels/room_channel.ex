@@ -135,13 +135,7 @@ defmodule KamiWeb.RoomChannel do
 
   defp get_characters(user_id) do
     Kami.Accounts.get_characters(user_id)
-    |> Enum.map(fn(c) -> %{name: c.name, family: c.family, approved: c.approved, status: c.status, glory: c.glory, air: c.air, earth: c.earth, fire: c.fire, void: c.void,
-       water: c.water, strife: c.strife, user: c.user_id, xp: c.xp, bxp: c.bxp, image: Kami.Accounts.image_url(c), void_points: c.void_points,
-       aesthetics: c.skill_aesthetics, composition: c.skill_composition, design: c.skill_design, smithing: c.skill_smithing,
-       fitness: c.skill_fitness, melee: c.skill_melee, ranged: c.skill_ranged, unarmed: c.skill_unarmed, iaijutsu: c.skill_iaijutsu, meditation: c.skill_meditation, tactics: c.skill_tactics,
-       culture: c.skill_culture, government: c.skill_government, sentiment: c.skill_sentiment, theology: c.skill_theology, medicine: c.skill_medicine,
-       command: c.skill_command, courtesy: c.skill_courtesy, games: c.skill_games, performance: c.skill_performance,
-       commerce: c.skill_commerce, labor: c.skill_labor, seafaring: c.skill_seafaring, skulduggery: c.skill_skullduggery, survival: c.skill_survival
+    |> Enum.map(fn(c) -> %{name: c.name, family: c.family, approved: c.approved, user: c.user_id, xp: c.xp, bxp: c.bxp, image: Kami.Accounts.image_url(c)
        } end)
   end
 

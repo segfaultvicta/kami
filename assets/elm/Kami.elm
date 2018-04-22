@@ -98,6 +98,7 @@ type alias Post =
     , ring_value : Int
     , skillroll : Bool
     , image : String
+    , identities : String
     , date : String
     , time : String
     }
@@ -143,7 +144,7 @@ init flags =
       , characters = []
       , dice = []
       , presence = []
-      , post = Post "" False False "" 0 0 "" False 0 [] "" "" 0 False "" "" ""
+      , post = Post "" False False "" 0 0 "" False 0 [] "" "" 0 False "" "" "" ""
       , selectedCharacter = 0
       , admin = False
       , phone = flags.width < 600
@@ -262,7 +263,7 @@ update msg model =
                             character.name |> String.toLower
 
                         name =
-                            character.family ++ " " ++ character.name
+                            character.name ++ " " ++ character.family
 
                         posts =
                             payloadContainer.posts
@@ -273,10 +274,10 @@ update msg model =
                         initPost =
                             case admin of
                                 True ->
-                                    Post "" False True "-=[Narrative]=-" 0 0 "" False 0 [] "" "" 0 True "" "" ""
+                                    Post "" False True "-=[Narrative]=-" 0 0 "" False 0 [] "" "" 0 True "" "" "" ""
 
                                 False ->
-                                    Post slug False False name 0 0 "" False 0 [] "" "" 0 True character.image "" ""
+                                    Post slug False False name 0 0 "" False 0 [] "" "" 0 True character.image "" "" ""
                     in
                     { model | post = initPost, dice = dice, admin = admin, selectedCharacter = selectedCharacter, posts = payloadContainer.posts, characters = payloadContainer.characters } ! []
 
@@ -763,6 +764,7 @@ postDecoder =
         |> required "ring_value" JD.int
         |> required "skillroll" JD.bool
         |> required "image" JD.string
+        |> required "identities" JD.string
         |> required "date" JD.string
         |> required "time" JD.string
 
@@ -1221,7 +1223,7 @@ renderPost dice post =
                           else
                             text ""
                         , div [ class "stats text-center" ]
-                            [ div [] [ strong [] [ text post.name ] ]
+                            [ div [] [ strong [] [ text post.name, span [ property "innerHTML" (JE.string (String.lines post.identities |> String.join "<br>")) ] [] ] ]
                             ]
                         ]
                     ]

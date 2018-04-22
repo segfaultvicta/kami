@@ -17,8 +17,12 @@
   </div>
   <div class="row">
     <div class="col">
-      <%= text_input f, :name, class: "form-control", placeholder: "Personal Name" %>
+      <%= text_input f, :name, class: "form-control", placeholder: "First Name" %>
       <%= error_tag f, :name %>
+    </div>
+    <div class="col">
+      <%= text_input f, :family, class: "form-control", placeholder: "Last Name" %>
+      <%= error_tag f, :family %>
     </div>
   </div>
   <div class="row">
@@ -119,10 +123,109 @@
     </div>
   </div>
   <div class="row">
-    <div class="col description-edit-text">
-      <h5>IDENTITIES</h5>
-      <%= textarea f, :identities, class: "form-control" %>
-      <%= error_tag f, :identities %>
+    <div class="col mt-2">
+      <strong>Favourite (Status): </strong>
+      <%= number_input f, :favourite, class: "form-control character-edit-numeric" %>
+      <%= error_tag f, :favourite %>
+    </div>
+    <div class="col mt-2">
+      <strong>Guru (Notice): </strong>
+      <%= number_input f, :guru, class: "form-control character-edit-numeric" %>
+      <%= error_tag f, :guru %>
+    </div>
+    <div class="col mt-2">
+      <strong>Mentor (Connect): </strong>
+      <%= number_input f, :mentor, class: "form-control character-edit-numeric" %>
+      <%= error_tag f, :mentor %>
+    </div>
+    <div class="col mt-2">
+      <strong>Responsibility (Knowledge): </strong>
+      <%= number_input f, :responsibility, class: "form-control character-edit-numeric" %>
+      <%= error_tag f, :responsibility %>
+    </div>
+    <div class="col mt-2">
+      <strong>Protege (Fitness): </strong>
+      <%= number_input f, :protege, class: "form-control character-edit-numeric" %>
+      <%= error_tag f, :protege %>
+    </div>
+  </div>
+  <div class="identity-edit">
+    <h5>IDENTITIES</h5>
+    <div class="row">
+      <div class="col">
+        <div class="row internal">
+          <%= textarea f, :id1, class: "form-control identity-name", placeholder: "IDENTITY", rows: 1 %>
+          <%= error_tag f, :id1 %>
+          <i class="fa fa-eye fa-2x" aria-hidden="true" title="Is this identity publicly visible?"></i><%= checkbox f, :id1_visible, class: "checkbox identity-visible" %>
+          <%= error_tag f, :id1_visible %>
+          <%= number_input f, :id1_pct, class: "form-control character-edit-numeric identity-pct" %>
+          <%= error_tag f, :id1_pct %>
+        </div>
+        <%= textarea f, :id1_desc, class: "form-control identity-description" %>
+        <%= error_tag f, :id1_desc %>
+      </div>
+      <div class="col">
+        <div class="row internal">
+          <%= textarea f, :id2, class: "form-control identity-name", placeholder: "IDENTITY", rows: 1 %>
+          <%= error_tag f, :id2 %>
+          <i class="fa fa-eye fa-2x" aria-hidden="true" title="Is this identity publicly visible?"></i><%= checkbox f, :id2_visible, class: "checkbox identity-visible" %>
+          <%= error_tag f, :id2_visible %>
+          <%= number_input f, :id2_pct, class: "form-control character-edit-numeric" %>
+          <%= error_tag f, :id2_pct %>
+        </div>
+        <%= textarea f, :id2_desc, class: "form-control" %>
+        <%= error_tag f, :id2_desc %>
+      </div>
+      <div class="col">
+        <div class="row internal">
+          <%= textarea f, :id3, class: "form-control identity-name", placeholder: "IDENTITY", rows: 1 %>
+          <%= error_tag f, :id3 %>
+          <i class="fa fa-eye fa-2x" aria-hidden="true" title="Is this identity publicly visible?"></i><%= checkbox f, :id3_visible, class: "checkbox identity-visible" %>
+          <%= error_tag f, :id3_visible %>
+          <%= number_input f, :id3_pct, class: "form-control character-edit-numeric" %>
+          <%= error_tag f, :id3_pct %>
+        </div>
+        <%= textarea f, :id3_desc, class: "form-control" %>
+        <%= error_tag f, :id3_desc %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="row internal">
+          <%= textarea f, :id4, class: "form-control identity-name", placeholder: "IDENTITY", rows: 1 %>
+          <%= error_tag f, :id4 %>
+          <i class="fa fa-eye fa-2x" aria-hidden="true" title="Is this identity publicly visible?"></i><%= checkbox f, :id4_visible, class: "checkbox identity-visible" %>
+          <%= error_tag f, :id4_visible %>
+          <%= number_input f, :id4_pct, class: "form-control character-edit-numeric identity-pct" %>
+          <%= error_tag f, :id4_pct %>
+        </div>
+        <%= textarea f, :id4_desc, class: "form-control identity-description" %>
+        <%= error_tag f, :id4_desc %>
+      </div>
+      <div class="col">
+        <div class="row internal">
+          <%= textarea f, :id5, class: "form-control identity-name", placeholder: "IDENTITY", rows: 1 %>
+          <%= error_tag f, :id5 %>
+          <i class="fa fa-eye fa-2x" aria-hidden="true" title="Is this identity publicly visible?"></i><%= checkbox f, :id5_visible, class: "checkbox identity-visible" %>
+          <%= error_tag f, :id5_visible %>
+          <%= number_input f, :id5_pct, class: "form-control character-edit-numeric" %>
+          <%= error_tag f, :id5_pct %>
+        </div>
+        <%= textarea f, :id5_desc, class: "form-control" %>
+        <%= error_tag f, :id5_desc %>
+      </div>
+      <div class="col">
+        <div class="row internal">
+          <%= textarea f, :id6, class: "form-control identity-name", placeholder: "IDENTITY", rows: 1 %>
+          <%= error_tag f, :id6 %>
+          <i class="fa fa-eye fa-2x" aria-hidden="true" title="Is this identity publicly visible?"></i><%= checkbox f, :id6_visible, class: "checkbox identity-visible" %>
+          <%= error_tag f, :id6_visible %>
+          <%= number_input f, :id6_pct, class: "form-control character-edit-numeric" %>
+          <%= error_tag f, :id6_pct %>
+        </div>
+        <%= textarea f, :id6_desc, class: "form-control" %>
+        <%= error_tag f, :id6_desc %>
+      </div>
     </div>
   </div>
   <div class="row">

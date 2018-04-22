@@ -5,7 +5,7 @@
         <span class="new-image-link"><%= link "Upload Image", to: character_path(@conn, :new_image, @character) %></span>
       </div>
     <div class="col-5">
-      <h2 class="text-uppercase"><%= @character.name %></h2>
+      <h2 class="text-uppercase"><%= @character.name %> <%= @character.family %></h2>
       <%= if not @as_admin and not @character.approved do %>
         <span><%= link "Edit", to: character_path(@conn, :edit, @character) %></span>
       <% end %>
@@ -67,43 +67,119 @@
   <h4>STATISTICS</h4>
   <div class="row">
     <div class="col mt-2">
-      <strong>Helplessness: </strong> <%= @character.helplessness_hardened %>
+      <strong>Fitness: </strong> <%= 65 - @character.helplessness_hardened * 5 %>
     </div>
     <div class="col mt-2">
-      <strong>Isolation: </strong> <%= @character.isolation_hardened %>
+      <strong>Status: </strong> <%= 65 - @character.isolation_hardened * 5 %>
     </div>
     <div class="col mt-2">
-      <strong>Self: </strong> <%= @character.self_hardened %>
+      <strong>Knowledge: </strong> <%= 65 - @character.self_hardened * 5 %>
     </div>
     <div class="col mt-2">
-      <strong>Unnatural: </strong> <%= @character.unnatural_hardened %>
+      <strong>Notice: </strong> <%= 65 - @character.unnatural_hardened * 5 %>
     </div>
     <div class="col mt-2">
-      <strong>Violence: </strong> <%= @character.violence_hardened %>
+      <strong>Connect: </strong> <%= 65 - @character.violence_hardened * 5 %>
     </div>
   </div>
   <div class="row">
     <div class="col mt-2">
-      <strong>Helplessness (Failures): </strong> <%= @character.helplessness_failures %>
+      <strong>Dodge: </strong> <%= @character.helplessness_hardened * 5 + 15 %>
     </div>
     <div class="col mt-2">
-      <strong>Isolation (Failures): </strong> <%= @character.isolation_failures %>
+      <strong>Pursuit: </strong> <%= @character.isolation_hardened * 5 + 15 %>
     </div>
     <div class="col mt-2">
-      <strong>Self (Failures): </strong> <%= @character.self_failures %>
+      <strong>Lie: </strong> <%= @character.self_hardened * 5 + 15 %>
     </div>
     <div class="col mt-2">
-      <strong>Unnatural (Failures): </strong> <%= @character.unnatural_failures %>
+      <strong>Secrecy: </strong> <%= @character.unnatural_hardened * 5 + 15 %>
     </div>
     <div class="col mt-2">
-      <strong>Violence (Failures): </strong> <%= @character.violence_failures %>
+      <strong>Struggle: </strong> <%= @character.violence_hardened * 5 + 15 %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col mt-2">
+      <strong>Helplessness: </strong> <%= @character.helplessness_hardened %> / 9,
+      <span class="failures"><%= @character.helplessness_failures %> / 5</span>
+    </div>
+    <div class="col mt-2">
+      <strong>Isolation: </strong> <%= @character.isolation_hardened %> / 9,
+      <span class="failures"><%= @character.isolation_failures %> / 5</span>
+    </div>
+    <div class="col mt-2">
+      <strong>Self: </strong> <%= @character.self_hardened %> / 9,
+      <span class="failures"> <%= @character.self_failures %> / 5</span>
+    </div>
+    <div class="col mt-2">
+      <strong>Unnatural: </strong> <%= @character.unnatural_hardened %> / 9,
+      <span class="failures"> <%= @character.unnatural_failures %> / 5</span>
+    </div>
+    <div class="col mt-2">
+      <strong>Violence: </strong> <%= @character.violence_hardened %> / 9,
+      <span class="failures"> <%= @character.violence_failures %> / 5</span>
+    </div>
+  </div>
+  <hr />
+  <h4>RELATIONSHIPS</h4>
+  <div class="row">
+    <div class="col mt-2">
+      <strong>Favourite (Status): </strong> <%= @character.favourite %>
+    </div>
+    <div class="col mt-2">
+      <strong>Guru (Notice): </strong> <%= @character.guru %>
+    </div>
+    <div class="col mt-2">
+      <strong>Mentor (Connect): </strong> <%= @character.mentor %>
+    </div>
+    <div class="col mt-2">
+      <strong>Responsibility (Knowledge): </strong> <%= @character.responsibility %>
+    </div>
+    <div class="col mt-2">
+      <strong>Protege (Fitness): </strong> <%= @character.protege %>
     </div>
   </div>
   <hr />
   <div class="row">
     <div class="col description-text">
       <h5>IDENTITIES</h5>
-      <%= t(@character.identities) %>
+      <%= if @character.id1_pct > 0 do %>
+        <div class="identity identity-show">
+          <h6 class="text-uppercase"><strong><%= t(@character.id1) %> - <%= @character.id1_pct %><%= if !@character.id1_visible do %> - identity is private<% end %> </strong></h6>
+          <%= t(@character.id1_desc) %>
+        </div>
+      <% end %>
+      <%= if @character.id2_pct > 0 do %>
+        <div class="identity identity-show">
+          <h6 class="text-uppercase"><strong><%= t(@character.id2) %> - <%= @character.id2_pct %><%= if !@character.id2_visible do %> - identity is private<% end %> </strong></h6>
+          <%= t(@character.id2_desc) %>
+        </div>
+      <% end %>
+      <%= if @character.id3_pct > 0 do %>
+        <div class="identity identity-show">
+          <h6 class="text-uppercase"><strong><%= t(@character.id3) %> - <%= @character.id3_pct %><%= if !@character.id3_visible do %> - identity is private<% end %> </strong></h6>
+          <%= t(@character.id3_desc) %>
+        </div>
+      <% end %>
+      <%= if @character.id4_pct > 0 do %>
+        <div class="identity identity-show">
+          <h6 class="text-uppercase"><strong><%= t(@character.id4) %> - <%= @character.id4_pct %><%= if !@character.id4_visible do %> - identity is private<% end %> </strong></h6>
+          <%= t(@character.id4_desc) %>
+        </div>
+      <% end %>
+      <%= if @character.id5_pct > 0 do %>
+        <div class="identity identity-show">
+          <h6 class="text-uppercase"><strong><%= t(@character.id5) %> - <%= @character.id5_pct %><%= if !@character.id5_visible do %> - identity is private<% end %> </strong></h6>
+          <%= t(@character.id5_desc) %>
+        </div>
+      <% end %>
+      <%= if @character.id6_pct > 0 do %>
+        <div class="identity identity-show">
+          <h6 class="text-uppercase"><strong><%= t(@character.id6) %> - <%= @character.id6_pct %><%= if !@character.id6_visible do %> - identity is private<% end %> </strong></h6>
+          <%= t(@character.id6_desc) %>
+        </div>
+      <% end %>
     </div>
   </div>
   <hr />

@@ -292,18 +292,6 @@ defmodule Kami.Accounts do
     |> Repo.update_all(set: [bxp_this_week: 0])
   end
 
-  def timer_decrement_strife() do
-    Character
-    |> Repo.all
-    |> Enum.each(fn(character) -> update_stat(character, "strife", (-1 * character.water)) end)
-  end
-
-  def timer_increment_void() do
-    Character
-    |> Repo.all
-    |> Enum.each(fn(character) -> update_stat(character, "void_points", 1) end)
-  end
-
   def buy_upgrade_for_stat(%Character{} = character, stat_key) do
     try do
       atom = String.to_existing_atom(stat_key)

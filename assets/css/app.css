@@ -285,6 +285,40 @@ body {
   background-color: #FFAAAA
 }
 
+.identity-edit .col {
+  background-color: #DDDDDD;
+  padding: 5px;
+  margin: 10px;
+}
+
+.identity-edit .internal {
+  margin: 5px 0 5px 0;
+}
+
+.identity-edit i {
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.identity-edit input[type=checkbox] {
+  transform: scale(2.0);
+  margin: 11px 9px 9px 9px;
+}
+
+.identity-name {
+  resize: none;
+  width: 170px;
+}
+
+.identity-show {
+  margin: 10px;
+}
+
+.failures {
+  color: #660000;
+  text-shadow: 0 0 3px #FF0000;
+}
+
 img.character-image {
   margin: 3px;
 }

@@ -85,8 +85,8 @@ defmodule KamiWeb.RoomChannel do
                           "die_size" => face, "ring_value" => num, "ring_name" => ring, "skill_name" => skill, "skillroll" => specialdice, "image" => image}, socket) do
     name = if narr do "" else name end
     character = if narr do nil else Kami.Accounts.get_character_by_name!(slug) end
-    glory = if character != nil do character.glory else 0 end
-    status = if character != nil do character.status else 0 end
+    glory = 0
+    status = 0
     arbitrary = skill == "arbitrary" or ring == "arbitrary"
     skill_name = if dice and character != nil and not arbitrary do String.split(skill, "_") |> Enum.at(1) |> String.capitalize else "" end
     ring_name = if dice and character != nil and not arbitrary do ring |> String.capitalize else "" end
@@ -112,8 +112,10 @@ defmodule KamiWeb.RoomChannel do
       []
     end
     text = if ooc && text == "" do "\n" else HtmlSanitizeEx.strip_tags(text) end
+    identities = if character != nil do Kami.Accounts.Character.serialise_public_identities(character) else "" end
     Kami.World.create_post(socket.assigns[:location], slug, %{ooc: ooc, narrative: narr, text: text, name: name, image: image, glory: glory, status: status,
-                                                              diceroll: dice, skillroll: specialdice, ring_name: ring_name, skill_name: skill_name, results: results, ring_value: ring_value, die_size: face})
+                                                              diceroll: dice, skillroll: specialdice, ring_name: ring_name, skill_name: skill_name, results: results,
+                                                              ring_value: ring_value, die_size: face, identities: identities})
     broadcast!(socket, "update_posts", %{posts: get_posts(socket.assigns[:location])})
     if not ooc and not Kami.World.is_ooc?(socket.assigns[:location]) and not narr and not socket.assigns[:admin] do
       Kami.Accounts.award_bxp(character)
@@ -126,7 +128,7 @@ defmodule KamiWeb.RoomChannel do
     |> Enum.map(fn(post) ->  %{author_slug: post.author_slug, ooc: post.ooc, narrative: post.narrative, name: post.name,
                                glory: post.glory, status: post.status, text: post.text, diceroll: post.diceroll, die_size: post.die_size,
                                results: l(post.results), ring_name: post.ring_name, ring_value: post.ring_value, skill_name: post.skill_name,
-                               skillroll: post.skillroll, image: post.image,
+                               skillroll: post.skillroll, image: post.image, identities: post.identities,
                                date: Timex.format(Timex.Timezone.convert(post.inserted_at, Timex.Timezone.get("America/Chicago")), "{D} {Mshort} {YYYY}") |> Tuple.to_list |> List.last,
                                time: Timex.format(Timex.Timezone.convert(post.inserted_at, Timex.Timezone.get("America/Chicago")), "{h24}:{m}") |> Tuple.to_list |> List.last } end)
   end

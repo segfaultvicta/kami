@@ -152,7 +152,7 @@
           <%= number_input f, :id2_pct, class: "form-control character-edit-numeric" %>
           <%= error_tag f, :id2_pct %>
         </div>
-        <%= textarea f, :id2_desc, class: "form-control" %>
+        <%= textarea f, :id2_desc, class: "form-control identity-description" %>
         <%= error_tag f, :id2_desc %>
       </div>
       <div class="col">
@@ -164,7 +164,7 @@
           <%= number_input f, :id3_pct, class: "form-control character-edit-numeric" %>
           <%= error_tag f, :id3_pct %>
         </div>
-        <%= textarea f, :id3_desc, class: "form-control" %>
+        <%= textarea f, :id3_desc, class: "form-control identity-description" %>
         <%= error_tag f, :id3_desc %>
       </div>
     </div>
@@ -190,7 +190,7 @@
           <%= number_input f, :id5_pct, class: "form-control character-edit-numeric" %>
           <%= error_tag f, :id5_pct %>
         </div>
-        <%= textarea f, :id5_desc, class: "form-control" %>
+        <%= textarea f, :id5_desc, class: "form-control identity-description" %>
         <%= error_tag f, :id5_desc %>
       </div>
       <div class="col">
@@ -202,7 +202,7 @@
           <%= number_input f, :id6_pct, class: "form-control character-edit-numeric" %>
           <%= error_tag f, :id6_pct %>
         </div>
-        <%= textarea f, :id6_desc, class: "form-control" %>
+        <%= textarea f, :id6_desc, class: "form-control identity-description" %>
         <%= error_tag f, :id6_desc %>
       </div>
     </div>

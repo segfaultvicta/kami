@@ -89,6 +89,7 @@ defmodule Kami.Accounts.Character do
     character
     |> cast(attrs, [:name, :family, :approved, :public_description, :bxp, :bxp_this_week,
                     :xp, :total_xp, :total_spent_xp, :patreon, :gm_notes, :secret_gm_notes,
+                    :cabal, :concept, :objectives, :rage, :noble, :fear,
                     :favourite, :guru, :mentor, :responsibility, :protege,
                     :helplessness_hardened, :helplessness_failures,
                     :isolation_hardened, :isolation_failures,
@@ -115,6 +116,7 @@ defmodule Kami.Accounts.Character do
   def pre_approval_changeset(%Character{} = character, attrs) do
     character
     |> cast(attrs, [:name, :family, :public_description,
+                    :cabal, :concept, :objectives, :rage, :noble, :fear,
                     :favourite, :guru, :mentor, :responsibility, :protege,
                     :helplessness_hardened, :helplessness_failures,
                     :isolation_hardened, :isolation_failures,

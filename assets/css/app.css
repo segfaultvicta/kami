@@ -305,6 +305,10 @@ body {
   margin: 11px 9px 9px 9px;
 }
 
+.identity-edit .identity-description {
+  height: 150px;
+}
+
 .identity-name {
   resize: none;
   width: 170px;

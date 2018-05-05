@@ -142,7 +142,7 @@ defmodule KamiWeb.CharacterController do
         true -> 0
       end
 
-      case Accounts.award_xp(character, amt) do
+      case Accounts.award_xp(character, amt, True) do
         {:ok, character} ->
           conn
           |> put_flash(:info, "Awarded #{amt} XP!")

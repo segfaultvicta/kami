@@ -27,10 +27,10 @@ config :kami, KamiWeb.Endpoint,
 config :logger, level: :info
 
 config :kami,
-  bxp_per_post: 0.1,
-  bxp_per_week_max: 4,
-  bxp_per_week_patreon_bonus: 2,
-  xp_per_week: 2,
+  xp_per_post: 0.2,
+  xp_per_week_max: 10,
+  xp_per_week_patreon_bonus: 0,
+  xp_per_week: 0,
   dice_lifetime: 21600,
   posts_to_show: 30
 

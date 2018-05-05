@@ -257,34 +257,27 @@ defmodule Kami.Accounts do
     end
   end
 
-  def award_bxp(%Character{} = character) do
-    bxp_max = Application.get_env(:kami, :bxp_per_week_max) + if character.patreon do Application.get_env(:kami, :bxp_per_week_patreon_bonus) else 0 end
-    if character.bxp_this_week + Application.get_env(:kami, :bxp_per_post) <= bxp_max do
-      character
-      |> Character.stat_changeset(%{bxp: Float.round(character.bxp + Application.get_env(:kami, :bxp_per_post), 2),
-                                    bxp_this_week: Float.round(character.bxp_this_week + Application.get_env(:kami, :bxp_per_post), 2)})
-      |> Repo.update()
+  def award_xp(%Character{} = character, amount, bypass_cap) do
+    xp_max = Application.get_env(:kami, :xp_per_week_max) + if character.patreon do Application.get_env(:kami, :xp_per_week_patreon_bonus) else 0 end
+    if (character.bxp_this_week + Application.get_env(:kami, :xp_per_post) <= xp_max) or bypass_cap do
+      if bypass_cap do
+        character
+        |> Character.stat_changeset(%{xp: Float.round(character.xp + amount, 2), total_xp: Float.round(character.total_xp + amount, 2)})
+        |> Repo.update()
+      else
+        character
+        |> Character.stat_changeset(%{xp: Float.round(character.bxp + amount, 2),
+                                      bxp_this_week: Float.round(character.bxp_this_week + amount, 2),
+                                      total_xp: Float.round(character.total_xp + amount, 2)})
+        |> Repo.update()
+      end
     end
-  end
-
-  def award_xp(%Character{} = character, amount) do
-    {new_bxp, to_unlock} = if character.bxp >= amount do
-      {character.bxp - amount, amount}
-    else
-      {0, character.bxp}
-    end
-    xp = amount + to_unlock
-    character
-    |> Character.stat_changeset(%{bxp: if new_bxp != 0 do Float.round(new_bxp, 2) else 0 end,
-                                  xp: Float.round(character.xp + xp,2),
-                                  total_xp: Float.round(character.total_xp + xp, 2) })
-    |> Repo.update()
   end
 
   def timer_award_xp() do
     Character
     |> Repo.all
-    |> Enum.each(fn(character) -> award_xp(character, Application.get_env(:kami, :xp_per_week)) end)
+    |> Enum.each(fn(character) -> award_xp(character, Application.get_env(:kami, :xp_per_week), true) end)
   end
 
   def timer_reset_bxp() do

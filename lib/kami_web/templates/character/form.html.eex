@@ -31,11 +31,6 @@
       <%= number_input f, :xp, class: "form-control character-edit-numeric" %>
       <%= error_tag f, :xp %>
     </div>
-    <div class="col mt-2">
-      <strong>Banked XP:</strong>
-      <%= number_input f, :bxp, class: "form-control character-edit-numeric" %>
-      <%= error_tag f, :bxp %>
-    </div>
   </div>
   <div class="row">
     <div class="col description-edit-text">

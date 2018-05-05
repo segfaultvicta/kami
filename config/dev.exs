@@ -60,16 +60,16 @@ config :kami, Kami.Repo,
 
 config :kami, Kami.Scheduler,
   jobs: [
-    {"0-59 * * * *", {Kami.Accounts, :timer_award_xp, []}},
-    {"0-59 * * * *", {Kami.Accounts, :timer_reset_bxp, []}}
+    {"1 0 * * 1", {Kami.Accounts, :timer_award_xp, []}},
+    {"1 0 * * 1", {Kami.Accounts, :timer_reset_bxp, []}}
   ]
 
 config :kami,
   elm_secret: "seekrit",
-  bxp_per_post: 0.1,
-  bxp_per_week_max: 4,
-  bxp_per_week_patreon_bonus: 2,
-  xp_per_week: 2,
+  xp_per_post: 0.2,
+  xp_per_week_max: 10,
+  xp_per_week_patreon_bonus: 0,
+  xp_per_week: 10,
   dice_lifetime: 1000,
   posts_to_show: 40
 

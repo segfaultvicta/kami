@@ -68,7 +68,7 @@ getCharacter list index =
             character
 
         Nothing ->
-            Character "[Narrative]" "" True 0 0 0 ""
+            Character "[Narrative]" "" True 0 0 "" "" 0 "" 0 "" 0 "" 0 "" 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 
 
 type alias Character =
@@ -77,8 +77,34 @@ type alias Character =
     , approved : Bool
     , user : Int
     , xp : Float
-    , bxp : Float
     , image : String
+    , id1 : String
+    , id1_pct : Int
+    , id2 : String
+    , id2_pct : Int
+    , id3 : String
+    , id3_pct : Int
+    , id4 : String
+    , id4_pct : Int
+    , id5 : String
+    , id5_pct : Int
+    , id6 : String
+    , id6_pct : Int
+    , favourite : Int
+    , guru : Int
+    , mentor : Int
+    , responsibility : Int
+    , protege : Int
+    , fitness : Int
+    , dodge : Int
+    , status : Int
+    , pursuit : Int
+    , knowledge : Int
+    , lie : Int
+    , notice : Int
+    , secrecy : Int
+    , connect : Int
+    , struggle : Int
     }
 
 
@@ -87,16 +113,10 @@ type alias Post =
     , ooc : Bool
     , narrative : Bool
     , name : String
-    , glory : Int
-    , status : Int
     , text : String
-    , diceroll : Bool
-    , die_size : Int
-    , results : List Int
-    , ring_name : String
-    , skill_name : String
-    , ring_value : Int
-    , skillroll : Bool
+    , rolled : String
+    , target : Int
+    , result : Int
     , image : String
     , identities : String
     , date : String
@@ -144,7 +164,7 @@ init flags =
       , characters = []
       , dice = []
       , presence = []
-      , post = Post "" False False "" 0 0 "" False 0 [] "" "" 0 False "" "" "" ""
+      , post = Post "" False False "" "" "" 0 0 "" "" "" ""
       , selectedCharacter = 0
       , admin = False
       , phone = flags.width < 600
@@ -179,12 +199,8 @@ type Msg
     | PushPost Bool
     | ChangeSelectedCharacter String
     | ChangeSelectedSkill String
-    | ChangeSelectedRing String
     | ChangeImage String
     | ChangeText String
-    | ToggleSpecialDice
-    | ChangeDieSize Int
-    | ChangeDieNum Int
     | ModifyStat String Int
     | SpendXP String
     | ModifyStatFailed JD.Value
@@ -274,10 +290,10 @@ update msg model =
                         initPost =
                             case admin of
                                 True ->
-                                    Post "" False True "-=[Narrative]=-" 0 0 "" False 0 [] "" "" 0 True "" "" "" ""
+                                    Post "" False True "-=[Narrative]=-" "" "" 0 0 "" "" "" ""
 
                                 False ->
-                                    Post slug False False name 0 0 "" False 0 [] "" "" 0 True character.image "" "" ""
+                                    Post slug False False name "" "" 0 0 character.image "" "" ""
                     in
                     { model | post = initPost, dice = dice, admin = admin, selectedCharacter = selectedCharacter, posts = payloadContainer.posts, characters = payloadContainer.characters } ! []
 
@@ -296,7 +312,7 @@ update msg model =
                             if model.active then
                                 []
                             else
-                                [ title "[*] Legend Of Five Rings Online", donk () ]
+                                [ title "[*] Gan no Koe", donk () ]
                     in
                     { model | posts = payloadContainer.posts } ! commands
 
@@ -357,7 +373,7 @@ update msg model =
                     model.post
 
                 newPost =
-                    { oldPost | name = full_name, author_slug = author_slug, narrative = narrative, image = selected.image, diceroll = False, skill_name = "", ring_name = "", glory = 0, status = 0 }
+                    { oldPost | name = full_name, author_slug = author_slug, narrative = narrative, image = selected.image }
             in
             { model | post = newPost, selectedCharacter = selectedCharacter } ! []
 
@@ -409,83 +425,11 @@ update msg model =
 
         ChangeSelectedSkill skill ->
             let
-                split =
-                    String.split ":" skill
-
-                name =
-                    case List.head split of
-                        Just n ->
-                            n
-
-                        Nothing ->
-                            ""
-
-                value =
-                    case List.tail split of
-                        Just [ n ] ->
-                            String.toInt n |> Result.withDefault 0
-
-                        _ ->
-                            0
-
-                arbitrary =
-                    value > 0 && name == "arbitrary"
-
                 oldPost =
                     model.post
 
-                parsed_skill =
-                    if arbitrary then
-                        name
-                    else
-                        skill
-
-                diceroll =
-                    arbitrary || (skill /= "" && model.post.ring_name /= "")
-
                 newPost =
-                    { oldPost | skill_name = parsed_skill, diceroll = diceroll, die_size = value }
-            in
-            { model | post = newPost, resetDice = False } ! []
-
-        ChangeSelectedRing ring ->
-            let
-                split =
-                    String.split ":" ring
-
-                name =
-                    case List.head split of
-                        Just n ->
-                            n
-
-                        Nothing ->
-                            ""
-
-                value =
-                    case List.tail split of
-                        Just [ n ] ->
-                            String.toInt n |> Result.withDefault 0
-
-                        _ ->
-                            0
-
-                arbitrary =
-                    value > 0 && name == "arbitrary"
-
-                parsed_ring =
-                    if arbitrary then
-                        name
-                    else
-                        ring
-
-                oldPost =
-                    model.post
-
-                diceroll =
-                    arbitrary || (ring /= "" && model.post.skill_name /= "")
-
-                newPost =
-                    { oldPost | ring_name = parsed_ring, diceroll = diceroll, ring_value = value }
+                    { oldPost | rolled = skill }
             in
             { model | post = newPost, resetDice = False } ! []
 
@@ -511,36 +455,6 @@ update msg model =
                     model.cMax - String.length text
             in
             { model | cRemaining = newRemaining, post = newPost } ! []
-
-        ToggleSpecialDice ->
-            let
-                oldPost =
-                    model.post
-
-                newPost =
-                    { oldPost | skillroll = not oldPost.skillroll }
-            in
-            { model | post = newPost } ! []
-
-        ChangeDieSize num ->
-            let
-                oldPost =
-                    model.post
-
-                newPost =
-                    { oldPost | die_size = num }
-            in
-            { model | post = newPost } ! []
-
-        ChangeDieNum num ->
-            let
-                oldPost =
-                    model.post
-
-                newPost =
-                    { oldPost | ring_value = num }
-            in
-            { model | post = newPost } ! []
 
         ModifyStat stat_key delta ->
             let
@@ -593,7 +507,7 @@ update msg model =
 
                 commands =
                     if status == True then
-                        [ title "Legend Of Five Rings Online", Phoenix.push model.socketUrl push ]
+                        [ title "Gan no Koe", Phoenix.push model.socketUrl push ]
                     else
                         []
             in
@@ -631,12 +545,7 @@ update msg model =
                                 , ( "narrative", JE.bool model.post.narrative )
                                 , ( "name", JE.string model.post.name )
                                 , ( "text", JE.string model.post.text )
-                                , ( "diceroll", JE.bool model.post.diceroll )
-                                , ( "die_size", JE.int model.post.die_size )
-                                , ( "ring_value", JE.int model.post.ring_value )
-                                , ( "ring_name", JE.string model.post.ring_name )
-                                , ( "skill_name", JE.string model.post.skill_name )
-                                , ( "skillroll", JE.bool model.post.skillroll )
+                                , ( "roll", JE.string model.post.rolled )
                                 , ( "image", JE.string model.post.image )
                                 ]
                             )
@@ -646,7 +555,7 @@ update msg model =
                     model.post
 
                 newPost =
-                    { oldPost | text = "", diceroll = False, die_size = 0, ring_value = 0, skill_name = "", ring_name = "" }
+                    { oldPost | text = "", rolled = "" }
             in
             { model | post = newPost, cRemaining = model.cMax, resetDice = True } ! [ Phoenix.push model.socketUrl push ]
 
@@ -753,16 +662,10 @@ postDecoder =
         |> required "ooc" JD.bool
         |> required "narrative" JD.bool
         |> required "name" JD.string
-        |> required "glory" JD.int
-        |> required "status" JD.int
         |> required "text" JD.string
-        |> required "diceroll" JD.bool
-        |> required "die_size" JD.int
-        |> required "results" (JD.list JD.int)
-        |> required "ring_name" JD.string
-        |> required "skill_name" JD.string
-        |> required "ring_value" JD.int
-        |> required "skillroll" JD.bool
+        |> required "rolled" JD.string
+        |> required "target" JD.int
+        |> required "result" JD.int
         |> required "image" JD.string
         |> required "identities" JD.string
         |> required "date" JD.string
@@ -777,8 +680,34 @@ characterDecoder =
         |> required "approved" JD.bool
         |> required "user" JD.int
         |> required "xp" JD.float
-        |> required "bxp" JD.float
         |> required "image" JD.string
+        |> required "id1" JD.string
+        |> required "id1_pct" JD.int
+        |> required "id2" JD.string
+        |> required "id2_pct" JD.int
+        |> required "id3" JD.string
+        |> required "id3_pct" JD.int
+        |> required "id4" JD.string
+        |> required "id4_pct" JD.int
+        |> required "id5" JD.string
+        |> required "id5_pct" JD.int
+        |> required "id6" JD.string
+        |> required "id6_pct" JD.int
+        |> required "favourite" JD.int
+        |> required "guru" JD.int
+        |> required "mentor" JD.int
+        |> required "responsibility" JD.int
+        |> required "protege" JD.int
+        |> required "fitness" JD.int
+        |> required "dodge" JD.int
+        |> required "status" JD.int
+        |> required "pursuit" JD.int
+        |> required "knowledge" JD.int
+        |> required "lie" JD.int
+        |> required "notice" JD.int
+        |> required "secrecy" JD.int
+        |> required "connect" JD.int
+        |> required "struggle" JD.int
 
 
 dieMetaDecoder : JD.Decoder DieMeta
@@ -1028,13 +957,13 @@ renderInputBar model =
                                 ]
                             , if not model.post.narrative then
                                 div [ class "p-0" ]
-                                    [ span [] [ text ((selected.xp |> toString) ++ " XP " ++ (selected.bxp |> toString) ++ " BXP") ]
+                                    [ span [] [ text ((selected.xp |> toString) ++ " XP ") ]
                                     ]
                               else
                                 text ""
                             , div [ class "mt-auto p-0" ]
                                 [ button [ Html.Attributes.disabled (model.cRemaining == model.cMax), onClick (PushPost False), Html.Attributes.type_ "button", class "btn btn-outline btn-primary post-button" ] [ text "POST" ]
-                                , button [ Html.Attributes.disabled (not ((model.cRemaining /= model.cMax) || model.post.diceroll)), onClick (PushPost True), Html.Attributes.type_ "button", class "btn btn-secondary post-button" ] [ text "OOC" ]
+                                , button [ Html.Attributes.disabled (not ((model.cRemaining /= model.cMax) || (model.post.rolled /= ""))), onClick (PushPost True), Html.Attributes.type_ "button", class "btn btn-secondary post-button" ] [ text "OOC" ]
                                 , if model.post.narrative then
                                     text ""
                                   else
@@ -1055,44 +984,32 @@ renderDice s narrative reset =
         [ if narrative then
             select [ onInput ChangeSelectedSkill, class "custom-select" ]
                 [ renderSelectableSkillOption "" "-=[*]=-" -1 reset
-                , renderSkillOption "arbitrary:1" "Skill Dice -" 1
-                , renderSkillOption "arbitrary:2" "Skill Dice -" 2
-                , renderSkillOption "arbitrary:3" "Skill Dice -" 3
-                , renderSkillOption "arbitrary:4" "Skill Dice -" 4
-                , renderSkillOption "arbitrary:5" "Skill Dice -" 5
-                , renderSkillOption "arbitrary:6" "Skill Dice -" 6
-                , renderSkillOption "arbitrary:7" "Skill Dice -" 7
-                , renderSkillOption "arbitrary:8" "Skill Dice -" 8
-                , renderSkillOption "arbitrary:9" "Skill Dice -" 9
-                , renderSkillOption "arbitrary:10" "Skill Dice -" 10
+                , renderSkillOption "narr" "d100" 999
                 ]
           else
             select [ onInput ChangeSelectedSkill, class "custom-select" ]
                 [ renderSelectableSkillOption "" "-=[*]=-" -1 reset
-                , renderSkillOption "arbitrary:1" "Skill Dice -" 1
-                , renderSkillOption "arbitrary:2" "Skill Dice -" 2
-                , renderSkillOption "arbitrary:3" "Skill Dice -" 3
-                ]
-        , if narrative then
-            select [ onInput ChangeSelectedRing, class "custom-select" ]
-                [ renderSelectableSkillOption "" "-=[*]=-" -1 reset
-                , renderSkillOption "arbitrary:1" "Ring Dice -" 1
-                , renderSkillOption "arbitrary:2" "Ring Dice -" 2
-                , renderSkillOption "arbitrary:3" "Ring Dice -" 3
-                , renderSkillOption "arbitrary:4" "Ring Dice -" 4
-                , renderSkillOption "arbitrary:5" "Ring Dice -" 5
-                , renderSkillOption "arbitrary:6" "Ring Dice -" 6
-                , renderSkillOption "arbitrary:7" "Ring Dice -" 7
-                , renderSkillOption "arbitrary:8" "Ring Dice -" 8
-                , renderSkillOption "arbitrary:9" "Ring Dice -" 9
-                , renderSkillOption "arbitrary:10" "Ring Dice -" 10
-                ]
-          else
-            select [ onInput ChangeSelectedRing, class "custom-select" ]
-                [ renderSelectableSkillOption "" "-=[*]=-" -1 reset
-                , renderSkillOption "arbitrary:1" "Ring Dice -" 1
-                , renderSkillOption "arbitrary:2" "Ring Dice -" 2
-                , renderSkillOption "arbitrary:3" "Ring Dice -" 3
+                , renderSkillOption "id1" s.id1 s.id1_pct
+                , renderSkillOption "id2" s.id2 s.id2_pct
+                , renderSkillOption "id3" s.id3 s.id3_pct
+                , renderSkillOption "id4" s.id4 s.id4_pct
+                , renderSkillOption "id5" s.id5 s.id5_pct
+                , renderSkillOption "id6" s.id6 s.id6_pct
+                , renderSkillOption "favourite" "Favourite" s.favourite
+                , renderSkillOption "guru" "Guru" s.guru
+                , renderSkillOption "mentor" "Mentor" s.mentor
+                , renderSkillOption "responsibility" "Responsibility" s.responsibility
+                , renderSkillOption "protege" "Protege" s.protege
+                , renderSkillOption "fitness" "Fitness" s.fitness
+                , renderSkillOption "dodge" "Dodge" s.dodge
+                , renderSkillOption "status" "Status" s.status
+                , renderSkillOption "pursuit" "Pursuit" s.pursuit
+                , renderSkillOption "knowledge" "Knowledge" s.knowledge
+                , renderSkillOption "lie" "Lie" s.lie
+                , renderSkillOption "notice" "Notice" s.notice
+                , renderSkillOption "secrecy" "Secrecy" s.secrecy
+                , renderSkillOption "connect" "Connect" s.connect
+                , renderSkillOption "struggle" "Struggle" s.struggle
                 ]
         ]
 
@@ -1113,12 +1030,21 @@ renderSkillOption : String -> String -> Int -> Html Msg
 renderSkillOption skill name val =
     let
         pretty =
-            if val >= 0 then
+            if val < 101 then
                 name ++ " " ++ (val |> toString)
             else
-                "-=[*]=-"
+                name
+
+        showOption =
+            if val > 0 then
+                True
+            else
+                False
     in
-    option [ value skill ] [ text pretty ]
+    if showOption then
+        option [ value skill ] [ text pretty ]
+    else
+        text ""
 
 
 renderImageAndCharacterOptionsForPhone : Model -> Character -> List (Html Msg)
@@ -1208,10 +1134,10 @@ renderPost dice post =
                     "post"
 
         roll_element =
-            if post.skill_name == "" || post.ring_name == "" then
-                text "Rolled: "
+            if post.target > 0 then
+                text ("Rolled " ++ post.rolled ++ " (Skill Level " ++ (post.target |> toString) ++ "): " ++ (post.result |> toString))
             else
-                text ("Rolled " ++ post.skill_name ++ " (" ++ post.ring_name ++ "), " ++ (List.length post.results |> toString) ++ "k" ++ toString post.ring_value ++ ": ")
+                text ("Rolled 1d100: " ++ (post.result |> toString))
     in
     div [ class post_classes ]
         [ div [ class "row" ]
@@ -1237,28 +1163,13 @@ renderPost dice post =
                         text ""
                     , span [ property "innerHTML" (JE.string (String.lines post.text |> String.join "<br>")) ] []
                     ]
-                , if post.ooc && not post.diceroll then
+                , if post.ooc && (post.rolled /= "") then
                     text ""
                   else
                     hr [] []
-                , if post.diceroll then
+                , if post.rolled /= "" then
                     div [ class "diceroll text-center" ]
-                        [ if post.skillroll then
-                            div []
-                                ([ roll_element ]
-                                    ++ (post.results
-                                            |> List.indexedMap (\idx result -> a [ Html.Attributes.attribute "hovertitle" (hoverDice result), onClick (DiceClick idx post) ] [ img [ class ("dice-image " ++ diceClass idx post dice), src ("https://s3.us-east-2.amazonaws.com/gannokoe/uploads/assets/" ++ toString result ++ ".png") ] [] ])
-                                       )
-                                )
-                          else
-                            text
-                                ("Rolled "
-                                    ++ (List.length post.results |> toString)
-                                    ++ "d"
-                                    ++ (post.die_size |> toString)
-                                    ++ ": "
-                                    ++ (List.map (\a -> toString a) post.results |> String.join ", ")
-                                )
+                        [ roll_element
                         ]
                   else
                     text ""

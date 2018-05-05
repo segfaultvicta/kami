@@ -81,54 +81,59 @@ defmodule KamiWeb.RoomChannel do
     end
   end
 
-  def handle_in("post", %{"author_slug" => slug, "ooc" => ooc, "narrative" => narr, "name" => name, "text" => text, "diceroll" => dice,
-                          "die_size" => face, "ring_value" => num, "ring_name" => ring, "skill_name" => skill, "skillroll" => specialdice, "image" => image}, socket) do
+  def handle_in("post", %{"author_slug" => slug, "ooc" => ooc, "narrative" => narr, "name" => name, "text" => text,
+                          "roll" => roll, "image" => image}, socket) do
     name = if narr do "" else name end
     character = if narr do nil else Kami.Accounts.get_character_by_name!(slug) end
-    glory = 0
-    status = 0
-    arbitrary = skill == "arbitrary" or ring == "arbitrary"
-    skill_name = if dice and character != nil and not arbitrary do String.split(skill, "_") |> Enum.at(1) |> String.capitalize else "" end
-    ring_name = if dice and character != nil and not arbitrary do ring |> String.capitalize else "" end
-    ring_value = if dice and specialdice and character != nil and not arbitrary do Kami.Accounts.Character.get_value(character, ring) else num end
-    skill_value = if dice and specialdice and character != nil and not arbitrary do Kami.Accounts.Character.get_value(character, skill) else 0 end
-    ring_value = if arbitrary do num else ring_value end
-    skill_value = if arbitrary do face else skill_value end
-    results = if specialdice do
-      cond do
-        ring_value > 0 and skill_value > 0 ->
-          (1..ring_value |> Enum.map(fn(_) -> Enum.random(0..5) end)) ++ (1..skill_value |> Enum.map(fn(_) -> Enum.random(6..17) end))
-
-        skill_value == 0 ->
-          (1..ring_value |> Enum.map(fn(_) -> Enum.random(0..5) end))
-
-        ring_value == 0 and arbitrary ->
-          (1..skill_value |> Enum.map(fn(_) -> Enum.random(6..17) end))
-
-        true ->
-          []
+    {rolled, target, result} = if roll != "" do
+      # at this point roll is going to be either "narr" or "idX" or one of the stats
+      # if it's idX we want to
+      # a) look up what that ID's name is
+      # b) whether it's public
+      # c) what its associated skill level is
+      # if it's one of the stats we just want to look up the associated skill level
+      # if it's narr we want to be enigmatic as fuck
+      result = Enum.random(1..100)
+      case roll do
+        "narr" ->
+          {"-=[*]=-", -1, result}
+        "id1" ->
+          {if character.id1_visible do character.id1 else "-=[*]=-" end, character.id1_pct, result}
+        "id2" ->
+          {if character.id2_visible do character.id2 else "-=[*]=-" end, character.id2_pct, result}
+        "id3" ->
+          {if character.id3_visible do character.id3 else "-=[*]=-" end, character.id3_pct, result}
+        "id4" ->
+          {if character.id4_visible do character.id4 else "-=[*]=-" end, character.id4_pct, result}
+        "id5" ->
+          {if character.id5_visible do character.id5 else "-=[*]=-" end, character.id5_pct, result}
+        "id6" ->
+          {if character.id6_visible do character.id6 else "-=[*]=-" end, character.id6_pct, result}
+        _ ->
+          value = Kami.Accounts.Character.get_value(character, roll)
+          Logger.info("obtained value of #{value} for roll #{roll}")
+          {String.capitalize(roll), Kami.Accounts.Character.get_value(character, roll), result}
       end
     else
-      []
+      {"", 0, 0}
     end
     text = if ooc && text == "" do "\n" else HtmlSanitizeEx.strip_tags(text) end
     identities = if character != nil do Kami.Accounts.Character.serialise_public_identities(character) else "" end
-    Kami.World.create_post(socket.assigns[:location], slug, %{ooc: ooc, narrative: narr, text: text, name: name, image: image, glory: glory, status: status,
-                                                              diceroll: dice, skillroll: specialdice, ring_name: ring_name, skill_name: skill_name, results: results,
-                                                              ring_value: ring_value, die_size: face, identities: identities})
+    Kami.World.create_post(socket.assigns[:location], slug, %{ooc: ooc, narrative: narr, text: text, name: name, image: image,
+                                                              rolled: rolled, target: target, result: result,
+                                                              identities: identities})
     broadcast!(socket, "update_posts", %{posts: get_posts(socket.assigns[:location])})
     if not ooc and not Kami.World.is_ooc?(socket.assigns[:location]) and not narr and not socket.assigns[:admin] do
-      Kami.Accounts.award_bxp(character)
+      Kami.Accounts.award_xp(character, Application.get_env(:kami, :xp_per_post), False)
     end
     {:reply, {:ok, %{characters: get_characters(socket.assigns[:user])}}, socket}
   end
 
   defp get_posts(location_id) do
     Kami.World.get_backfill!(location_id, Application.get_env(:kami, :posts_to_show))
-    |> Enum.map(fn(post) ->  %{author_slug: post.author_slug, ooc: post.ooc, narrative: post.narrative, name: post.name,
-                               glory: post.glory, status: post.status, text: post.text, diceroll: post.diceroll, die_size: post.die_size,
-                               results: l(post.results), ring_name: post.ring_name, ring_value: post.ring_value, skill_name: post.skill_name,
-                               skillroll: post.skillroll, image: post.image, identities: post.identities,
+    |> Enum.map(fn(post) ->  %{author_slug: post.author_slug, ooc: post.ooc, narrative: post.narrative,
+                               name: post.name, text: post.text, rolled: post.rolled, target: post.target,
+                               result: post.result, image: post.image, identities: post.identities,
                                date: Timex.format(Timex.Timezone.convert(post.inserted_at, Timex.Timezone.get("America/Chicago")), "{D} {Mshort} {YYYY}") |> Tuple.to_list |> List.last,
                                time: Timex.format(Timex.Timezone.convert(post.inserted_at, Timex.Timezone.get("America/Chicago")), "{h24}:{m}") |> Tuple.to_list |> List.last } end)
   end
@@ -137,13 +142,22 @@ defmodule KamiWeb.RoomChannel do
 
   defp get_characters(user_id) do
     Kami.Accounts.get_characters(user_id)
-    |> Enum.map(fn(c) -> %{name: c.name, family: c.family, approved: c.approved, user: c.user_id, xp: c.xp, bxp: c.bxp, image: Kami.Accounts.image_url(c)
+    |> Enum.map(fn(c) -> %{name: c.name, family: c.family, approved: c.approved,
+                           user: c.user_id, xp: c.xp, image: Kami.Accounts.image_url(c),
+                           id1: v(c.id1), id1_pct: c.id1_pct, id2: v(c.id2), id2_pct: c.id2_pct, id3: v(c.id3), id3_pct: c.id3_pct,
+                           id4: v(c.id4), id4_pct: c.id4_pct, id5: v(c.id5), id5_pct: c.id5_pct, id6: v(c.id6), id6_pct: c.id6_pct,
+                           favourite: c.favourite, guru: c.guru, mentor: c.mentor, responsibility: c.responsibility, protege: c.protege,
+                           fitness: Kami.Accounts.Character.get_value(c, "fitness"), dodge: Kami.Accounts.Character.get_value(c, "dodge"),
+                           status: Kami.Accounts.Character.get_value(c, "status"), pursuit: Kami.Accounts.Character.get_value(c, "pursuit"),
+                           knowledge: Kami.Accounts.Character.get_value(c, "knowledge"), lie: Kami.Accounts.Character.get_value(c, "lie"),
+                           notice: Kami.Accounts.Character.get_value(c, "notice"), secrecy: Kami.Accounts.Character.get_value(c, "secrecy"),
+                           connect: Kami.Accounts.Character.get_value(c, "connect"), struggle: Kami.Accounts.Character.get_value(c, "struggle"),
        } end)
   end
 
-  defp l(i) do
+  defp v(i) do
     if is_nil(i) do
-      []
+      ""
     else
       i
     end

@@ -22,6 +22,9 @@ defmodule Kami.World.Post do
     field :text, :string
     field :author_slug, :string
     field :identities, :string
+    field :rolled, :string
+    field :target, :integer
+    field :result, :integer
 
     belongs_to :location, Kami.World.Location
 
@@ -31,7 +34,7 @@ defmodule Kami.World.Post do
   @doc false
   def changeset(%Post{} = post, attrs) do
     post
-    |> cast(attrs, [:name, :image, :text, :honor, :glory, :status, :ooc, :narrative, :diceroll, :skillroll, :results, :ring_name, :skill_name, :ring_value, :die_size, :identities])
+    |> cast(attrs, [:name, :image, :text, :ooc, :narrative, :rolled, :target, :result, :identities])
     |> validate_required([:ooc, :narrative])
   end
 end

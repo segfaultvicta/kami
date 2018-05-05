@@ -12,7 +12,6 @@ defmodule Kami.Accounts.Character do
     field :bxp_this_week, :float
     field :approved, :boolean, default: false
     field :total_xp, :float
-    field :bxp, :float
     field :image, Kami.Avatar.Type
     field :xp, :float
     field :family, :string
@@ -87,7 +86,7 @@ defmodule Kami.Accounts.Character do
   @doc false
   def changeset(%Character{} = character, attrs) do
     character
-    |> cast(attrs, [:name, :family, :approved, :public_description, :bxp, :bxp_this_week,
+    |> cast(attrs, [:name, :family, :approved, :public_description, :bxp_this_week,
                     :xp, :total_xp, :total_spent_xp, :patreon, :gm_notes, :secret_gm_notes,
                     :cabal, :concept, :objectives, :rage, :noble, :fear,
                     :favourite, :guru, :mentor, :responsibility, :protege,
@@ -139,7 +138,7 @@ defmodule Kami.Accounts.Character do
     character
     |> cast(attrs, [:favourite, :guru, :mentor, :responsibility, :protege,
                     :id1_pct, :id2_pct, :id3_pct, :id4_pct, :id5_pct, :id6_pct,
-                    :bxp, :xp, :bxp_this_week, :total_xp, :total_spent_xp])
+                    :xp, :bxp_this_week, :total_xp, :total_spent_xp])
   end
 
   def image_changeset(%Character{} = character, attrs \\ :invalid) do
@@ -158,7 +157,22 @@ defmodule Kami.Accounts.Character do
     if character.id6_pct > 0 and character.id6_visible do character.id6 <> "\n" else "" end
   end
 
-  def get_value(character, key) do
-    Map.get(character, String.to_existing_atom(key))
+  def get_value(c, k) do
+    v = Map.get(c, String.to_existing_atom(k))
+    if v != nil do v else
+      case k do
+        "fitness" -> 65 - c.helplessness_hardened * 5
+        "dodge" -> c.helplessness_hardened * 5 + 15
+        "status" -> 65 - c.isolation_hardened * 5
+        "pursuit" -> c.isolation_hardened * 5 + 15
+        "knowledge" -> 65 - c.self_hardened * 5
+        "lie" -> c.self_hardened * 5 + 15
+        "notice" -> 65 - c.unnatural_hardened * 5
+        "secrecy" ->  c.unnatural_hardened * 5 + 15
+        "connect" -> 65 - c.violence_hardened * 5
+        "struggle" -> c.violence_hardened * 5 + 15
+        _ -> 0
+      end
+    end
   end
 end

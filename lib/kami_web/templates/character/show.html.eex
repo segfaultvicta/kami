@@ -28,9 +28,6 @@
       <strong>Available XP:</strong> <%= @character.xp %>
     </div>
     <div class="col mt-2">
-      <strong>Banked XP:</strong> <%= @character.bxp %>
-    </div>
-    <div class="col mt-2">
       <strong>BXP This Week:</strong> <%= @character.bxp_this_week %> <%= if @character.patreon do %><i class="fa fa-star" aria-hidden="true"></i><% end %>
     </div>
   </div>
@@ -67,36 +64,36 @@
   <h4>STATISTICS</h4>
   <div class="row">
     <div class="col mt-2">
-      <strong>Fitness: </strong> <%= 65 - @character.helplessness_hardened * 5 %>
+      <strong>Fitness: </strong> <%= Kami.Accounts.Character.get_value(@character, "fitness") %>
     </div>
     <div class="col mt-2">
-      <strong>Status: </strong> <%= 65 - @character.isolation_hardened * 5 %>
+      <strong>Status: </strong> <%= Kami.Accounts.Character.get_value(@character, "status") %>
     </div>
     <div class="col mt-2">
-      <strong>Knowledge: </strong> <%= 65 - @character.self_hardened * 5 %>
+      <strong>Knowledge: </strong> <%= Kami.Accounts.Character.get_value(@character, "knowledge") %>
     </div>
     <div class="col mt-2">
-      <strong>Notice: </strong> <%= 65 - @character.unnatural_hardened * 5 %>
+      <strong>Notice: </strong> <%= Kami.Accounts.Character.get_value(@character, "notice") %>
     </div>
     <div class="col mt-2">
-      <strong>Connect: </strong> <%= 65 - @character.violence_hardened * 5 %>
+      <strong>Connect: </strong> <%= Kami.Accounts.Character.get_value(@character, "connect") %>
     </div>
   </div>
   <div class="row">
     <div class="col mt-2">
-      <strong>Dodge: </strong> <%= @character.helplessness_hardened * 5 + 15 %>
+      <strong>Dodge: </strong> <%= Kami.Accounts.Character.get_value(@character, "dodge") %>
     </div>
     <div class="col mt-2">
-      <strong>Pursuit: </strong> <%= @character.isolation_hardened * 5 + 15 %>
+      <strong>Pursuit: </strong> <%= Kami.Accounts.Character.get_value(@character, "pursuit") %>
     </div>
     <div class="col mt-2">
-      <strong>Lie: </strong> <%= @character.self_hardened * 5 + 15 %>
+      <strong>Lie: </strong> <%= Kami.Accounts.Character.get_value(@character, "lie") %>
     </div>
     <div class="col mt-2">
-      <strong>Secrecy: </strong> <%= @character.unnatural_hardened * 5 + 15 %>
+      <strong>Secrecy: </strong> <%= Kami.Accounts.Character.get_value(@character, "secrecy") %>
     </div>
     <div class="col mt-2">
-      <strong>Struggle: </strong> <%= @character.violence_hardened * 5 + 15 %>
+      <strong>Struggle: </strong> <%= Kami.Accounts.Character.get_value(@character, "struggle") %>
     </div>
   </div>
   <div class="row">

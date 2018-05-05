@@ -15735,6 +15735,247 @@ var _user$project$Kami$hoverDice = function (face) {
 			return 'Dunno wtf happened here';
 	}
 };
+var _user$project$Kami$renderPost = F2(
+	function (dice, post) {
+		var roll_element = (_elm_lang$core$Native_Utils.cmp(post.target, 0) > 0) ? _elm_lang$html$Html$text(
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				'Rolled ',
+				A2(
+					_elm_lang$core$Basics_ops['++'],
+					post.rolled,
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						' (Skill Level ',
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							_elm_lang$core$Basics$toString(post.target),
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								'): ',
+								_elm_lang$core$Basics$toString(post.result))))))) : _elm_lang$html$Html$text(
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				'Rolled 1d100: ',
+				_elm_lang$core$Basics$toString(post.result)));
+		var post_classes = function () {
+			var _p1 = {ctor: '_Tuple2', _0: post.narrative, _1: post.ooc};
+			if (_p1._0 === true) {
+				if (_p1._1 === true) {
+					return 'post post-ooc post-narrative';
+				} else {
+					return 'post post-narrative';
+				}
+			} else {
+				if (_p1._1 === true) {
+					return 'post post-ooc';
+				} else {
+					return 'post';
+				}
+			}
+		}();
+		return A2(
+			_elm_lang$html$Html$div,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$class(post_classes),
+				_1: {ctor: '[]'}
+			},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$div,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('row'),
+						_1: {ctor: '[]'}
+					},
+					{
+						ctor: '::',
+						_0: ((!post.narrative) && (!post.ooc)) ? A2(
+							_elm_lang$html$Html$a,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$href(
+									A2(_elm_lang$core$Basics_ops['++'], '/characters/', post.author_slug)),
+								_1: {ctor: '[]'}
+							},
+							{
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$div,
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html_Attributes$class('col-2 image'),
+										_1: {ctor: '[]'}
+									},
+									{
+										ctor: '::',
+										_0: (!_elm_lang$core$Native_Utils.eq(post.image, '')) ? A2(
+											_elm_lang$html$Html$img,
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html_Attributes$class('character-image'),
+												_1: {
+													ctor: '::',
+													_0: _elm_lang$html$Html_Attributes$src(post.image),
+													_1: {
+														ctor: '::',
+														_0: _elm_lang$html$Html_Attributes$width(150),
+														_1: {ctor: '[]'}
+													}
+												}
+											},
+											{ctor: '[]'}) : _elm_lang$html$Html$text(''),
+										_1: {
+											ctor: '::',
+											_0: A2(
+												_elm_lang$html$Html$div,
+												{
+													ctor: '::',
+													_0: _elm_lang$html$Html_Attributes$class('stats text-center'),
+													_1: {ctor: '[]'}
+												},
+												{
+													ctor: '::',
+													_0: A2(
+														_elm_lang$html$Html$div,
+														{ctor: '[]'},
+														{
+															ctor: '::',
+															_0: A2(
+																_elm_lang$html$Html$strong,
+																{ctor: '[]'},
+																{
+																	ctor: '::',
+																	_0: _elm_lang$html$Html$text(post.name),
+																	_1: {
+																		ctor: '::',
+																		_0: A2(
+																			_elm_lang$html$Html$span,
+																			{
+																				ctor: '::',
+																				_0: A2(
+																					_elm_lang$html$Html_Attributes$property,
+																					'innerHTML',
+																					_elm_lang$core$Json_Encode$string(
+																						A2(
+																							_elm_lang$core$String$join,
+																							'<br>',
+																							_elm_lang$core$String$lines(post.identities)))),
+																				_1: {ctor: '[]'}
+																			},
+																			{ctor: '[]'}),
+																		_1: {ctor: '[]'}
+																	}
+																}),
+															_1: {ctor: '[]'}
+														}),
+													_1: {ctor: '[]'}
+												}),
+											_1: {ctor: '[]'}
+										}
+									}),
+								_1: {ctor: '[]'}
+							}) : _elm_lang$html$Html$text(''),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$div,
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$class('col post-text'),
+									_1: {ctor: '[]'}
+								},
+								{
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$p,
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html_Attributes$class('text-justify'),
+											_1: {ctor: '[]'}
+										},
+										{
+											ctor: '::',
+											_0: post.ooc ? _elm_lang$html$Html$text(
+												A2(_elm_lang$core$Basics_ops['++'], post.name, ': ')) : _elm_lang$html$Html$text(''),
+											_1: {
+												ctor: '::',
+												_0: A2(
+													_elm_lang$html$Html$span,
+													{
+														ctor: '::',
+														_0: A2(
+															_elm_lang$html$Html_Attributes$property,
+															'innerHTML',
+															_elm_lang$core$Json_Encode$string(
+																A2(
+																	_elm_lang$core$String$join,
+																	'<br>',
+																	_elm_lang$core$String$lines(post.text)))),
+														_1: {ctor: '[]'}
+													},
+													{ctor: '[]'}),
+												_1: {ctor: '[]'}
+											}
+										}),
+									_1: {
+										ctor: '::',
+										_0: (post.ooc && (!_elm_lang$core$Native_Utils.eq(post.rolled, ''))) ? _elm_lang$html$Html$text('') : A2(
+											_elm_lang$html$Html$hr,
+											{ctor: '[]'},
+											{ctor: '[]'}),
+										_1: {
+											ctor: '::',
+											_0: (!_elm_lang$core$Native_Utils.eq(post.rolled, '')) ? A2(
+												_elm_lang$html$Html$div,
+												{
+													ctor: '::',
+													_0: _elm_lang$html$Html_Attributes$class('diceroll text-center'),
+													_1: {ctor: '[]'}
+												},
+												{
+													ctor: '::',
+													_0: roll_element,
+													_1: {ctor: '[]'}
+												}) : _elm_lang$html$Html$text(''),
+											_1: {
+												ctor: '::',
+												_0: (!post.ooc) ? A2(
+													_elm_lang$html$Html$div,
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html_Attributes$class('timestamp text-center font-weight-light'),
+														_1: {ctor: '[]'}
+													},
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html$text(post.date),
+														_1: {
+															ctor: '::',
+															_0: A2(
+																_elm_lang$html$Html$br,
+																{ctor: '[]'},
+																{ctor: '[]'}),
+															_1: {
+																ctor: '::',
+																_0: _elm_lang$html$Html$text(post.time),
+																_1: {ctor: '[]'}
+															}
+														}
+													}) : _elm_lang$html$Html$text(''),
+												_1: {ctor: '[]'}
+											}
+										}
+									}
+								}),
+							_1: {ctor: '[]'}
+						}
+					}),
+				_1: {ctor: '[]'}
+			});
+	});
 var _user$project$Kami$checkbox = F4(
 	function (msg, status, name, classextras) {
 		return A2(
@@ -15806,14 +16047,15 @@ var _user$project$Kami$characterOption = F2(
 	});
 var _user$project$Kami$renderSkillOption = F3(
 	function (skill, name, val) {
-		var pretty = (_elm_lang$core$Native_Utils.cmp(val, 0) > -1) ? A2(
+		var showOption = (_elm_lang$core$Native_Utils.cmp(val, 0) > 0) ? true : false;
+		var pretty = (_elm_lang$core$Native_Utils.cmp(val, 101) < 0) ? A2(
 			_elm_lang$core$Basics_ops['++'],
 			name,
 			A2(
 				_elm_lang$core$Basics_ops['++'],
 				' ',
-				_elm_lang$core$Basics$toString(val))) : '-=[*]=-';
-		return A2(
+				_elm_lang$core$Basics$toString(val))) : name;
+		return showOption ? A2(
 			_elm_lang$html$Html$option,
 			{
 				ctor: '::',
@@ -15824,7 +16066,7 @@ var _user$project$Kami$renderSkillOption = F3(
 				ctor: '::',
 				_0: _elm_lang$html$Html$text(pretty),
 				_1: {ctor: '[]'}
-			});
+			}) : _elm_lang$html$Html$text('');
 	});
 var _user$project$Kami$renderSelectableSkillOption = F4(
 	function (skill, name, val, sel) {
@@ -16040,9 +16282,9 @@ var _user$project$Kami$diceClass = F3(
 		var h = _elm_lang$core$List$head(match);
 		var $enum = function () {
 			if (selected) {
-				var _p1 = h;
-				if (_p1.ctor === 'Just') {
-					return _p1._0.$enum;
+				var _p2 = h;
+				if (_p2.ctor === 'Just') {
+					return _p2._0.$enum;
 				} else {
 					return 0;
 				}
@@ -16051,8 +16293,8 @@ var _user$project$Kami$diceClass = F3(
 			}
 		}();
 		if (selected) {
-			var _p2 = $enum;
-			switch (_p2) {
+			var _p3 = $enum;
+			switch (_p3) {
 				case 1:
 					return 'die-selected';
 				case 2:
@@ -16134,53 +16376,7 @@ var _user$project$Kami$Model = function (a) {
 		};
 	};
 };
-var _user$project$Kami$Character = F7(
-	function (a, b, c, d, e, f, g) {
-		return {name: a, family: b, approved: c, user: d, xp: e, bxp: f, image: g};
-	});
-var _user$project$Kami$getCharacter = F2(
-	function (list, index) {
-		var _p3 = A2(
-			_elm_lang$core$Array$get,
-			index,
-			_elm_lang$core$Array$fromList(list));
-		if (_p3.ctor === 'Just') {
-			return _p3._0;
-		} else {
-			return A7(_user$project$Kami$Character, '[Narrative]', '', true, 0, 0, 0, '');
-		}
-	});
-var _user$project$Kami$characterDecoder = A3(
-	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-	'image',
-	_elm_lang$core$Json_Decode$string,
-	A3(
-		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-		'bxp',
-		_elm_lang$core$Json_Decode$float,
-		A3(
-			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-			'xp',
-			_elm_lang$core$Json_Decode$float,
-			A3(
-				_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-				'user',
-				_elm_lang$core$Json_Decode$int,
-				A3(
-					_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-					'approved',
-					_elm_lang$core$Json_Decode$bool,
-					A3(
-						_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-						'family',
-						_elm_lang$core$Json_Decode$string,
-						A3(
-							_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-							'name',
-							_elm_lang$core$Json_Decode$string,
-							_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Kami$Character))))))));
-var _user$project$Kami$characterListDecoder = _elm_lang$core$Json_Decode$list(_user$project$Kami$characterDecoder);
-var _user$project$Kami$Post = function (a) {
+var _user$project$Kami$Character = function (a) {
 	return function (b) {
 		return function (c) {
 			return function (d) {
@@ -16198,13 +16394,214 @@ var _user$project$Kami$Post = function (a) {
 															return function (p) {
 																return function (q) {
 																	return function (r) {
-																		return {author_slug: a, ooc: b, narrative: c, name: d, glory: e, status: f, text: g, diceroll: h, die_size: i, results: j, ring_name: k, skill_name: l, ring_value: m, skillroll: n, image: o, identities: p, date: q, time: r};
+																		return function (s) {
+																			return function (t) {
+																				return function (u) {
+																					return function (v) {
+																						return function (w) {
+																							return function (x) {
+																								return function (y) {
+																									return function (z) {
+																										return function (_1) {
+																											return function (_2) {
+																												return function (_3) {
+																													return function (_4) {
+																														return function (_5) {
+																															return function (_6) {
+																																return function (_7) {
+																																	return {name: a, family: b, approved: c, user: d, xp: e, image: f, id1: g, id1_pct: h, id2: i, id2_pct: j, id3: k, id3_pct: l, id4: m, id4_pct: n, id5: o, id5_pct: p, id6: q, id6_pct: r, favourite: s, guru: t, mentor: u, responsibility: v, protege: w, fitness: x, dodge: y, status: z, pursuit: _1, knowledge: _2, lie: _3, notice: _4, secrecy: _5, connect: _6, struggle: _7};
+																																};
+																															};
+																														};
+																													};
+																												};
+																											};
+																										};
+																									};
+																								};
+																							};
+																						};
+																					};
+																				};
+																			};
+																		};
 																	};
 																};
 															};
 														};
 													};
 												};
+											};
+										};
+									};
+								};
+							};
+						};
+					};
+				};
+			};
+		};
+	};
+};
+var _user$project$Kami$getCharacter = F2(
+	function (list, index) {
+		var _p4 = A2(
+			_elm_lang$core$Array$get,
+			index,
+			_elm_lang$core$Array$fromList(list));
+		if (_p4.ctor === 'Just') {
+			return _p4._0;
+		} else {
+			return _user$project$Kami$Character('[Narrative]')('')(true)(0)(0)('')('')(0)('')(0)('')(0)('')(0)('')(0)('')(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0);
+		}
+	});
+var _user$project$Kami$characterDecoder = A3(
+	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+	'struggle',
+	_elm_lang$core$Json_Decode$int,
+	A3(
+		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+		'connect',
+		_elm_lang$core$Json_Decode$int,
+		A3(
+			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+			'secrecy',
+			_elm_lang$core$Json_Decode$int,
+			A3(
+				_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+				'notice',
+				_elm_lang$core$Json_Decode$int,
+				A3(
+					_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+					'lie',
+					_elm_lang$core$Json_Decode$int,
+					A3(
+						_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+						'knowledge',
+						_elm_lang$core$Json_Decode$int,
+						A3(
+							_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+							'pursuit',
+							_elm_lang$core$Json_Decode$int,
+							A3(
+								_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+								'status',
+								_elm_lang$core$Json_Decode$int,
+								A3(
+									_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+									'dodge',
+									_elm_lang$core$Json_Decode$int,
+									A3(
+										_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+										'fitness',
+										_elm_lang$core$Json_Decode$int,
+										A3(
+											_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+											'protege',
+											_elm_lang$core$Json_Decode$int,
+											A3(
+												_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+												'responsibility',
+												_elm_lang$core$Json_Decode$int,
+												A3(
+													_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+													'mentor',
+													_elm_lang$core$Json_Decode$int,
+													A3(
+														_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+														'guru',
+														_elm_lang$core$Json_Decode$int,
+														A3(
+															_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+															'favourite',
+															_elm_lang$core$Json_Decode$int,
+															A3(
+																_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+																'id6_pct',
+																_elm_lang$core$Json_Decode$int,
+																A3(
+																	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+																	'id6',
+																	_elm_lang$core$Json_Decode$string,
+																	A3(
+																		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+																		'id5_pct',
+																		_elm_lang$core$Json_Decode$int,
+																		A3(
+																			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+																			'id5',
+																			_elm_lang$core$Json_Decode$string,
+																			A3(
+																				_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+																				'id4_pct',
+																				_elm_lang$core$Json_Decode$int,
+																				A3(
+																					_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+																					'id4',
+																					_elm_lang$core$Json_Decode$string,
+																					A3(
+																						_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+																						'id3_pct',
+																						_elm_lang$core$Json_Decode$int,
+																						A3(
+																							_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+																							'id3',
+																							_elm_lang$core$Json_Decode$string,
+																							A3(
+																								_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+																								'id2_pct',
+																								_elm_lang$core$Json_Decode$int,
+																								A3(
+																									_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+																									'id2',
+																									_elm_lang$core$Json_Decode$string,
+																									A3(
+																										_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+																										'id1_pct',
+																										_elm_lang$core$Json_Decode$int,
+																										A3(
+																											_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+																											'id1',
+																											_elm_lang$core$Json_Decode$string,
+																											A3(
+																												_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+																												'image',
+																												_elm_lang$core$Json_Decode$string,
+																												A3(
+																													_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+																													'xp',
+																													_elm_lang$core$Json_Decode$float,
+																													A3(
+																														_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+																														'user',
+																														_elm_lang$core$Json_Decode$int,
+																														A3(
+																															_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+																															'approved',
+																															_elm_lang$core$Json_Decode$bool,
+																															A3(
+																																_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+																																'family',
+																																_elm_lang$core$Json_Decode$string,
+																																A3(
+																																	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+																																	'name',
+																																	_elm_lang$core$Json_Decode$string,
+																																	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Kami$Character))))))))))))))))))))))))))))))))));
+var _user$project$Kami$characterListDecoder = _elm_lang$core$Json_Decode$list(_user$project$Kami$characterDecoder);
+var _user$project$Kami$Post = function (a) {
+	return function (b) {
+		return function (c) {
+			return function (d) {
+				return function (e) {
+					return function (f) {
+						return function (g) {
+							return function (h) {
+								return function (i) {
+									return function (j) {
+										return function (k) {
+											return function (l) {
+												return {author_slug: a, ooc: b, narrative: c, name: d, text: e, rolled: f, target: g, result: h, image: i, identities: j, date: k, time: l};
 											};
 										};
 									};
@@ -16235,61 +16632,37 @@ var _user$project$Kami$postDecoder = A3(
 				_elm_lang$core$Json_Decode$string,
 				A3(
 					_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-					'skillroll',
-					_elm_lang$core$Json_Decode$bool,
+					'result',
+					_elm_lang$core$Json_Decode$int,
 					A3(
 						_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-						'ring_value',
+						'target',
 						_elm_lang$core$Json_Decode$int,
 						A3(
 							_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-							'skill_name',
+							'rolled',
 							_elm_lang$core$Json_Decode$string,
 							A3(
 								_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-								'ring_name',
+								'text',
 								_elm_lang$core$Json_Decode$string,
 								A3(
 									_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-									'results',
-									_elm_lang$core$Json_Decode$list(_elm_lang$core$Json_Decode$int),
+									'name',
+									_elm_lang$core$Json_Decode$string,
 									A3(
 										_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-										'die_size',
-										_elm_lang$core$Json_Decode$int,
+										'narrative',
+										_elm_lang$core$Json_Decode$bool,
 										A3(
 											_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-											'diceroll',
+											'ooc',
 											_elm_lang$core$Json_Decode$bool,
 											A3(
 												_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-												'text',
+												'author_slug',
 												_elm_lang$core$Json_Decode$string,
-												A3(
-													_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-													'status',
-													_elm_lang$core$Json_Decode$int,
-													A3(
-														_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-														'glory',
-														_elm_lang$core$Json_Decode$int,
-														A3(
-															_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-															'name',
-															_elm_lang$core$Json_Decode$string,
-															A3(
-																_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-																'narrative',
-																_elm_lang$core$Json_Decode$bool,
-																A3(
-																	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-																	'ooc',
-																	_elm_lang$core$Json_Decode$bool,
-																	A3(
-																		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-																		'author_slug',
-																		_elm_lang$core$Json_Decode$string,
-																		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Kami$Post)))))))))))))))))));
+												_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Kami$Post)))))))))))));
 var _user$project$Kami$postListDecoder = _elm_lang$core$Json_Decode$list(_user$project$Kami$postDecoder);
 var _user$project$Kami$DieMeta = F2(
 	function (a, b) {
@@ -16398,8 +16771,7 @@ var _user$project$Kami$init = function (flags) {
 			characters: {ctor: '[]'},
 			dice: {ctor: '[]'},
 			presence: {ctor: '[]'},
-			post: _user$project$Kami$Post('')(false)(false)('')(0)(0)('')(false)(0)(
-				{ctor: '[]'})('')('')(0)(false)('')('')('')(''),
+			post: _user$project$Kami$Post('')(false)(false)('')('')('')(0)(0)('')('')('')(''),
 			selectedCharacter: 0,
 			admin: false,
 			phone: _elm_lang$core$Native_Utils.cmp(flags.width, 600) < 0,
@@ -16422,335 +16794,6 @@ var _user$project$Kami$Connected = {ctor: 'Connected'};
 var _user$project$Kami$DiceClick = F2(
 	function (a, b) {
 		return {ctor: 'DiceClick', _0: a, _1: b};
-	});
-var _user$project$Kami$renderPost = F2(
-	function (dice, post) {
-		var roll_element = (_elm_lang$core$Native_Utils.eq(post.skill_name, '') || _elm_lang$core$Native_Utils.eq(post.ring_name, '')) ? _elm_lang$html$Html$text('Rolled: ') : _elm_lang$html$Html$text(
-			A2(
-				_elm_lang$core$Basics_ops['++'],
-				'Rolled ',
-				A2(
-					_elm_lang$core$Basics_ops['++'],
-					post.skill_name,
-					A2(
-						_elm_lang$core$Basics_ops['++'],
-						' (',
-						A2(
-							_elm_lang$core$Basics_ops['++'],
-							post.ring_name,
-							A2(
-								_elm_lang$core$Basics_ops['++'],
-								'), ',
-								A2(
-									_elm_lang$core$Basics_ops['++'],
-									_elm_lang$core$Basics$toString(
-										_elm_lang$core$List$length(post.results)),
-									A2(
-										_elm_lang$core$Basics_ops['++'],
-										'k',
-										A2(
-											_elm_lang$core$Basics_ops['++'],
-											_elm_lang$core$Basics$toString(post.ring_value),
-											': ')))))))));
-		var post_classes = function () {
-			var _p4 = {ctor: '_Tuple2', _0: post.narrative, _1: post.ooc};
-			if (_p4._0 === true) {
-				if (_p4._1 === true) {
-					return 'post post-ooc post-narrative';
-				} else {
-					return 'post post-narrative';
-				}
-			} else {
-				if (_p4._1 === true) {
-					return 'post post-ooc';
-				} else {
-					return 'post';
-				}
-			}
-		}();
-		return A2(
-			_elm_lang$html$Html$div,
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html_Attributes$class(post_classes),
-				_1: {ctor: '[]'}
-			},
-			{
-				ctor: '::',
-				_0: A2(
-					_elm_lang$html$Html$div,
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$class('row'),
-						_1: {ctor: '[]'}
-					},
-					{
-						ctor: '::',
-						_0: ((!post.narrative) && (!post.ooc)) ? A2(
-							_elm_lang$html$Html$a,
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$href(
-									A2(_elm_lang$core$Basics_ops['++'], '/characters/', post.author_slug)),
-								_1: {ctor: '[]'}
-							},
-							{
-								ctor: '::',
-								_0: A2(
-									_elm_lang$html$Html$div,
-									{
-										ctor: '::',
-										_0: _elm_lang$html$Html_Attributes$class('col-2 image'),
-										_1: {ctor: '[]'}
-									},
-									{
-										ctor: '::',
-										_0: (!_elm_lang$core$Native_Utils.eq(post.image, '')) ? A2(
-											_elm_lang$html$Html$img,
-											{
-												ctor: '::',
-												_0: _elm_lang$html$Html_Attributes$class('character-image'),
-												_1: {
-													ctor: '::',
-													_0: _elm_lang$html$Html_Attributes$src(post.image),
-													_1: {
-														ctor: '::',
-														_0: _elm_lang$html$Html_Attributes$width(150),
-														_1: {ctor: '[]'}
-													}
-												}
-											},
-											{ctor: '[]'}) : _elm_lang$html$Html$text(''),
-										_1: {
-											ctor: '::',
-											_0: A2(
-												_elm_lang$html$Html$div,
-												{
-													ctor: '::',
-													_0: _elm_lang$html$Html_Attributes$class('stats text-center'),
-													_1: {ctor: '[]'}
-												},
-												{
-													ctor: '::',
-													_0: A2(
-														_elm_lang$html$Html$div,
-														{ctor: '[]'},
-														{
-															ctor: '::',
-															_0: A2(
-																_elm_lang$html$Html$strong,
-																{ctor: '[]'},
-																{
-																	ctor: '::',
-																	_0: _elm_lang$html$Html$text(post.name),
-																	_1: {
-																		ctor: '::',
-																		_0: A2(
-																			_elm_lang$html$Html$span,
-																			{
-																				ctor: '::',
-																				_0: A2(
-																					_elm_lang$html$Html_Attributes$property,
-																					'innerHTML',
-																					_elm_lang$core$Json_Encode$string(
-																						A2(
-																							_elm_lang$core$String$join,
-																							'<br>',
-																							_elm_lang$core$String$lines(post.identities)))),
-																				_1: {ctor: '[]'}
-																			},
-																			{ctor: '[]'}),
-																		_1: {ctor: '[]'}
-																	}
-																}),
-															_1: {ctor: '[]'}
-														}),
-													_1: {ctor: '[]'}
-												}),
-											_1: {ctor: '[]'}
-										}
-									}),
-								_1: {ctor: '[]'}
-							}) : _elm_lang$html$Html$text(''),
-						_1: {
-							ctor: '::',
-							_0: A2(
-								_elm_lang$html$Html$div,
-								{
-									ctor: '::',
-									_0: _elm_lang$html$Html_Attributes$class('col post-text'),
-									_1: {ctor: '[]'}
-								},
-								{
-									ctor: '::',
-									_0: A2(
-										_elm_lang$html$Html$p,
-										{
-											ctor: '::',
-											_0: _elm_lang$html$Html_Attributes$class('text-justify'),
-											_1: {ctor: '[]'}
-										},
-										{
-											ctor: '::',
-											_0: post.ooc ? _elm_lang$html$Html$text(
-												A2(_elm_lang$core$Basics_ops['++'], post.name, ': ')) : _elm_lang$html$Html$text(''),
-											_1: {
-												ctor: '::',
-												_0: A2(
-													_elm_lang$html$Html$span,
-													{
-														ctor: '::',
-														_0: A2(
-															_elm_lang$html$Html_Attributes$property,
-															'innerHTML',
-															_elm_lang$core$Json_Encode$string(
-																A2(
-																	_elm_lang$core$String$join,
-																	'<br>',
-																	_elm_lang$core$String$lines(post.text)))),
-														_1: {ctor: '[]'}
-													},
-													{ctor: '[]'}),
-												_1: {ctor: '[]'}
-											}
-										}),
-									_1: {
-										ctor: '::',
-										_0: (post.ooc && (!post.diceroll)) ? _elm_lang$html$Html$text('') : A2(
-											_elm_lang$html$Html$hr,
-											{ctor: '[]'},
-											{ctor: '[]'}),
-										_1: {
-											ctor: '::',
-											_0: post.diceroll ? A2(
-												_elm_lang$html$Html$div,
-												{
-													ctor: '::',
-													_0: _elm_lang$html$Html_Attributes$class('diceroll text-center'),
-													_1: {ctor: '[]'}
-												},
-												{
-													ctor: '::',
-													_0: post.skillroll ? A2(
-														_elm_lang$html$Html$div,
-														{ctor: '[]'},
-														A2(
-															_elm_lang$core$Basics_ops['++'],
-															{
-																ctor: '::',
-																_0: roll_element,
-																_1: {ctor: '[]'}
-															},
-															A2(
-																_elm_lang$core$List$indexedMap,
-																F2(
-																	function (idx, result) {
-																		return A2(
-																			_elm_lang$html$Html$a,
-																			{
-																				ctor: '::',
-																				_0: A2(
-																					_elm_lang$html$Html_Attributes$attribute,
-																					'hovertitle',
-																					_user$project$Kami$hoverDice(result)),
-																				_1: {
-																					ctor: '::',
-																					_0: _elm_lang$html$Html_Events$onClick(
-																						A2(_user$project$Kami$DiceClick, idx, post)),
-																					_1: {ctor: '[]'}
-																				}
-																			},
-																			{
-																				ctor: '::',
-																				_0: A2(
-																					_elm_lang$html$Html$img,
-																					{
-																						ctor: '::',
-																						_0: _elm_lang$html$Html_Attributes$class(
-																							A2(
-																								_elm_lang$core$Basics_ops['++'],
-																								'dice-image ',
-																								A3(_user$project$Kami$diceClass, idx, post, dice))),
-																						_1: {
-																							ctor: '::',
-																							_0: _elm_lang$html$Html_Attributes$src(
-																								A2(
-																									_elm_lang$core$Basics_ops['++'],
-																									'https://s3.us-east-2.amazonaws.com/gannokoe/uploads/assets/',
-																									A2(
-																										_elm_lang$core$Basics_ops['++'],
-																										_elm_lang$core$Basics$toString(result),
-																										'.png'))),
-																							_1: {ctor: '[]'}
-																						}
-																					},
-																					{ctor: '[]'}),
-																				_1: {ctor: '[]'}
-																			});
-																	}),
-																post.results))) : _elm_lang$html$Html$text(
-														A2(
-															_elm_lang$core$Basics_ops['++'],
-															'Rolled ',
-															A2(
-																_elm_lang$core$Basics_ops['++'],
-																_elm_lang$core$Basics$toString(
-																	_elm_lang$core$List$length(post.results)),
-																A2(
-																	_elm_lang$core$Basics_ops['++'],
-																	'd',
-																	A2(
-																		_elm_lang$core$Basics_ops['++'],
-																		_elm_lang$core$Basics$toString(post.die_size),
-																		A2(
-																			_elm_lang$core$Basics_ops['++'],
-																			': ',
-																			A2(
-																				_elm_lang$core$String$join,
-																				', ',
-																				A2(
-																					_elm_lang$core$List$map,
-																					function (a) {
-																						return _elm_lang$core$Basics$toString(a);
-																					},
-																					post.results)))))))),
-													_1: {ctor: '[]'}
-												}) : _elm_lang$html$Html$text(''),
-											_1: {
-												ctor: '::',
-												_0: (!post.ooc) ? A2(
-													_elm_lang$html$Html$div,
-													{
-														ctor: '::',
-														_0: _elm_lang$html$Html_Attributes$class('timestamp text-center font-weight-light'),
-														_1: {ctor: '[]'}
-													},
-													{
-														ctor: '::',
-														_0: _elm_lang$html$Html$text(post.date),
-														_1: {
-															ctor: '::',
-															_0: A2(
-																_elm_lang$html$Html$br,
-																{ctor: '[]'},
-																{ctor: '[]'}),
-															_1: {
-																ctor: '::',
-																_0: _elm_lang$html$Html$text(post.time),
-																_1: {ctor: '[]'}
-															}
-														}
-													}) : _elm_lang$html$Html$text(''),
-												_1: {ctor: '[]'}
-											}
-										}
-									}
-								}),
-							_1: {ctor: '[]'}
-						}
-					}),
-				_1: {ctor: '[]'}
-			});
 	});
 var _user$project$Kami$Activity = function (a) {
 	return {ctor: 'Activity', _0: a};
@@ -17011,21 +17054,11 @@ var _user$project$Kami$ModifyStat = F2(
 	function (a, b) {
 		return {ctor: 'ModifyStat', _0: a, _1: b};
 	});
-var _user$project$Kami$ChangeDieNum = function (a) {
-	return {ctor: 'ChangeDieNum', _0: a};
-};
-var _user$project$Kami$ChangeDieSize = function (a) {
-	return {ctor: 'ChangeDieSize', _0: a};
-};
-var _user$project$Kami$ToggleSpecialDice = {ctor: 'ToggleSpecialDice'};
 var _user$project$Kami$ChangeText = function (a) {
 	return {ctor: 'ChangeText', _0: a};
 };
 var _user$project$Kami$ChangeImage = function (a) {
 	return {ctor: 'ChangeImage', _0: a};
-};
-var _user$project$Kami$ChangeSelectedRing = function (a) {
-	return {ctor: 'ChangeSelectedRing', _0: a};
 };
 var _user$project$Kami$ChangeSelectedSkill = function (a) {
 	return {ctor: 'ChangeSelectedSkill', _0: a};
@@ -17057,44 +17090,8 @@ var _user$project$Kami$renderDice = F3(
 						_0: A4(_user$project$Kami$renderSelectableSkillOption, '', '-=[*]=-', -1, reset),
 						_1: {
 							ctor: '::',
-							_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:1', 'Skill Dice -', 1),
-							_1: {
-								ctor: '::',
-								_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:2', 'Skill Dice -', 2),
-								_1: {
-									ctor: '::',
-									_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:3', 'Skill Dice -', 3),
-									_1: {
-										ctor: '::',
-										_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:4', 'Skill Dice -', 4),
-										_1: {
-											ctor: '::',
-											_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:5', 'Skill Dice -', 5),
-											_1: {
-												ctor: '::',
-												_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:6', 'Skill Dice -', 6),
-												_1: {
-													ctor: '::',
-													_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:7', 'Skill Dice -', 7),
-													_1: {
-														ctor: '::',
-														_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:8', 'Skill Dice -', 8),
-														_1: {
-															ctor: '::',
-															_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:9', 'Skill Dice -', 9),
-															_1: {
-																ctor: '::',
-																_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:10', 'Skill Dice -', 10),
-																_1: {ctor: '[]'}
-															}
-														}
-													}
-												}
-											}
-										}
-									}
-								}
-							}
+							_0: A3(_user$project$Kami$renderSkillOption, 'narr', 'd100', 999),
+							_1: {ctor: '[]'}
 						}
 					}) : A2(
 					_elm_lang$html$Html$select,
@@ -17112,65 +17109,78 @@ var _user$project$Kami$renderDice = F3(
 						_0: A4(_user$project$Kami$renderSelectableSkillOption, '', '-=[*]=-', -1, reset),
 						_1: {
 							ctor: '::',
-							_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:1', 'Skill Dice -', 1),
+							_0: A3(_user$project$Kami$renderSkillOption, 'id1', s.id1, s.id1_pct),
 							_1: {
 								ctor: '::',
-								_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:2', 'Skill Dice -', 2),
+								_0: A3(_user$project$Kami$renderSkillOption, 'id2', s.id2, s.id2_pct),
 								_1: {
 									ctor: '::',
-									_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:3', 'Skill Dice -', 3),
-									_1: {ctor: '[]'}
-								}
-							}
-						}
-					}),
-				_1: {
-					ctor: '::',
-					_0: narrative ? A2(
-						_elm_lang$html$Html$select,
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html_Events$onInput(_user$project$Kami$ChangeSelectedRing),
-							_1: {
-								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$class('custom-select'),
-								_1: {ctor: '[]'}
-							}
-						},
-						{
-							ctor: '::',
-							_0: A4(_user$project$Kami$renderSelectableSkillOption, '', '-=[*]=-', -1, reset),
-							_1: {
-								ctor: '::',
-								_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:1', 'Ring Dice -', 1),
-								_1: {
-									ctor: '::',
-									_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:2', 'Ring Dice -', 2),
+									_0: A3(_user$project$Kami$renderSkillOption, 'id3', s.id3, s.id3_pct),
 									_1: {
 										ctor: '::',
-										_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:3', 'Ring Dice -', 3),
+										_0: A3(_user$project$Kami$renderSkillOption, 'id4', s.id4, s.id4_pct),
 										_1: {
 											ctor: '::',
-											_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:4', 'Ring Dice -', 4),
+											_0: A3(_user$project$Kami$renderSkillOption, 'id5', s.id5, s.id5_pct),
 											_1: {
 												ctor: '::',
-												_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:5', 'Ring Dice -', 5),
+												_0: A3(_user$project$Kami$renderSkillOption, 'id6', s.id6, s.id6_pct),
 												_1: {
 													ctor: '::',
-													_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:6', 'Ring Dice -', 6),
+													_0: A3(_user$project$Kami$renderSkillOption, 'favourite', 'Favourite', s.favourite),
 													_1: {
 														ctor: '::',
-														_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:7', 'Ring Dice -', 7),
+														_0: A3(_user$project$Kami$renderSkillOption, 'guru', 'Guru', s.guru),
 														_1: {
 															ctor: '::',
-															_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:8', 'Ring Dice -', 8),
+															_0: A3(_user$project$Kami$renderSkillOption, 'mentor', 'Mentor', s.mentor),
 															_1: {
 																ctor: '::',
-																_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:9', 'Ring Dice -', 9),
+																_0: A3(_user$project$Kami$renderSkillOption, 'responsibility', 'Responsibility', s.responsibility),
 																_1: {
 																	ctor: '::',
-																	_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:10', 'Ring Dice -', 10),
-																	_1: {ctor: '[]'}
+																	_0: A3(_user$project$Kami$renderSkillOption, 'protege', 'Protege', s.protege),
+																	_1: {
+																		ctor: '::',
+																		_0: A3(_user$project$Kami$renderSkillOption, 'fitness', 'Fitness', s.fitness),
+																		_1: {
+																			ctor: '::',
+																			_0: A3(_user$project$Kami$renderSkillOption, 'dodge', 'Dodge', s.dodge),
+																			_1: {
+																				ctor: '::',
+																				_0: A3(_user$project$Kami$renderSkillOption, 'status', 'Status', s.status),
+																				_1: {
+																					ctor: '::',
+																					_0: A3(_user$project$Kami$renderSkillOption, 'pursuit', 'Pursuit', s.pursuit),
+																					_1: {
+																						ctor: '::',
+																						_0: A3(_user$project$Kami$renderSkillOption, 'knowledge', 'Knowledge', s.knowledge),
+																						_1: {
+																							ctor: '::',
+																							_0: A3(_user$project$Kami$renderSkillOption, 'lie', 'Lie', s.lie),
+																							_1: {
+																								ctor: '::',
+																								_0: A3(_user$project$Kami$renderSkillOption, 'notice', 'Notice', s.notice),
+																								_1: {
+																									ctor: '::',
+																									_0: A3(_user$project$Kami$renderSkillOption, 'secrecy', 'Secrecy', s.secrecy),
+																									_1: {
+																										ctor: '::',
+																										_0: A3(_user$project$Kami$renderSkillOption, 'connect', 'Connect', s.connect),
+																										_1: {
+																											ctor: '::',
+																											_0: A3(_user$project$Kami$renderSkillOption, 'struggle', 'Struggle', s.struggle),
+																											_1: {ctor: '[]'}
+																										}
+																									}
+																								}
+																							}
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
 																}
 															}
 														}
@@ -17181,36 +17191,9 @@ var _user$project$Kami$renderDice = F3(
 									}
 								}
 							}
-						}) : A2(
-						_elm_lang$html$Html$select,
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html_Events$onInput(_user$project$Kami$ChangeSelectedRing),
-							_1: {
-								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$class('custom-select'),
-								_1: {ctor: '[]'}
-							}
-						},
-						{
-							ctor: '::',
-							_0: A4(_user$project$Kami$renderSelectableSkillOption, '', '-=[*]=-', -1, reset),
-							_1: {
-								ctor: '::',
-								_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:1', 'Ring Dice -', 1),
-								_1: {
-									ctor: '::',
-									_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:2', 'Ring Dice -', 2),
-									_1: {
-										ctor: '::',
-										_0: A3(_user$project$Kami$renderSkillOption, 'arbitrary:3', 'Ring Dice -', 3),
-										_1: {ctor: '[]'}
-									}
-								}
-							}
-						}),
-					_1: {ctor: '[]'}
-				}
+						}
+					}),
+				_1: {ctor: '[]'}
 			});
 	});
 var _user$project$Kami$ChangeSelectedCharacter = function (a) {
@@ -17548,13 +17531,7 @@ var _user$project$Kami$renderInputBar = function (model) {
 																						A2(
 																							_elm_lang$core$Basics_ops['++'],
 																							_elm_lang$core$Basics$toString(selected.xp),
-																							A2(
-																								_elm_lang$core$Basics_ops['++'],
-																								' XP ',
-																								A2(
-																									_elm_lang$core$Basics_ops['++'],
-																									_elm_lang$core$Basics$toString(selected.bxp),
-																									' BXP')))),
+																							' XP ')),
 																					_1: {ctor: '[]'}
 																				}),
 																			_1: {ctor: '[]'}
@@ -17603,7 +17580,7 @@ var _user$project$Kami$renderInputBar = function (model) {
 																						{
 																							ctor: '::',
 																							_0: _elm_lang$html$Html_Attributes$disabled(
-																								!((!_elm_lang$core$Native_Utils.eq(model.cRemaining, model.cMax)) || model.post.diceroll)),
+																								!((!_elm_lang$core$Native_Utils.eq(model.cRemaining, model.cMax)) || (!_elm_lang$core$Native_Utils.eq(model.post.rolled, '')))),
 																							_1: {
 																								ctor: '::',
 																								_0: _elm_lang$html$Html_Events$onClick(
@@ -17834,11 +17811,9 @@ var _user$project$Kami$update = F2(
 					var initPost = function () {
 						var _p10 = admin;
 						if (_p10 === true) {
-							return _user$project$Kami$Post('')(false)(true)('-=[Narrative]=-')(0)(0)('')(false)(0)(
-								{ctor: '[]'})('')('')(0)(true)('')('')('')('');
+							return _user$project$Kami$Post('')(false)(true)('-=[Narrative]=-')('')('')(0)(0)('')('')('')('');
 						} else {
-							return _user$project$Kami$Post(slug)(false)(false)(name)(0)(0)('')(false)(0)(
-								{ctor: '[]'})('')('')(0)(true)(character.image)('')('')('');
+							return _user$project$Kami$Post(slug)(false)(false)(name)('')('')(0)(0)(character.image)('')('')('');
 						}
 					}();
 					return A2(
@@ -17863,7 +17838,7 @@ var _user$project$Kami$update = F2(
 				if (_p14.ctor === 'Ok') {
 					var commands = model.active ? {ctor: '[]'} : {
 						ctor: '::',
-						_0: _user$project$Kami$title('[*] Legend Of Five Rings Online'),
+						_0: _user$project$Kami$title('[*] Gan no Koe'),
 						_1: {
 							ctor: '::',
 							_0: _user$project$Kami$donk(
@@ -17954,7 +17929,7 @@ var _user$project$Kami$update = F2(
 					A2(_elm_lang$core$Basics_ops['++'], ' ', selected.name));
 				var newPost = _elm_lang$core$Native_Utils.update(
 					oldPost,
-					{name: full_name, author_slug: author_slug, narrative: narrative, image: selected.image, diceroll: false, skill_name: '', ring_name: '', glory: 0, status: 0});
+					{name: full_name, author_slug: author_slug, narrative: narrative, image: selected.image});
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
@@ -18016,69 +17991,10 @@ var _user$project$Kami$update = F2(
 						{dialogSelectedRing: name, dialogSelectedRingValue: value}),
 					{ctor: '[]'});
 			case 'ChangeSelectedSkill':
-				var _p31 = _p5._0;
 				var oldPost = model.post;
-				var split = A2(_elm_lang$core$String$split, ':', _p31);
-				var name = function () {
-					var _p29 = _elm_lang$core$List$head(split);
-					if (_p29.ctor === 'Just') {
-						return _p29._0;
-					} else {
-						return '';
-					}
-				}();
-				var value = function () {
-					var _p30 = _elm_lang$core$List$tail(split);
-					if (((_p30.ctor === 'Just') && (_p30._0.ctor === '::')) && (_p30._0._1.ctor === '[]')) {
-						return A2(
-							_elm_lang$core$Result$withDefault,
-							0,
-							_elm_lang$core$String$toInt(_p30._0._0));
-					} else {
-						return 0;
-					}
-				}();
-				var arbitrary = (_elm_lang$core$Native_Utils.cmp(value, 0) > 0) && _elm_lang$core$Native_Utils.eq(name, 'arbitrary');
-				var parsed_skill = arbitrary ? name : _p31;
-				var diceroll = arbitrary || ((!_elm_lang$core$Native_Utils.eq(_p31, '')) && (!_elm_lang$core$Native_Utils.eq(model.post.ring_name, '')));
 				var newPost = _elm_lang$core$Native_Utils.update(
 					oldPost,
-					{skill_name: parsed_skill, diceroll: diceroll, die_size: value});
-				return A2(
-					_elm_lang$core$Platform_Cmd_ops['!'],
-					_elm_lang$core$Native_Utils.update(
-						model,
-						{post: newPost, resetDice: false}),
-					{ctor: '[]'});
-			case 'ChangeSelectedRing':
-				var _p34 = _p5._0;
-				var oldPost = model.post;
-				var split = A2(_elm_lang$core$String$split, ':', _p34);
-				var name = function () {
-					var _p32 = _elm_lang$core$List$head(split);
-					if (_p32.ctor === 'Just') {
-						return _p32._0;
-					} else {
-						return '';
-					}
-				}();
-				var value = function () {
-					var _p33 = _elm_lang$core$List$tail(split);
-					if (((_p33.ctor === 'Just') && (_p33._0.ctor === '::')) && (_p33._0._1.ctor === '[]')) {
-						return A2(
-							_elm_lang$core$Result$withDefault,
-							0,
-							_elm_lang$core$String$toInt(_p33._0._0));
-					} else {
-						return 0;
-					}
-				}();
-				var arbitrary = (_elm_lang$core$Native_Utils.cmp(value, 0) > 0) && _elm_lang$core$Native_Utils.eq(name, 'arbitrary');
-				var parsed_ring = arbitrary ? name : _p34;
-				var diceroll = arbitrary || ((!_elm_lang$core$Native_Utils.eq(_p34, '')) && (!_elm_lang$core$Native_Utils.eq(model.post.skill_name, '')));
-				var newPost = _elm_lang$core$Native_Utils.update(
-					oldPost,
-					{ring_name: parsed_ring, diceroll: diceroll, ring_value: value});
+					{rolled: _p5._0});
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
@@ -18097,50 +18013,17 @@ var _user$project$Kami$update = F2(
 						{post: newPost}),
 					{ctor: '[]'});
 			case 'ChangeText':
-				var _p35 = _p5._0;
-				var newRemaining = model.cMax - _elm_lang$core$String$length(_p35);
+				var _p29 = _p5._0;
+				var newRemaining = model.cMax - _elm_lang$core$String$length(_p29);
 				var oldPost = model.post;
 				var newPost = _elm_lang$core$Native_Utils.update(
 					oldPost,
-					{text: _p35});
+					{text: _p29});
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
 						model,
 						{cRemaining: newRemaining, post: newPost}),
-					{ctor: '[]'});
-			case 'ToggleSpecialDice':
-				var oldPost = model.post;
-				var newPost = _elm_lang$core$Native_Utils.update(
-					oldPost,
-					{skillroll: !oldPost.skillroll});
-				return A2(
-					_elm_lang$core$Platform_Cmd_ops['!'],
-					_elm_lang$core$Native_Utils.update(
-						model,
-						{post: newPost}),
-					{ctor: '[]'});
-			case 'ChangeDieSize':
-				var oldPost = model.post;
-				var newPost = _elm_lang$core$Native_Utils.update(
-					oldPost,
-					{die_size: _p5._0});
-				return A2(
-					_elm_lang$core$Platform_Cmd_ops['!'],
-					_elm_lang$core$Native_Utils.update(
-						model,
-						{post: newPost}),
-					{ctor: '[]'});
-			case 'ChangeDieNum':
-				var oldPost = model.post;
-				var newPost = _elm_lang$core$Native_Utils.update(
-					oldPost,
-					{ring_value: _p5._0});
-				return A2(
-					_elm_lang$core$Platform_Cmd_ops['!'],
-					_elm_lang$core$Native_Utils.update(
-						model,
-						{post: newPost}),
 					{ctor: '[]'});
 			case 'ModifyStat':
 				var selected = A2(_user$project$Kami$getCharacter, model.characters, model.selectedCharacter);
@@ -18237,20 +18120,20 @@ var _user$project$Kami$update = F2(
 						_1: {ctor: '[]'}
 					});
 			case 'ModifyStatFailed':
-				var _p36 = A2(_elm_lang$core$Debug$log, 'modify stat returned an error code', _p5._0);
+				var _p30 = A2(_elm_lang$core$Debug$log, 'modify stat returned an error code', _p5._0);
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					model,
 					{ctor: '[]'});
 			case 'Activity':
-				var _p37 = _p5._0;
+				var _p31 = _p5._0;
 				var push = A2(
 					_saschatimme$elm_phoenix$Phoenix_Push$init,
 					A2(_elm_lang$core$Basics_ops['++'], 'room:', model.loc),
 					'still_alive');
-				var commands = _elm_lang$core$Native_Utils.eq(_p37, true) ? {
+				var commands = _elm_lang$core$Native_Utils.eq(_p31, true) ? {
 					ctor: '::',
-					_0: _user$project$Kami$title('Legend Of Five Rings Online'),
+					_0: _user$project$Kami$title('Gan no Koe'),
 					_1: {
 						ctor: '::',
 						_0: A2(_saschatimme$elm_phoenix$Phoenix$push, model.socketUrl, push),
@@ -18261,12 +18144,12 @@ var _user$project$Kami$update = F2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
 						model,
-						{active: _p37}),
+						{active: _p31}),
 					commands);
 			case 'DiceClick':
-				var _p38 = _p5._1;
+				var _p32 = _p5._1;
 				var selected = A2(_user$project$Kami$getCharacter, model.characters, model.selectedCharacter);
-				var dbj2 = A3(_elm_lang$core$String$foldl, _user$project$Kami$updateDbjHash, 5381, _p38.text);
+				var dbj2 = A3(_elm_lang$core$String$foldl, _user$project$Kami$updateDbjHash, 5381, _p32.text);
 				var push = A2(
 					_saschatimme$elm_phoenix$Phoenix_Push$withPayload,
 					_elm_lang$core$Json_Encode$object(
@@ -18282,14 +18165,14 @@ var _user$project$Kami$update = F2(
 								_0: {
 									ctor: '_Tuple2',
 									_0: 'author',
-									_1: _elm_lang$core$Json_Encode$string(_p38.author_slug)
+									_1: _elm_lang$core$Json_Encode$string(_p32.author_slug)
 								},
 								_1: {
 									ctor: '::',
 									_0: {
 										ctor: '_Tuple2',
 										_0: 'time',
-										_1: _elm_lang$core$Json_Encode$string(_p38.time)
+										_1: _elm_lang$core$Json_Encode$string(_p32.time)
 									},
 									_1: {
 										ctor: '::',
@@ -18319,7 +18202,7 @@ var _user$project$Kami$update = F2(
 				var oldPost = model.post;
 				var newPost = _elm_lang$core$Native_Utils.update(
 					oldPost,
-					{text: '', diceroll: false, die_size: 0, ring_value: 0, skill_name: '', ring_name: ''});
+					{text: '', rolled: ''});
 				var push = A2(
 					_saschatimme$elm_phoenix$Phoenix_Push$onOk,
 					function (response) {
@@ -18367,57 +18250,17 @@ var _user$project$Kami$update = F2(
 													ctor: '::',
 													_0: {
 														ctor: '_Tuple2',
-														_0: 'diceroll',
-														_1: _elm_lang$core$Json_Encode$bool(model.post.diceroll)
+														_0: 'roll',
+														_1: _elm_lang$core$Json_Encode$string(model.post.rolled)
 													},
 													_1: {
 														ctor: '::',
 														_0: {
 															ctor: '_Tuple2',
-															_0: 'die_size',
-															_1: _elm_lang$core$Json_Encode$int(model.post.die_size)
+															_0: 'image',
+															_1: _elm_lang$core$Json_Encode$string(model.post.image)
 														},
-														_1: {
-															ctor: '::',
-															_0: {
-																ctor: '_Tuple2',
-																_0: 'ring_value',
-																_1: _elm_lang$core$Json_Encode$int(model.post.ring_value)
-															},
-															_1: {
-																ctor: '::',
-																_0: {
-																	ctor: '_Tuple2',
-																	_0: 'ring_name',
-																	_1: _elm_lang$core$Json_Encode$string(model.post.ring_name)
-																},
-																_1: {
-																	ctor: '::',
-																	_0: {
-																		ctor: '_Tuple2',
-																		_0: 'skill_name',
-																		_1: _elm_lang$core$Json_Encode$string(model.post.skill_name)
-																	},
-																	_1: {
-																		ctor: '::',
-																		_0: {
-																			ctor: '_Tuple2',
-																			_0: 'skillroll',
-																			_1: _elm_lang$core$Json_Encode$bool(model.post.skillroll)
-																		},
-																		_1: {
-																			ctor: '::',
-																			_0: {
-																				ctor: '_Tuple2',
-																				_0: 'image',
-																				_1: _elm_lang$core$Json_Encode$string(model.post.image)
-																			},
-																			_1: {ctor: '[]'}
-																		}
-																	}
-																}
-															}
-														}
+														_1: {ctor: '[]'}
 													}
 												}
 											}
@@ -18507,7 +18350,7 @@ var _user$project$Kami$socket = function (model) {
 			_user$project$Kami$SocketClosedAbnormally,
 			A2(
 				_saschatimme$elm_phoenix$Phoenix_Socket$onClose,
-				function (_p39) {
+				function (_p33) {
 					return _user$project$Kami$ConnectionStatusChanged(_user$project$Kami$Disconnected);
 				},
 				A2(
@@ -18574,7 +18417,7 @@ var _user$project$Kami$main = _elm_lang$html$Html$programWithFlags(
 var Elm = {};
 Elm['Kami'] = Elm['Kami'] || {};
 if (typeof _user$project$Kami$main !== 'undefined') {
-    _user$project$Kami$main(Elm['Kami'], 'Kami', {"types":{"message":"Kami.Msg","aliases":{"Json.Decode.Value":{"type":"Json.Encode.Value","args":[]},"Time.Time":{"type":"Float","args":[]},"Phoenix.Socket.AbnormalClose":{"type":"{ reconnectAttempt : Int, reconnectWait : Time.Time }","args":[]},"Kami.Post":{"type":"{ author_slug : String , ooc : Bool , narrative : Bool , name : String , glory : Int , status : Int , text : String , diceroll : Bool , die_size : Int , results : List Int , ring_name : String , skill_name : String , ring_value : Int , skillroll : Bool , image : String , identities : String , date : String , time : String }","args":[]}},"unions":{"Kami.ConnectionStatus":{"tags":{"ScheduledReconnect":["{ time : Time.Time }"],"Connected":[],"Disconnected":[]},"args":[]},"Json.Encode.Value":{"tags":{"Value":[]},"args":[]},"Kami.Msg":{"tags":{"SpendXP":["String"],"UpdatePosts":["Json.Decode.Value"],"SocketClosedAbnormally":["Phoenix.Socket.AbnormalClose"],"DialogChangeSelectedRing":["String"],"Activity":["Bool"],"OpenPresence":[],"ConnectionStatusChanged":["Kami.ConnectionStatus"],"ToggleSpecialDice":[],"UpdatePresence":["Json.Decode.Value"],"ChangeDieSize":["Int"],"ChangeText":["String"],"PushPost":["Bool"],"DialogChangeSelectedSkill":["String"],"ModifyStatFailed":["Json.Decode.Value"],"ChangeImage":["String"],"AckDialog":[],"OpenDialog":[],"UpdateDice":["Json.Decode.Value"],"ModifyStat":["String","Int"],"Tick":["Time.Time"],"DiceClick":["Int","Kami.Post"],"ChangeSelectedRing":["String"],"ChangeDieNum":["Int"],"UpdateCharacters":["Json.Decode.Value"],"ChangeSelectedCharacter":["String"],"ChangeSelectedSkill":["String"],"InitChannel":["Json.Decode.Value"]},"args":[]}}},"versions":{"elm":"0.18.0"}});
+    _user$project$Kami$main(Elm['Kami'], 'Kami', {"types":{"message":"Kami.Msg","aliases":{"Json.Decode.Value":{"type":"Json.Encode.Value","args":[]},"Time.Time":{"type":"Float","args":[]},"Phoenix.Socket.AbnormalClose":{"type":"{ reconnectAttempt : Int, reconnectWait : Time.Time }","args":[]},"Kami.Post":{"type":"{ author_slug : String , ooc : Bool , narrative : Bool , name : String , text : String , rolled : String , target : Int , result : Int , image : String , identities : String , date : String , time : String }","args":[]}},"unions":{"Kami.ConnectionStatus":{"tags":{"ScheduledReconnect":["{ time : Time.Time }"],"Connected":[],"Disconnected":[]},"args":[]},"Json.Encode.Value":{"tags":{"Value":[]},"args":[]},"Kami.Msg":{"tags":{"SpendXP":["String"],"UpdatePosts":["Json.Decode.Value"],"SocketClosedAbnormally":["Phoenix.Socket.AbnormalClose"],"DialogChangeSelectedRing":["String"],"Activity":["Bool"],"OpenPresence":[],"ConnectionStatusChanged":["Kami.ConnectionStatus"],"UpdatePresence":["Json.Decode.Value"],"ChangeText":["String"],"PushPost":["Bool"],"DialogChangeSelectedSkill":["String"],"ModifyStatFailed":["Json.Decode.Value"],"ChangeImage":["String"],"AckDialog":[],"OpenDialog":[],"UpdateDice":["Json.Decode.Value"],"ModifyStat":["String","Int"],"Tick":["Time.Time"],"DiceClick":["Int","Kami.Post"],"UpdateCharacters":["Json.Decode.Value"],"ChangeSelectedCharacter":["String"],"ChangeSelectedSkill":["String"],"InitChannel":["Json.Decode.Value"]},"args":[]}}},"versions":{"elm":"0.18.0"}});
 }
 
 if (typeof define === "function" && define['amd'])

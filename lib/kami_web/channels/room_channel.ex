@@ -97,6 +97,8 @@ defmodule KamiWeb.RoomChannel do
       case roll do
         "narr" ->
           {"-=[*]=-", -1, result}
+        "narr10" ->
+          {"-=[*]=-", -2, Enum.random(1..10)}
         "id1" ->
           {if character.id1_visible do character.id1 else "-=[*]=-" end, character.id1_pct, result}
         "id2" ->

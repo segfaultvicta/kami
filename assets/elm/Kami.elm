@@ -985,6 +985,7 @@ renderDice s narrative reset =
             select [ onInput ChangeSelectedSkill, class "custom-select" ]
                 [ renderSelectableSkillOption "" "-=[*]=-" -1 reset
                 , renderSkillOption "narr" "d100" 999
+                , renderSkillOption "narr10" "d10" 999
                 ]
           else
             select [ onInput ChangeSelectedSkill, class "custom-select" ]
@@ -1136,8 +1137,10 @@ renderPost dice post =
         roll_element =
             if post.target > 0 then
                 text ("Rolled " ++ post.rolled ++ " (Skill Level " ++ (post.target |> toString) ++ "): " ++ (post.result |> toString))
-            else
+            else if post.target == -1 then
                 text ("Rolled 1d100: " ++ (post.result |> toString))
+            else
+                text ("Rolled 1d10: " ++ (post.result |> toString))
     in
     div [ class post_classes ]
         [ div [ class "row" ]
